@@ -27,10 +27,13 @@ router.post(
 
     const { name, email, password } = req.body;
 
+    //validating email in lowercase form
+    let lowerCaseEmail = email.toLowerCase();
+
     try {
       //See if user already exists
 
-      let user = await User.findOne({ email });
+      let user = await User.findOne({ lowerCaseEmail });
       // return res.send("USER Will be found!");
       //if user exists in database return
       if (user) {
