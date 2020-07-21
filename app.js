@@ -9,12 +9,24 @@ require("dotenv").config();
 
 var app = express();
 
-mongoose.connect(process.env.DB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
+const connectDB = async () => {
+  console.log("CONNECTDB IS RUNNING");
+  try {
+    await mongoose.connect(process.env.DB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    });
+    console.log("MongoDB Connected!");
+  } catch (err) {
+    console.error(err.message);
+
+    //Exit process with failure
+    process.exit(1);
+  }
+};
+connectDB();
 
 // view engine setup
 
@@ -24,9 +36,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "client", "public")));
 
+//Define routes
 app.use("/", require("./routes/index"));
-app.use("/users", require("./routes/users"));
 app.use("/posts", require("./routes/posts"));
+app.use("/users", require("./routes/users"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

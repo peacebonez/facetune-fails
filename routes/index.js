@@ -7,7 +7,7 @@ router.get("/", (req, res, next) => {
   try {
     res.sendFile(path.join(__dirname + "/client/public/index.html"));
   } catch (err) {
-    next(err);
+    return next(err);
   }
 });
 

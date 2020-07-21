@@ -3,16 +3,21 @@ var router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const { validationResult } = require("express-validator");
+const { check, validationResult } = require("express-validator");
 require("dotenv").config();
 
-/* GET users listing. */
-router.post("/", [
-  check("name", "Name required").not().isEmpty().trim().escape(),
-  check("email", "Name required").isEmail().trim(),
-  ,
-  check("password", "Name required").isLength({ min: 6 }),
+router.get("/", function (req, res, next) {
+  res.send("new user page");
+});
 
+/* GET users listing. */
+router.post(
+  "/",
+  [
+    check("name", "Name required").not().isEmpty(),
+    check("email", "Email required").isEmail().trim(),
+    check("password", "Password required").isLength({ min: 6 }),
+  ],
   async (req, res, next) => {
     const errors = validationResult(req);
 
@@ -26,7 +31,7 @@ router.post("/", [
       //See if user already exists
 
       let user = await User.findOne({ email });
-
+      // return res.send("USER Will be found!");
       //if user exists in database return
       if (user) {
         return res
@@ -52,10 +57,9 @@ router.post("/", [
       //Set up the jwt payload to user ID
       const payload = {
         user: {
-          id: user._id,
+          id: user.id,
         },
       };
-
       jwt.sign(
         payload,
         process.env.jwtSecret,
@@ -70,7 +74,7 @@ router.post("/", [
       console.error(err.message);
       res.status(500).send("Server Error");
     }
-  },
-]);
+  }
+);
 
 module.exports = router;
