@@ -25,7 +25,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, email, password } = req.body;
+    const { name, email, password, admin } = req.body;
 
     //validating email in lowercase form
     let lowerCaseEmail = email.toLowerCase();
@@ -47,6 +47,7 @@ router.post(
         name,
         email,
         password,
+        admin,
       });
 
       //Encrypt password with bcrypt

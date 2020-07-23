@@ -25,7 +25,19 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-router.get("/new-post", async (req, res) => {
+//@route: GET /new-posts page
+//@desc: retrieve form to create new post
+//@access: ADMIN
+
+router.get("/new-post", auth, async (req, res) => {
+  console.log("REQ.USER", req.user);
+  let user = await User.findById(req.user.id);
+  console.log("USER:", user);
+
+  if (!user.admin) {
+    return res.status(403).send("Unauthorized Access!");
+  }
+  //if user is not admin NOT AUTHORIZED
   res.send("Create new post page");
 });
 
