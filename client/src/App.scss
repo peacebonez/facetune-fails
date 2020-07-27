@@ -1,0 +1,121 @@
+$border-light: 1px solid #ddd;
+$large: 3vw;
+$mg-sm: 2vw;
+$post-color: #aaa;
+
+#root {
+  min-height: 100vh;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: space-between;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+li {
+  list-style: none;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  border: $border-light;
+  // justify-content: flex-end;
+}
+
+.navbar h1 {
+  font-size: $large;
+}
+
+.navbar div {
+  position: absolute;
+  right: 0;
+}
+
+.navlink {
+  margin: 2vw;
+}
+
+footer {
+  width: 100vw;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: $border-light;
+  background: #fff;
+}
+
+footer p {
+  margin: $mg-sm;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control {
+  margin: 1vh;
+}
+
+.form-btn {
+  border: $border-light;
+  width: 10vw;
+  color: white;
+  background: #222;
+  &:hover {
+    background: white;
+  }
+}
+
+.post {
+  border-bottom: $border-light;
+  width: 50%;
+}
+
+.post-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 15vh;
+}
+
+.post-body {
+  margin-top: 10vh;
+}
+
+.post-header {
+  font-size: $large;
+  color: $post-color;
+  &:hover {
+    color: #000;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.post-details {
+  font-size: 1.5vw;
+  color: $post-color;
+}
+
+.post-img {
+  width: 110%;
+}
+
+.post-text {
+  margin: $mg-sm;
+}
+
+@media only screen and (max-width: 875px) {
+  .navbar {
+    justify-content: flex-start;
+  }
+}
