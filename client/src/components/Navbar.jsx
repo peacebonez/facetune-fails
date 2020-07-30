@@ -5,20 +5,38 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-xl">
-      <Link to="/">
+      <Link to="/" style={{ textDecoration: "none" }}>
         <h1>FaceTune Fails</h1>
       </Link>
-      <div>
-        <Link to="/login" className="navlink">
-          Login
-        </Link>
-        <Link to="/register" className="navlink">
-          Register
-        </Link>
-        <Link to="/top-posts" className="navlink">
-          Top Posts
-        </Link>
-      </div>
+      <ul>
+        <li>
+          <Link
+            to="/login"
+            className="navlink"
+            style={{ textDecoration: "none" }}
+          >
+            Login
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/register"
+            className="navlink"
+            style={{ textDecoration: "none" }}
+          >
+            Register
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/top-posts"
+            className="navlink"
+            style={{ textDecoration: "none" }}
+          >
+            Top Posts
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
 };

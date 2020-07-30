@@ -1,13 +1,14 @@
 $border-light: 1px solid #ddd;
 $large: 3vw;
 $mg-sm: 2vw;
-$post-color: #aaa;
+$lite: #aaa;
 
 #root {
   min-height: 100vh;
-  //   display: flex;
-  //   flex-direction: column;
-  //   justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  // justify-content: center;
+  align-items: center;
 }
 
 body {
@@ -18,17 +19,19 @@ body {
 
 li {
   list-style: none;
+  color: $lite;
 }
 
 .navbar {
   display: flex;
   justify-content: center;
   border: $border-light;
-  // justify-content: flex-end;
+  width: 100vw;
 }
 
 .navbar h1 {
   font-size: $large;
+  color: $lite;
 }
 
 .navbar div {
@@ -38,6 +41,108 @@ li {
 
 .navlink {
   margin: 2vw;
+}
+
+.navbar a {
+  color: $lite;
+  &:hover {
+    color: #000;
+  }
+}
+
+.navbar ul {
+  position: absolute;
+  right: 0;
+  text-decoration: none;
+}
+
+.navbar li {
+  display: inline;
+  text-align: right;
+  text-decoration: none;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control {
+  margin: 1vh;
+}
+
+.form-check {
+  margin: 1.5vw;
+  position: relative;
+  transform: translateX(50%);
+}
+
+.form-btn {
+  border: $border-light;
+  width: 15vw;
+  color: white;
+  background: #222;
+  &:hover {
+    background: white;
+  }
+}
+
+.post {
+  border-bottom: $border-light;
+}
+
+.post-container {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 15vh;
+}
+
+.large {
+  margin: $mg-sm 0;
+}
+
+.post-body {
+  margin-top: 10vh;
+}
+
+.blog-text {
+}
+
+.post-header {
+  font-size: $large;
+  color: $lite;
+  &:hover {
+    color: #000;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.post-details {
+  font-size: 1.5vw;
+  color: $lite;
+}
+
+.post-img {
+  width: 110%;
+}
+
+.post-text {
+  margin: $mg-sm;
+}
+
+.next-btn {
+  border: $border-light;
+  border-radius: 15px;
+  justify-self: end;
+  align-self: flex-end;
+  margin: $mg-sm;
+  padding: 1vw 2vw;
+  font-size: 1vw;
+  color: $lite;
 }
 
 footer {
@@ -53,65 +158,11 @@ footer {
 
 footer p {
   margin: $mg-sm;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-control {
-  margin: 1vh;
-}
-
-.form-btn {
-  border: $border-light;
-  width: 10vw;
-  color: white;
-  background: #222;
-  &:hover {
-    background: white;
-  }
-}
-
-.post {
-  border-bottom: $border-light;
-  width: 50%;
-}
-
-.post-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 15vh;
-}
-
-.post-body {
-  margin-top: 10vh;
-}
-
-.post-header {
-  font-size: $large;
-  color: $post-color;
+  color: $lite;
   &:hover {
     color: #000;
-    text-decoration: underline;
     cursor: pointer;
   }
-}
-
-.post-details {
-  font-size: 1.5vw;
-  color: $post-color;
-}
-
-.post-img {
-  width: 110%;
-}
-
-.post-text {
-  margin: $mg-sm;
 }
 
 @media only screen and (max-width: 875px) {

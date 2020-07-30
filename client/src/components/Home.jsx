@@ -12,6 +12,7 @@ const Home = ({ posts }) => {
       <Post />
       <Post />
       {/* <ul>{posts && posts.map((post) => <Post />)}</ul> */}
+      <button className="btn next-btn">Next Page</button>
     </section>
   );
 };
