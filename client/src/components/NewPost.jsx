@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 
 const NewPost = (props) => {
   return (
-    <div>
+    <div className="new-post">
       <h1 className="large">New Post</h1>
       <p>
-        <i className="fas fa-user"></i>Create a new post
+        <i className="fas fa-user"></i>
+        {"     "} Create a new post
       </p>
       <form className="form" action="">
         <div className="form-group">
@@ -28,7 +29,7 @@ const NewPost = (props) => {
         <div className="form-group">
           <textarea
             rows="10"
-            className="form-control"
+            className="form-control blog-text"
             placeholder="Blog text"
             name="text"
           ></textarea>
@@ -36,7 +37,7 @@ const NewPost = (props) => {
         <div className="form-group">
           <input
             type="submit"
-            className="form-control blog-text"
+            className="btn form-btn"
             name="submit-post"
           ></input>
         </div>
