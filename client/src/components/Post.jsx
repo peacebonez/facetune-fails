@@ -2,25 +2,34 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
+//user is auth through connect
+const testPost = {
+  title: "The end is here. How a company failed",
+  user: "Kevin Pariso",
+  imageURL:
+    "https://contentgrid.homedepot-static.com/hdus/en_US/DTCCOMNEW/fetch/NexGen/ContentPage/paint-color-neutrals2.jpg",
+  score: 7,
+  text:
+    "Junge mit du nun schnee du vaterland, weiter es brust trübhell niedlich ferne es geschaut ort ort, einz'ges deiner dann ruft oft gehn teuren glück gartens, wiedersehn vom gefärbt du.",
+  date: "08/22/2017",
+};
+
 const Post = (props) => {
+  const { title, user, imageURL, score, text, date } = testPost;
   return (
     <li className="post">
       <div className="post-body">
         <Link to="">
-          <h3 className="post-header">The end is here. How a company failed</h3>
+          <h3 className="post-header">{title}</h3>
         </Link>
-        <p className="post-details">Kevin Pariso · 08/22/2017</p>
-        <Link to="">
-          <img
-            className="post-img"
-            src="https://images.gawker.com/feageomtd6muf2zslnw1/c_scale,fl_progressive,q_80,w_800.png"
-          ></img>
-        </Link>
-        <p className="post-text">
-          Junge mit du nun schnee du vaterland, weiter es brust trübhell
-          niedlich ferne es geschaut ort ort, einz'ges deiner dann ruft oft gehn
-          teuren glück gartens, wiedersehn vom gefärbt du.
+        <p className="post-details">
+          {user} · {date}
         </p>
+        <Link to="">
+          <img className="post-img" src={imageURL}></img>
+        </Link>
+        <h2>Rating: {score}</h2>
+        <p className="post-text">{text}</p>
       </div>
     </li>
   );
