@@ -11,7 +11,6 @@ import {
 } from "./types";
 
 import setAuthToken from "../utils/setAuthToken";
-import { set } from "mongoose";
 
 //load a user
 

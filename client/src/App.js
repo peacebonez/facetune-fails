@@ -15,6 +15,9 @@ import { loadUser } from "./actions/auth-action";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
+  console.log("YES WE HAVE A TOKEN");
+} else {
+  console.log("NO TOKEN FOUND");
 }
 
 const App = () => {
