@@ -1,6 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
 import axios from "axios";
+import { Provider } from "react-redux";
 import "./App.scss";
 
 import Navbar from "./components/Navbar";
@@ -8,18 +9,31 @@ import Home from "./components/Home";
 import Routes from "./components/Routes";
 import Footer from "./components/Footer";
 
+import setAuthToken from "./utils/setAuthToken";
+import store from "./store";
+import { loadUser } from "./actions/auth-action";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+}
+
 const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  });
   return (
-    <Router>
-      <Fragment>
-        <Navbar />
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route component={Routes} />
-        </Switch>
-        <Footer />
-      </Fragment>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Fragment>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route component={Routes} />
+          </Switch>
+          <Footer />
+        </Fragment>
+      </Router>
+    </Provider>
   );
 };
 

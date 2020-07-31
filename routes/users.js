@@ -33,7 +33,7 @@ router.post(
     try {
       //See if user already exists
 
-      let user = await User.findOne({ lowerCaseEmail });
+      let user = await User.findOne({ email: lowerCaseEmail });
       // return res.send("USER Will be found!");
       //if user exists in database return
       if (user) {

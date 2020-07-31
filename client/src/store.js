@@ -1,8 +1,9 @@
 import { createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import { composeWithDevTools } from "redux-devtools-extension";
 
 //combines all reducers into one root reducer
-import rootReducer from "./reducers";
+import rootReducer from "./reducers/root";
 
 const initialState = {};
 

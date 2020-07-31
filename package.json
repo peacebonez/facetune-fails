@@ -1,9 +1,10 @@
 {
   "name": "facetune-fails",
-  "version": "0.0.0",
-  "private": true,
+  "description": "FaceTune cringe blog",
+  "version": "1.0.0",
+  "main": "./bin/www",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
@@ -21,5 +22,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.25",
     "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
   }
 }
