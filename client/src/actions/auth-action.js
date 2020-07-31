@@ -20,6 +20,12 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
+    const res = await axios.get("/auth");
+    console.log("Current User Data", res.data);
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data,
+    });
   } catch (err) {
     dispatch({
       type: AUTH_ERROR,
@@ -50,8 +56,38 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     dispatch(loadUser());
   } catch (err) {
     //TO DO: set up proper alerts
-    alert(err);
+    console.err(err);
 
     dispatch({ type: REGISTER_FAIL });
   }
+};
+
+//login a user
+
+export const login = (email, password) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({ email, password });
+
+  try {
+    const res = await axios.post("/auth", body, config);
+
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data,
+    });
+
+    dispatch(loadUser());
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const logout = () => async (dispatch) => {
+  dispatch({ type: CLEAR_PROFILE });
+  dispatch({ type: LOGOUT });
 };

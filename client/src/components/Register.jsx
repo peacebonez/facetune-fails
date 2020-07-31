@@ -48,6 +48,7 @@ const Register = ({ register, isAuthenticated }) => {
             type="text"
             placeholder="Username"
             name="name"
+            value={name}
             onChange={(e) => formChange(e)}
             // required
           ></input>
@@ -56,7 +57,9 @@ const Register = ({ register, isAuthenticated }) => {
             type="email"
             placeholder="Email Address"
             name="email"
+            value={email}
             onChange={(e) => formChange(e)}
+            autoComplete="on"
 
             // required
           ></input>
@@ -65,7 +68,9 @@ const Register = ({ register, isAuthenticated }) => {
             type="password"
             placeholder="Password"
             name="password"
+            value={password}
             onChange={(e) => formChange(e)}
+            autoComplete="on"
 
             // required
           ></input>
@@ -74,6 +79,7 @@ const Register = ({ register, isAuthenticated }) => {
             type="password"
             placeholder="Confirm Password"
             name="password2"
+            value={password2}
             onChange={(e) => formChange(e)}
 
             // required
