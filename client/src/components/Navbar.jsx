@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../actions/auth-action";
 
-const Navbar = ({ isAuthenticated, logout }) => {
+const Navbar = ({ isAuthenticated, isAdmin, logout }) => {
   console.log("isAuthenticated:", isAuthenticated);
   return (
     <nav className="navbar navbar-expand-xl">
@@ -12,6 +12,17 @@ const Navbar = ({ isAuthenticated, logout }) => {
         <h1>FaceTune Fails</h1>
       </Link>
       <ul>
+        {isAdmin && (
+          <li>
+            <Link
+              to="/new-post"
+              className="navlink"
+              style={{ textDecoration: "none" }}
+            >
+              New Post
+            </Link>
+          </li>
+        )}
         <li>
           <Link
             to="/top-posts"
@@ -61,12 +72,23 @@ const Navbar = ({ isAuthenticated, logout }) => {
 
 Navbar.propTypes = {
   isAuthenticated: PropTypes.bool,
+  isAdmin: PropTypes.bool,
   logout: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
   console.log("STATE:", state);
-  return { isAuthenticated: state.auth.isAuthenticated };
+  console.log("USER:", state.auth.user);
+  if (state.auth.user) {
+    return {
+      isAuthenticated: state.auth.isAuthenticated,
+      isAdmin: state.auth.user.admin,
+    };
+  } else {
+    return {
+      isAuthenticated: state.auth.isAuthenticated,
+    };
+  }
 };
 // const mapStateToProps = (state) => ({
 //   isAuthenticated: state.auth.isAuthenticated,
