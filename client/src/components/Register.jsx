@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { register } from "../actions/auth-action";
 
 const Register = ({ register, isAuthenticated }) => {
   const [formInfo, setFormInfo] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
     password2: "",
   });
 
-  const { username, email, password, password2 } = formInfo;
+  const { name, email, password, password2 } = formInfo;
 
   const formChange = (e) => {
     setFormInfo({
@@ -29,64 +29,69 @@ const Register = ({ register, isAuthenticated }) => {
       return alert("Passwords do not match");
     }
 
-    register({ username, email, password });
+    register({ name, email, password });
   };
 
-  if (isAuthenticated)
-    return (
-      <div>
-        <h1 className="large">Sign Up</h1>
-        <p>
-          <i className="fas fa-user"></i>Create Your Account
-        </p>
-        <form className="form" action="/users">
-          <div className="form-group">
-            <input
-              className="form-control"
-              type="text"
-              placeholder="Username"
-              name="username"
-              // required
-            ></input>
-            <input
-              className="form-control"
-              type="email"
-              placeholder="Email Address"
-              name="email"
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
+  return (
+    <div>
+      <h1 className="large">Sign Up</h1>
+      <p>
+        <i className="fas fa-user"></i>Create Your Account
+      </p>
+      <form className="form" action="/users" onSubmit={(e) => submitForm(e)}>
+        <div className="form-group">
+          <input
+            className="form-control"
+            type="text"
+            placeholder="Username"
+            name="name"
+            onChange={(e) => formChange(e)}
+            // required
+          ></input>
+          <input
+            className="form-control"
+            type="email"
+            placeholder="Email Address"
+            name="email"
+            onChange={(e) => formChange(e)}
 
-              // required
-            ></input>
-            <input
-              className="form-control"
-              type="password"
-              placeholder="Password"
-              name="password"
+            // required
+          ></input>
+          <input
+            className="form-control"
+            type="password"
+            placeholder="Password"
+            name="password"
+            onChange={(e) => formChange(e)}
 
-              // required
-            ></input>
-            <input
-              className="form-control"
-              type="password"
-              placeholder="Confirm Password"
-              name="password2"
+            // required
+          ></input>
+          <input
+            className="form-control"
+            type="password"
+            placeholder="Confirm Password"
+            name="password2"
+            onChange={(e) => formChange(e)}
 
-              // required
-            ></input>
-            <input
-              className="btn form-btn"
-              type="submit"
-              name="register"
-            ></input>
-          </div>
-        </form>
-        <p>
-          Already have an account with us? <Link to="/login">Sign In</Link>
-        </p>
-      </div>
-    );
+            // required
+          ></input>
+          <input className="btn form-btn" type="submit" name="register"></input>
+        </div>
+      </form>
+      <p>
+        Already have an account with us? <Link to="/login">Sign In</Link>
+      </p>
+    </div>
+  );
 };
 
-Register.propTypes = {};
+Register.propTypes = {
+  register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
