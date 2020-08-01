@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { addPost } from "../actions/post-action";
 import PropTypes from "prop-types";
 
@@ -77,6 +77,9 @@ const NewPost = ({ isAdmin, addPost }) => {
             className="btn form-btn"
             name="submit-post"
           ></input>
+          <Link className="btn btn-light my-1" to="/">
+            Go Back
+          </Link>
         </div>
       </form>
     </div>

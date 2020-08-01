@@ -14,9 +14,7 @@ const Home = ({ post: { posts, loading }, getPosts }) => {
   ) : (
     <section className="post-container">
       <ul>
-        {posts.map((post) => (
-          <Post key={post._id} post={post} />
-        ))}
+        {posts.map((post) => <Post key={post._id} post={post} />).reverse()}
       </ul>
       <button className="btn next-btn">Next Page</button>
     </section>

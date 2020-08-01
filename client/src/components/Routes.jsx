@@ -16,7 +16,7 @@ const Routes = () => {
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/post" component={Post} />
-        <Route exact path="/:id" component={PostOpen} />
+        <Route exact path="/post/:id" component={PostOpen} />
         <Route exact path="/new-post" component={NewPost} />
         <Route exact path="/top-posts" component={TopPosts} />
         <Route component={NotFound} />

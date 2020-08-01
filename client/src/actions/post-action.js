@@ -18,11 +18,9 @@ export const getPosts = () => async (dispatch) => {
 
     dispatch({ type: GET_POSTS, payload: res.data });
   } catch (err) {
-    console.log("ERR:", err);
     dispatch({
       type: POST_ERROR,
-      //   payload: { msg: err.response.statusText, status: err.response.status },
-      payload: { msg: "Server Error", status: 500 },
+      payload: { msg: "Server Error on retrieving posts", status: 500 },
     });
   }
 };
