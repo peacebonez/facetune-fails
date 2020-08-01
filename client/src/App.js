@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
-import axios from "axios";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import "./App.scss";
 
@@ -12,6 +11,7 @@ import Footer from "./components/Footer";
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
 import { loadUser } from "./actions/auth-action";
+import { getPosts } from "./actions/post-action";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -22,8 +22,9 @@ if (localStorage.token) {
 
 const App = () => {
   useEffect(() => {
+    getPosts();
     store.dispatch(loadUser());
-  });
+  }, []);
   return (
     <Provider store={store}>
       <Router>

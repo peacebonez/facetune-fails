@@ -1,7 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const NewPost = (props) => {
+import Error from "./NotFound";
+
+const NewPost = ({ isAdmin }) => {
+  if (!isAdmin) {
+    return <Redirect to="/" />;
+  }
   return (
     <div className="new-post">
       <h1 className="large">New Post</h1>
@@ -46,6 +53,12 @@ const NewPost = (props) => {
   );
 };
 
-NewPost.propTypes = {};
+NewPost.propTypes = {
+  isAdmin: PropTypes.bool,
+};
 
-export default NewPost;
+const mapStateToProps = (state) => {
+  if (state.auth.user) return { isAdmin: state.auth.user.admin };
+};
+
+export default connect(mapStateToProps)(NewPost);

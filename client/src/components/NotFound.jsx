@@ -5,7 +5,7 @@ const NotFound = () => (
     <h1 className="x-large text-primary">
       <i className="fas fa-exclamation-triangle"></i>
     </h1>
-    <p>Sorry, page not found.</p>
+    <p>Page not found </p>
   </Fragment>
 );
 
