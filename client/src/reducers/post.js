@@ -4,6 +4,7 @@ import {
   POST_ERROR,
   DELETE_POST,
   ADD_POST,
+  CHANGE_SCORE,
   ADD_COMMENT,
   DELETE_COMMENT,
 } from "../actions/types";
@@ -30,6 +31,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         posts: [payload, ...state.posts],
+        loading: false,
+      };
+    case CHANGE_SCORE:
+      return {
+        ...state,
+        post: { ...state.post, score: payload },
         loading: false,
       };
     case DELETE_POST:

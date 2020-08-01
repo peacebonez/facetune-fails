@@ -6,6 +6,7 @@ import {
   POST_ERROR,
   DELETE_POST,
   ADD_POST,
+  CHANGE_SCORE,
   ADD_COMMENT,
   DELETE_COMMENT,
 } from "./types";
@@ -30,7 +31,6 @@ export const getPosts = () => async (dispatch) => {
 export const getOnePost = (postId) => async (dispatch) => {
   try {
     const res = await axios.get(`/posts/${postId}`);
-    console.log("RES DATA ON GET POST:", res.data);
     dispatch({ type: GET_ONE_POST, payload: res.data });
   } catch (err) {
     dispatch({
@@ -41,6 +41,8 @@ export const getOnePost = (postId) => async (dispatch) => {
 };
 
 //Put a score
+
+const changeScore = (score) => async (dispatch) => {};
 
 //Add a post (ADMIN PRIVILEGES)
 
