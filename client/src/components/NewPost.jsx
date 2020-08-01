@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { addPost } from "../actions/post-action";
 import PropTypes from "prop-types";
 
-import Error from "./NotFound";
+const NewPost = ({ isAdmin, addPost }) => {
+  const [formInfo, setFormInfo] = useState({
+    title: "",
+    imageURL: "",
+    text: "",
+  });
 
-const NewPost = ({ isAdmin }) => {
+  const { title, imageURL, text } = formInfo;
+
+  const formChange = (e) => {
+    setFormInfo({
+      ...formInfo,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    addPost(formInfo);
+    setFormInfo({ title: "", imageURL: "", text: "" });
+  };
+
   if (!isAdmin) {
     return <Redirect to="/" />;
   }
@@ -16,13 +36,19 @@ const NewPost = ({ isAdmin }) => {
         <i className="fas fa-user"></i>
         {"     "} Create a new post
       </p>
-      <form className="form" action="">
+      <form
+        className="form"
+        action="/posts/new-post"
+        onSubmit={(e) => submitForm(e)}
+      >
         <div className="form-group">
           <input
             type="text"
             className="form-control"
             placeholder="Title"
             name="title"
+            value={title}
+            onChange={(e) => formChange(e)}
           ></input>
         </div>
         <div className="form-group">
@@ -31,6 +57,8 @@ const NewPost = ({ isAdmin }) => {
             className="form-control"
             placeholder="Image URL"
             name="imageURL"
+            value={imageURL}
+            onChange={(e) => formChange(e)}
           ></input>
         </div>
         <div className="form-group">
@@ -39,6 +67,8 @@ const NewPost = ({ isAdmin }) => {
             className="form-control blog-text"
             placeholder="Blog text"
             name="text"
+            value={text}
+            onChange={(e) => formChange(e)}
           ></textarea>
         </div>
         <div className="form-group">
@@ -61,4 +91,4 @@ const mapStateToProps = (state) => {
   if (state.auth.user) return { isAdmin: state.auth.user.admin };
 };
 
-export default connect(mapStateToProps)(NewPost);
+export default connect(mapStateToProps, { addPost })(NewPost);

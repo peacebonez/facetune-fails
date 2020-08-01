@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import Moment from "react-moment";
 
 //user is auth through connect
 const testPost = {
@@ -14,8 +15,7 @@ const testPost = {
   date: "08/22/2017",
 };
 
-const Post = ({ post: { title, user, date, imageURL, score, text } }) => {
-  // console.log("POST:", post);
+const Post = ({ post: { title, name, date, imageURL, score, text } }) => {
   return (
     <li className="post">
       <div className="post-body">
@@ -23,7 +23,7 @@ const Post = ({ post: { title, user, date, imageURL, score, text } }) => {
           <h3 className="post-header">{title}</h3>
         </Link>
         <p className="post-details">
-          {user} · {date}
+          {name} · <Moment format="MM/DD/YYYY">{date}</Moment>
         </p>
         <Link to="">
           <img className="post-img" src={imageURL}></img>
@@ -35,6 +35,8 @@ const Post = ({ post: { title, user, date, imageURL, score, text } }) => {
   );
 };
 
-Post.propTypes = {};
+Post.propTypes = {
+  post: PropTypes.object,
+};
 
 export default Post;
