@@ -13,15 +13,16 @@ import {
 //Get all posts
 
 export const getPosts = () => async (dispatch) => {
-  console.log("GET POSTS IS RUNNING");
   try {
     const res = await axios.get("/posts");
 
     dispatch({ type: GET_POSTS, payload: res.data });
   } catch (err) {
+    console.log("ERR:", err);
     dispatch({
       type: POST_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      //   payload: { msg: err.response.statusText, status: err.response.status },
+      payload: { msg: "Server Error", status: 500 },
     });
   }
 };

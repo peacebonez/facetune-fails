@@ -11,7 +11,6 @@ import Footer from "./components/Footer";
 import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
 import { loadUser } from "./actions/auth-action";
-import { getPosts } from "./actions/post-action";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -22,7 +21,7 @@ if (localStorage.token) {
 
 const App = () => {
   useEffect(() => {
-    getPosts();
+    // store.dispatch(getPosts());
     store.dispatch(loadUser());
   }, []);
   return (

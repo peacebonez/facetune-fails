@@ -28,14 +28,6 @@ const PostSchema = new Schema({
     type: Number,
     default: 5,
   },
-  likes: [
-    {
-      user: {
-        type: Schema.Types.ObjectId,
-        ref: "users",
-      },
-    },
-  ],
   comments: [
     {
       user: {

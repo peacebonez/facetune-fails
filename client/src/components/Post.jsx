@@ -14,8 +14,8 @@ const testPost = {
   date: "08/22/2017",
 };
 
-const Post = (props) => {
-  const { title, user, imageURL, score, text, date } = testPost;
+const Post = ({ post: { title, user, date, imageURL, score, text } }) => {
+  // console.log("POST:", post);
   return (
     <li className="post">
       <div className="post-body">
