@@ -76,9 +76,12 @@ router.post(
   }
 );
 
+//@route: GET /posts/:id
+//@desc: Get a single blog post
+//@access: PUBLIC
+
 router.get("/:id", async (req, res) => {
   let post = await Post.findById(req.params.id);
-  console.log("POST:", post);
 
   try {
     if (!post) {
@@ -91,5 +94,9 @@ router.get("/:id", async (req, res) => {
     res.status(500).send("Server Error at GET ONE POST");
   }
 });
+
+//@route: POST /posts/
+//@desc: Create a new blog post
+//@access: Private
 
 module.exports = router;

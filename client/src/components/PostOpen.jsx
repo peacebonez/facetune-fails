@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { getOnePost } from "../actions/post-action";
+import { addScore } from "../actions/post-action";
 import Moment from "react-moment";
 
 import Loading from "../components/Loading";
 
-const PostOpen = ({ getOnePost, post: { post, loading } }) => {
+const PostOpen = ({ getOnePost, addScore, post: { post, loading } }) => {
   const [userScore, setUserScore] = useState(5);
   let { id } = useParams();
   useEffect(() => {
     getOnePost(id);
     console.log("UserScore:", userScore);
   }, [getOnePost, userScore]);
+
   const scoreChange = (e) => {
     setUserScore(e.target.value);
+    addScore(userScore);
   };
+
   return loading || post === null ? (
     <Loading type="spokes" />
   ) : (
@@ -38,7 +42,7 @@ const PostOpen = ({ getOnePost, post: { post, loading } }) => {
             value="1"
             onChange={(e) => scoreChange(e)}
           />
-          <label className="form-check-label" for="score1">
+          <label className="form-check-label" htmlFor="score1">
             1
           </label>
         </div>
@@ -51,7 +55,7 @@ const PostOpen = ({ getOnePost, post: { post, loading } }) => {
             value="2"
             onChange={(e) => scoreChange(e)}
           />
-          <label className="form-check-label" for="score2">
+          <label className="form-check-label" htmlFor="score2">
             2
           </label>
         </div>
@@ -64,7 +68,7 @@ const PostOpen = ({ getOnePost, post: { post, loading } }) => {
             value="3"
             onChange={(e) => scoreChange(e)}
           />
-          <label className="form-check-label" for="score3">
+          <label className="form-check-label" htmlFor="score3">
             3
           </label>
         </div>
@@ -77,7 +81,7 @@ const PostOpen = ({ getOnePost, post: { post, loading } }) => {
             value="4"
             onChange={(e) => scoreChange(e)}
           />
-          <label className="form-check-label" for="score4">
+          <label className="form-check-label" htmlFor="score4">
             4
           </label>
         </div>
@@ -90,7 +94,7 @@ const PostOpen = ({ getOnePost, post: { post, loading } }) => {
             value="5"
             onChange={(e) => scoreChange(e)}
           />
-          <label className="form-check-label" for="score5">
+          <label className="form-check-label" htmlFor="score5">
             5
           </label>
         </div>
@@ -103,7 +107,7 @@ const PostOpen = ({ getOnePost, post: { post, loading } }) => {
             value="6"
             onChange={(e) => scoreChange(e)}
           />
-          <label className="form-check-label" for="score6">
+          <label className="form-check-label" htmlFor="score6">
             6
           </label>
         </div>
@@ -116,7 +120,7 @@ const PostOpen = ({ getOnePost, post: { post, loading } }) => {
             value="7"
             onChange={(e) => scoreChange(e)}
           />
-          <label className="form-check-label" for="score7">
+          <label className="form-check-label" htmlFor="score7">
             7
           </label>
         </div>
@@ -129,7 +133,7 @@ const PostOpen = ({ getOnePost, post: { post, loading } }) => {
             value="8"
             onChange={(e) => scoreChange(e)}
           />
-          <label className="form-check-label" for="score8">
+          <label className="form-check-label" htmlFor="score8">
             8
           </label>
         </div>
@@ -142,7 +146,7 @@ const PostOpen = ({ getOnePost, post: { post, loading } }) => {
             value="9"
             onChange={(e) => scoreChange(e)}
           />
-          <label className="form-check-label" for="score9">
+          <label className="form-check-label" htmlFor="score9">
             9
           </label>
         </div>
@@ -155,7 +159,7 @@ const PostOpen = ({ getOnePost, post: { post, loading } }) => {
             value="10"
             onChange={(e) => scoreChange(e)}
           />
-          <label className="form-check-label" for="score10">
+          <label className="form-check-label" htmlFor="score10">
             10
           </label>
         </div>
@@ -173,4 +177,4 @@ const mapStateToProps = (state) => {
   return { post: state.post };
 };
 
-export default connect(mapStateToProps, { getOnePost })(PostOpen);
+export default connect(mapStateToProps, { getOnePost, addScore })(PostOpen);

@@ -42,7 +42,11 @@ export const getOnePost = (postId) => async (dispatch) => {
 
 //Put a score
 
-const changeScore = (score) => async (dispatch) => {};
+export const addScore = (score) => async (dispatch) => {
+  try {
+    const res = await axios.put("/post/:id");
+  } catch (err) {}
+};
 
 //Add a post (ADMIN PRIVILEGES)
 
@@ -60,7 +64,7 @@ export const addPost = (formInfo) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POST_ERROR,
-      payload: { msg: "Blog Post Failed", status: 500 },
+      payload: { msg: "Blog Post Failed", status: err.status },
     });
   }
 };
