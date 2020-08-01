@@ -1,23 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { connect } from "react-redux";
+import { getOnePost } from "../actions/post-action";
+import Moment from "react-moment";
 
-const PostOpen = (props) => {
+import Loading from "../components/Loading";
+
+const PostOpen = ({ getOnePost, post: { post, loading } }) => {
+  let { id } = useParams();
+  console.log("params id:", id);
+  useEffect(() => {
+    console.log("USE EFFECT IS RUNNING! ");
+    getOnePost(id);
+  }, [getOnePost]);
+  const scoreChange = (e) => {};
   return (
     <div className="post-body post-body-open">
-      <h3 className="post-header post-header-open">Title</h3>
+      <h3 className="post-header post-header-open">{post.title}</h3>
       <p className="post-details post-details-open">
-        Kevin Pariso · 08/22/2017
+        {post.name} · <Moment format="DD/MM/YYYY">{post.date}</Moment>
       </p>
-      <img
-        className="post-img post-img-open"
-        src="https://images.gawker.com/feageomtd6muf2zslnw1/c_scale,fl_progressive,q_80,w_800.png"
-      ></img>
-      <p className="post-text post-text-open">
-        Junge mit du nun schnee du vaterland, weiter es brust trübhell niedlich
-        ferne es geschaut ort ort, einz'ges deiner dann ruft oft gehn teuren
-        glück gartens, wiedersehn vom gefärbt du.
-      </p>
+      <img className="post-img post-img-open" src={post.imageURL}></img>
+      <p className="post-text post-text-open">{post.text}</p>
       <div className="form-check form-check-inline">
         <input
           className="form-check-input"
@@ -142,6 +147,13 @@ const PostOpen = (props) => {
   );
 };
 
-PostOpen.propTypes = {};
+PostOpen.propTypes = {
+  post: PropTypes.object,
+};
 
-export default PostOpen;
+const mapStateToProps = (state) => {
+  console.log("STATE POST FROM REDUCER:", state.post);
+  return { post: state.post };
+};
+
+export default connect(mapStateToProps, { getOnePost })(PostOpen);

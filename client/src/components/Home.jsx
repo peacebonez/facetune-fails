@@ -5,8 +5,6 @@ import { getPosts } from "../actions/post-action";
 import Post from "./Post";
 import Loading from "./Loading";
 
-let posts = [];
-
 const Home = ({ post: { posts, loading }, getPosts }) => {
   useEffect(() => {
     getPosts();

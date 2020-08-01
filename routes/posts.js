@@ -30,14 +30,14 @@ router.get("/", async function (req, res, next) {
 //@access: ADMIN
 
 router.get("/new-post", auth, async (req, res) => {
-  console.log("REQ.USER", req.user);
   let user = await User.findById(req.user.id);
   console.log("USER:", user);
 
+  //if user is not admin NOT AUTHORIZED
   if (!user.admin) {
     return res.status(403).send("Unauthorized Access!");
   }
-  //if user is not admin NOT AUTHORIZED
+
   res.send("Create new post page");
 });
 
@@ -77,7 +77,19 @@ router.post(
 );
 
 router.get("/:id", async (req, res) => {
-  res.send("Single post view page");
+  let post = await Post.findById(req.params.id);
+  console.log("POST:", post);
+
+  try {
+    if (!post) {
+      return res.status(400).send("Bad Request");
+    }
+
+    res.json(post);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error at GET ONE POST");
+  }
 });
 
 module.exports = router;

@@ -1,31 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Moment from "react-moment";
+import { connect } from "react-redux";
+import { getOnePost } from "../actions/post-action";
 
 //user is auth through connect
-const testPost = {
-  title: "The end is here. How a company failed",
-  user: "Kevin Pariso",
-  imageURL:
-    "https://contentgrid.homedepot-static.com/hdus/en_US/DTCCOMNEW/fetch/NexGen/ContentPage/paint-color-neutrals2.jpg",
-  score: 7,
-  text:
-    "Junge mit du nun schnee du vaterland, weiter es brust trübhell niedlich ferne es geschaut ort ort, einz'ges deiner dann ruft oft gehn teuren glück gartens, wiedersehn vom gefärbt du.",
-  date: "08/22/2017",
-};
 
-const Post = ({ post: { title, name, date, imageURL, score, text } }) => {
+const Post = ({
+  post: { title, name, date, imageURL, score, text, _id },
+  getOnePost,
+}) => {
+  let { id } = useParams();
+  // const linkToPost = `${_id.substr(_id.length - 5, _id.length - 1)}-${title}`;
+  // const openPost = (e) => {
+  //   getOnePost(match.params.id)
+  // };
   return (
     <li className="post">
       <div className="post-body">
-        <Link to="">
+        <Link to={`/${_id}`} onClick={() => getOnePost(id)}>
           <h3 className="post-header">{title}</h3>
         </Link>
         <p className="post-details">
           {name} · <Moment format="MM/DD/YYYY">{date}</Moment>
         </p>
-        <Link to="">
+        <Link to={`/${_id}`}>
           <img className="post-img" src={imageURL}></img>
         </Link>
         <h2>Rating: {score}</h2>
@@ -39,4 +39,4 @@ Post.propTypes = {
   post: PropTypes.object,
 };
 
-export default Post;
+export default connect(null, { getOnePost })(Post);

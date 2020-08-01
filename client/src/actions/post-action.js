@@ -29,6 +29,19 @@ export const getPosts = () => async (dispatch) => {
 
 //Get a post
 
+export const getOnePost = (postId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/posts/${postId}`);
+    console.log("RES DATA ON GET POST:", res.data);
+    dispatch({ type: GET_ONE_POST, payload: res.data });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Post not found", status: 400 },
+    });
+  }
+};
+
 //Put a score
 
 //Add a post (ADMIN PRIVILEGES)
