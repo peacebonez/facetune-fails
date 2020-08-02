@@ -6,7 +6,7 @@ import {
   POST_ERROR,
   DELETE_POST,
   ADD_POST,
-  CHANGE_SCORE,
+  ADD_SCORE,
   ADD_COMMENT,
   DELETE_COMMENT,
 } from "./types";
@@ -40,12 +40,20 @@ export const getOnePost = (postId) => async (dispatch) => {
   }
 };
 
-//Put a score
+//Delete a post (ADMIN PRIVILEGES)
 
-export const addScore = (score) => async (dispatch) => {
+export const deletePost = (postId) => async (dispatch) => {
   try {
-    const res = await axios.put("/post/:id");
-  } catch (err) {}
+    await axios.delete(`/post/${postId}`);
+    console.log("TRYING TO DELETE POST!");
+    dispatch({ type: DELETE_POST, payload: postId });
+    alert("Post Deleted!");
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Post not deleted", status: 400 },
+    });
+  }
 };
 
 //Add a post (ADMIN PRIVILEGES)
@@ -69,7 +77,14 @@ export const addPost = (formInfo) => async (dispatch) => {
   }
 };
 
-//Delete a post (ADMIN PRIVILEGES)
+//Put a score
+
+export const addScore = (postId, score) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/post/${postId}`);
+    dispatch({ type: ADD_SCORE, payload: { postId, score: res.data } });
+  } catch (err) {}
+};
 
 //Add a comment (Private)
 

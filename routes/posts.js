@@ -59,6 +59,11 @@ router.post(
     try {
       const user = await User.findById(req.user.id).select("-password");
 
+      //if user is not admin NOT AUTHORIZED
+      if (!user.admin) {
+        return res.status(403).send("Unauthorized Access!");
+      }
+
       const post = new Post({
         user: req.user.id,
         name: user.name,
@@ -81,7 +86,7 @@ router.post(
 //@access: PUBLIC
 
 router.get("/:id", async (req, res) => {
-  let post = await Post.findById(req.params.id);
+  const post = await Post.findById(req.params.id);
 
   try {
     if (!post) {
@@ -96,7 +101,22 @@ router.get("/:id", async (req, res) => {
 });
 
 //@route: POST /posts/
-//@desc: Create a new blog post
-//@access: Private
+//@desc: Delete a post
+//@access: ADMIN
+
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    let user = await User.findById(req.user.id);
+    console.log("USER:", user);
+
+    //if user is not admin NOT AUTHORIZED
+    if (!user.admin) {
+      return res.status(403).send("Unauthorized Access!");
+    }
+    await Post.findByIdAndRemove(req.params.id);
+  } catch (err) {
+    return res.status(400).send("Cannot delete post. Post not found!");
+  }
+});
 
 module.exports = router;

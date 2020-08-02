@@ -4,10 +4,12 @@ import {
   POST_ERROR,
   DELETE_POST,
   ADD_POST,
-  CHANGE_SCORE,
+  ADD_SCORE,
   ADD_COMMENT,
   DELETE_COMMENT,
 } from "../actions/types";
+
+// actions functions send their payloads to the reducers!
 
 const initialState = {
   posts: [],
@@ -33,7 +35,7 @@ export default function (state = initialState, action) {
         posts: [payload, ...state.posts],
         loading: false,
       };
-    case CHANGE_SCORE:
+    case ADD_SCORE:
       return {
         ...state,
         post: { ...state.post, score: payload },

@@ -3,12 +3,18 @@ import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { getOnePost } from "../actions/post-action";
-import { addScore } from "../actions/post-action";
+import { addScore, deletePost } from "../actions/post-action";
 import Moment from "react-moment";
 
 import Loading from "../components/Loading";
 
-const PostOpen = ({ getOnePost, addScore, post: { post, loading } }) => {
+const PostOpen = ({
+  getOnePost,
+  addScore,
+  deletePost,
+  isAdmin,
+  post: { post, loading },
+}) => {
   const [userScore, setUserScore] = useState(5);
   let { id } = useParams();
   useEffect(() => {
@@ -18,7 +24,7 @@ const PostOpen = ({ getOnePost, addScore, post: { post, loading } }) => {
 
   const scoreChange = (e) => {
     setUserScore(e.target.value);
-    addScore(userScore);
+    addScore(id, userScore);
   };
 
   return loading || post === null ? (
@@ -163,6 +169,11 @@ const PostOpen = ({ getOnePost, addScore, post: { post, loading } }) => {
             10
           </label>
         </div>
+        {isAdmin && (
+          <button className="btn form-btn" onClick={(id) => deletePost(id)}>
+            Delete Post
+          </button>
+        )}
       </div>
     </div>
   );
@@ -170,11 +181,26 @@ const PostOpen = ({ getOnePost, addScore, post: { post, loading } }) => {
 
 PostOpen.propTypes = {
   post: PropTypes.object,
+  isAdmin: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {
   console.log("STATE POST FROM REDUCER:", state.post);
-  return { post: state.post };
+
+  if (state.auth.user) {
+    return {
+      isAuthenticated: state.auth.isAuthenticated,
+      isAdmin: state.auth.user.admin,
+      post: state.post,
+    };
+  } else {
+    return {
+      isAuthenticated: state.auth.isAuthenticated,
+      post: state.post,
+    };
+  }
 };
 
-export default connect(mapStateToProps, { getOnePost, addScore })(PostOpen);
+export default connect(mapStateToProps, { getOnePost, addScore, deletePost })(
+  PostOpen
+);

@@ -28,6 +28,9 @@ const PostSchema = new Schema({
     {
       val: {
         type: Number,
+        min: 1,
+        max: 10,
+        default: 5,
       },
       user: {
         type: Schema.Types.ObjectId,
