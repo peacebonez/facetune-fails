@@ -13,9 +13,9 @@ const PostOpen = ({
   addScore,
   deletePost,
   isAdmin,
-  post: { post, loading },
+  post: { post, loading, _id },
 }) => {
-  const [userScore, setUserScore] = useState(5);
+  const [userScore, setUserScore] = useState(null);
   let { id } = useParams();
   useEffect(() => {
     getOnePost(id);
@@ -170,7 +170,7 @@ const PostOpen = ({
           </label>
         </div>
         {isAdmin && (
-          <button className="btn form-btn" onClick={(id) => deletePost(id)}>
+          <button className="btn form-btn" onClick={() => deletePost(id)}>
             Delete Post
           </button>
         )}

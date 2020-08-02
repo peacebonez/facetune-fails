@@ -40,22 +40,6 @@ export const getOnePost = (postId) => async (dispatch) => {
   }
 };
 
-//Delete a post (ADMIN PRIVILEGES)
-
-export const deletePost = (postId) => async (dispatch) => {
-  try {
-    await axios.delete(`/post/${postId}`);
-    console.log("TRYING TO DELETE POST!");
-    dispatch({ type: DELETE_POST, payload: postId });
-    alert("Post Deleted!");
-  } catch (err) {
-    dispatch({
-      type: POST_ERROR,
-      payload: { msg: "Post not deleted", status: 400 },
-    });
-  }
-};
-
 //Add a post (ADMIN PRIVILEGES)
 
 export const addPost = (formInfo) => async (dispatch) => {
@@ -77,11 +61,29 @@ export const addPost = (formInfo) => async (dispatch) => {
   }
 };
 
+//Delete a post (ADMIN PRIVILEGES)
+
+export const deletePost = (postId) => async (dispatch) => {
+  console.log("TRYING TO DELETE POST!");
+  console.log("postId:", postId);
+  try {
+    await axios.delete(`/posts/${postId}`);
+
+    dispatch({ type: DELETE_POST, payload: postId });
+    alert("Post Deleted!");
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Post not deleted", status: 400 },
+    });
+  }
+};
+
 //Put a score
 
 export const addScore = (postId, score) => async (dispatch) => {
   try {
-    const res = await axios.put(`/post/${postId}`);
+    const res = await axios.put(`/posts/${postId}`);
     dispatch({ type: ADD_SCORE, payload: { postId, score: res.data } });
   } catch (err) {}
 };

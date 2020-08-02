@@ -113,7 +113,9 @@ router.delete("/:id", auth, async (req, res) => {
     if (!user.admin) {
       return res.status(403).send("Unauthorized Access!");
     }
-    await Post.findByIdAndRemove(req.params.id);
+    const post = await Post.findById(req.params.id);
+    Post.deleteOne();
+    return res.json({ msg: "Post removed!" });
   } catch (err) {
     return res.status(400).send("Cannot delete post. Post not found!");
   }
