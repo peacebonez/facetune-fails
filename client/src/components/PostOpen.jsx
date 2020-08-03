@@ -7,7 +7,7 @@ import { addScore, deletePost } from "../actions/post-action";
 import Moment from "react-moment";
 
 import Loading from "../components/Loading";
-
+console.log(document.location.pathname);
 const PostOpen = ({
   getOnePost,
   addScore,
@@ -21,6 +21,14 @@ const PostOpen = ({
     getOnePost(id);
     console.log("UserScore:", userScore);
   }, [getOnePost, userScore]);
+
+  const handleDelete = (id) => {
+    let question = window.confirm("Are you sure you want to delete post");
+    if (question) {
+      deletePost(id);
+      document.location.pathname = "/";
+    } else return;
+  };
 
   const scoreChange = (e) => {
     setUserScore(e.target.value);
@@ -170,7 +178,7 @@ const PostOpen = ({
           </label>
         </div>
         {isAdmin && (
-          <button className="btn form-btn" onClick={() => deletePost(id)}>
+          <button className="btn form-btn" onClick={() => handleDelete(id)}>
             Delete Post
           </button>
         )}
