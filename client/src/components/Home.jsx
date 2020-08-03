@@ -6,13 +6,19 @@ import Post from "./Post";
 import Loading from "./Loading";
 
 const Home = ({ post: { posts, loading }, getPosts }) => {
-  const [page, setPage] = useState(0);
+  let [page, setPage] = useState(0);
   useEffect(() => {
     getPosts();
   }, [getPosts]);
 
-  const pageUp = () => {};
-  const pageDown = () => {};
+  const pageUp = () => {
+    setPage(page + 1);
+    console.log(page);
+  };
+  const pageDown = () => {
+    setPage(page - 1);
+    console.log(page);
+  };
 
   return loading ? (
     <Loading type="spokes" />
@@ -21,7 +27,21 @@ const Home = ({ post: { posts, loading }, getPosts }) => {
       <ul>
         {posts.map((post) => <Post key={post._id} post={post} />).reverse()}
       </ul>
-      <button className="btn next-btn">Next Page</button>
+      <div
+        className="pagination-container"
+        style={{
+          justifyContent: `${page === 0 ? "flex-end" : "space-between"}`,
+        }}
+      >
+        {page > 0 && (
+          <button id="previous-btn" className="btn page-btn" onClick={pageDown}>
+            Previous Page
+          </button>
+        )}
+        <button id="next-btn" className="btn page-btn" onClick={pageUp}>
+          Next Page
+        </button>
+      </div>
     </section>
   );
 };

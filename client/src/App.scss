@@ -3,6 +3,10 @@ $large: 3vw;
 $mg-sm: 2vw;
 $lite: #aaa;
 
+* {
+  box-sizing: border-box;
+}
+
 #root {
   min-height: 100vh;
   display: flex;
@@ -143,15 +147,24 @@ li {
   margin: 12vh 0 25vh 0;
 }
 
-.next-btn {
+.pagination-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.page-btn {
   border: $border-light;
   border-radius: 15px;
-  justify-self: end;
-  align-self: flex-end;
   margin: $mg-sm;
   padding: 1vw 2vw;
   font-size: 1vw;
   color: $lite;
+}
+
+#next-btn {
+  display: flex;
+  justify-self: flex-end;
 }
 
 footer {
