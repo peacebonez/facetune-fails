@@ -7,10 +7,10 @@ const Post = require("../models/Post");
 const User = require("../models/User");
 
 //@route: GET /posts
-//@desc: retrieve all posts
+//@desc: retrieve initial posts
 //@access: Public
 
-router.get("/", async function (req, res, next) {
+router.get("/", async function (req, res) {
   try {
     const posts = await Post.find().limit(10);
 
@@ -22,6 +22,27 @@ router.get("/", async function (req, res, next) {
   } catch (err) {
     console.error(err);
     res.status(500).send("Server Error at GET posts");
+  }
+});
+
+//@route: GET /posts
+//@desc: retrieve more posts
+//@access: Public
+// router.get("/page/:pageNum", async function (req, res) {
+router.get("/page-:pageNum", async function (req, res) {
+  try {
+    const posts = await Post.find()
+      .skip(10 * Number(req.params.pageNum))
+      .limit(10);
+
+    if (posts.length < 1) {
+      return res.status(400).json({ msg: "No posts found" });
+    }
+
+    res.json(posts);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error at GET MORE posts");
   }
 });
 

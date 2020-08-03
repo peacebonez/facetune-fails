@@ -1,6 +1,7 @@
 import {
   GET_POSTS,
   GET_ONE_POST,
+  GET_MORE_POSTS,
   POST_ERROR,
   DELETE_POST,
   ADD_POST,

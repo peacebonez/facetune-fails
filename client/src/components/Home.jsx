@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getPosts } from "../actions/post-action";
@@ -6,9 +6,14 @@ import Post from "./Post";
 import Loading from "./Loading";
 
 const Home = ({ post: { posts, loading }, getPosts }) => {
+  const [page, setPage] = useState(0);
   useEffect(() => {
     getPosts();
   }, [getPosts]);
+
+  const pageUp = () => {};
+  const pageDown = () => {};
+
   return loading ? (
     <Loading type="spokes" />
   ) : (

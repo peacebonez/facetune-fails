@@ -9,6 +9,7 @@ export const CLEAR_PROFILE = "CLEAR_PROFILE";
 export const DELETE_PROFILE = "DELETE_PROFILE";
 export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
 export const GET_POSTS = "GET_POSTS";
+export const GET_MORE_POSTS = "GET_MORE_POSTS";
 export const GET_ONE_POST = "GET_ONE_POST";
 export const POST_ERROR = "POST_ERROR";
 export const DELETE_POST = "DELETE_POST";
