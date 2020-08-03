@@ -1,27 +1,36 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
 import { getPosts, getMorePosts } from "../actions/post-action";
 import Post from "./Post";
 import Loading from "./Loading";
 
 const Home = ({ post: { posts, loading }, getPosts, getMorePosts }) => {
   let [page, setPage] = useState(0);
+
+  let { pageNum } = useParams();
+
   useEffect(() => {
     getPosts();
   }, [getPosts]);
 
   const pageUp = () => {
     setPage(page + 1);
+    if (!pageNum) pageNum = 1;
+    else pageNum++;
+    console.log("PAGENUM:", pageNum);
     console.log(page);
 
-    // getMorePosts() get the pagenum from url
+    getMorePosts(pageNum);
   };
   const pageDown = () => {
     setPage(page - 1);
+    pageNum--;
+    console.log("PAGENUM:", pageNum);
     console.log(page);
 
-    // getMorePosts()    get the pagenum from url
+    getMorePosts(pageNum);
   };
 
   return loading ? (
