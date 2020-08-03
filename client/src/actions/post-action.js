@@ -2,6 +2,7 @@ import axios from "axios";
 
 import {
   GET_POSTS,
+  GET_MORE_POSTS,
   GET_ONE_POST,
   POST_ERROR,
   DELETE_POST,
@@ -18,6 +19,18 @@ export const getPosts = () => async (dispatch) => {
     const res = await axios.get("/posts");
 
     dispatch({ type: GET_POSTS, payload: res.data });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Server Error on retrieving posts", status: 500 },
+    });
+  }
+};
+export const getMorePosts = (pageNum) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/posts/page-${pageNum}`);
+
+    dispatch({ type: GET_MORE_POSTS, payload: res.data });
   } catch (err) {
     dispatch({
       type: POST_ERROR,

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getPosts } from "../actions/post-action";
+import { getPosts, getMorePosts } from "../actions/post-action";
 import Post from "./Post";
 import Loading from "./Loading";
 
-const Home = ({ post: { posts, loading }, getPosts }) => {
+const Home = ({ post: { posts, loading }, getPosts, getMorePosts }) => {
   let [page, setPage] = useState(0);
   useEffect(() => {
     getPosts();
@@ -14,10 +14,14 @@ const Home = ({ post: { posts, loading }, getPosts }) => {
   const pageUp = () => {
     setPage(page + 1);
     console.log(page);
+
+    // getMorePosts() get the pagenum from url
   };
   const pageDown = () => {
     setPage(page - 1);
     console.log(page);
+
+    // getMorePosts()    get the pagenum from url
   };
 
   return loading ? (
@@ -55,4 +59,4 @@ const mapStateToProps = (state) => {
   return { post: state.post };
 };
 
-export default connect(mapStateToProps, { getPosts })(Home);
+export default connect(mapStateToProps, { getPosts, getMorePosts })(Home);
