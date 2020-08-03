@@ -9,20 +9,28 @@ import { set } from "mongoose";
 
 const Home = ({ post: { posts, loading }, getPosts, getMorePosts }) => {
   let { pageNum } = useParams();
-  let [page, setPage] = useState(parseInt(pageNum));
+  let [page, setPage] = useState(
+    typeof pageNum === "number" ? parseInt(pageNum) : 0
+  );
 
   console.log("CURRENT PAGE:", page);
+  console.log("Global PAGENum:", pageNum);
 
   useEffect(() => {
     if (!pageNum) {
-      console.log("PAGENUM UNDEFINED ON HOME PAGE:", pageNum);
+      console.log("PAGENUM ON HOME PAGE:", pageNum);
       getPosts();
-    } else {
-      console.log("PAGE NUM USEEFFECT:", pageNum);
+    }
+    // }, [getPosts, page, pageNum]);
+  }, []);
+
+  useEffect(() => {
+    if (pageNum) {
+      console.log("PAGE NUM NOT ON HOME PAGE:", pageNum);
       setPage(parseInt(pageNum));
       getMorePosts(pageNum);
     }
-  }, [getPosts, page]);
+  }, [pageNum]);
 
   const pageUp = () => {
     if (!pageNum) {
