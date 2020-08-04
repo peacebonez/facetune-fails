@@ -195,7 +195,7 @@ PostOpen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  console.log("STATE POST FROM REDUCER:", state.post);
+  // console.log("STATE POST FROM REDUCER:", state.post);
 
   if (state.auth.user) {
     return {

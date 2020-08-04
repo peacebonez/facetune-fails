@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import {
   GET_POSTS,
   GET_MORE_POSTS,
@@ -11,6 +10,12 @@ import {
   ADD_COMMENT,
   DELETE_COMMENT,
 } from "./types";
+
+const config = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
 
 //Get all posts
 
@@ -56,12 +61,6 @@ export const getOnePost = (postId) => async (dispatch) => {
 //Add a post (ADMIN PRIVILEGES)
 
 export const addPost = (formInfo) => async (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
   try {
     const res = await axios.post("/posts/new-post", formInfo, config);
     dispatch({ type: ADD_POST, payload: res.data });
@@ -77,8 +76,6 @@ export const addPost = (formInfo) => async (dispatch) => {
 //Delete a post (ADMIN PRIVILEGES)
 
 export const deletePost = (postId) => async (dispatch) => {
-  console.log("TRYING TO DELETE POST!");
-  console.log("postId:", postId);
   try {
     await axios.delete(`/posts/${postId}`);
 
@@ -92,6 +89,25 @@ export const deletePost = (postId) => async (dispatch) => {
   }
 };
 
+//Add a comment (Private)
+
+export const addComment = (postId, formInfo) => async (dispatch) => {
+  try {
+    //posting the formData that will be passed from the front end
+    const res = await axios.post(`/posts/comment/${postId}`, formInfo, config);
+
+    dispatch({ type: ADD_COMMENT, payload: res.data });
+    alert("Comment Added!");
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Server Error @ POST a comment", status: 500 },
+    });
+  }
+};
+
+//Delete a comment (Private)
+
 //Put a score
 
 export const addScore = (postId, score) => async (dispatch) => {
@@ -100,7 +116,3 @@ export const addScore = (postId, score) => async (dispatch) => {
     dispatch({ type: ADD_SCORE, payload: { postId, score: res.data } });
   } catch (err) {}
 };
-
-//Add a comment (Private)
-
-//Delete a comment (Private)

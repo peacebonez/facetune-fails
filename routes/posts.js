@@ -151,8 +151,7 @@ router.delete("/:id", auth, async (req, res) => {
 
 router.post(
   "/comment/:id",
-  auth,
-  [check("text", "Comment text is require").notEmpty()],
+  [auth, [check("text", "Comment text is require").notEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
 
@@ -161,7 +160,7 @@ router.post(
     }
 
     try {
-      const user = await User.findById(req.user.id);
+      const user = await User.findById(req.user.id).select("-password");
       const post = await Post.findById(req.params.id);
 
       //Create a new comment
@@ -176,7 +175,7 @@ router.post(
 
       await post.save();
 
-      res.json(post.comments);
+      return res.json(post.comments);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
