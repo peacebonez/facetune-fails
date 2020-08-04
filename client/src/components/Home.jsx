@@ -5,48 +5,47 @@ import { useParams, Link } from "react-router-dom";
 import { getPosts, getMorePosts } from "../actions/post-action";
 import Post from "./Post";
 import Loading from "./Loading";
-import { set } from "mongoose";
 
 const Home = ({ post: { posts, loading }, getPosts, getMorePosts }) => {
-  let { pageNum } = useParams();
-  let [page, setPage] = useState(
-    typeof pageNum === "number" ? parseInt(pageNum) : 0
-  );
+  // let [page, setPage] = useState(
+  //   typeof pageNum === "number" ? parseInt(pageNum) : 0
+  // );
 
-  console.log("CURRENT PAGE:", page);
+  // console.log("CURRENT PAGE:", page);
+  let { pageNum } = useParams();
+  pageNum = parseInt(pageNum);
   console.log("Global PAGENum:", pageNum);
 
   useEffect(() => {
     if (!pageNum) {
+      // pageNum = 0;
       console.log("PAGENUM ON HOME PAGE:", pageNum);
       getPosts();
-    }
-    // }, [getPosts, page, pageNum]);
-  }, []);
-
-  useEffect(() => {
-    if (pageNum) {
-      console.log("PAGE NUM NOT ON HOME PAGE:", pageNum);
-      setPage(parseInt(pageNum));
+    } else {
       getMorePosts(pageNum);
     }
   }, [pageNum]);
 
-  const pageUp = () => {
-    if (!pageNum) {
-      setPage(1);
-      pageNum = 1;
-    } else setPage(parseInt(page) + 1);
-    // setPage((page) => page + 1);
+  // const pageUp = () => {
+  //   if (!pageNum) {
+  //     // setPage(1);
+  //     pageNum = 1;
+  //   } else {
+  //     pageNum += 1;
+  //   }
+  // else setPage(parseInt(page) + 1);
+  // setPage((page) => page + 1);
+  //   console.log("PAGENUM:", pageNum);
+  // };
 
-    console.log("PAGENUM:", pageNum);
-  };
-  const pageDown = () => {
-    // setPage(() => page - 1);
-    setPage(parseInt(page) - 1);
-    console.log("PAGENUM:", pageNum);
-    console.log("CURRENT PAGE:", page);
-  };
+  // const pageDown = () => {
+  //   // setPage(() => page - 1);
+  //   // setPage(parseInt(page) - 1);
+
+  //   parseInt((pageNum -= 1));
+  //   console.log("PAGENUM:", pageNum);
+  //   // console.log("CURRENT PAGE:", page);
+  // };
 
   return loading ? (
     <Loading type="spokes" />
@@ -61,19 +60,23 @@ const Home = ({ post: { posts, loading }, getPosts, getMorePosts }) => {
           justifyContent: `${!pageNum ? "flex-end" : "space-between"}`,
         }}
       >
-        {page >= 1 && (
-          <Link to={pageNum >= 1 ? `/page-${page}` : ""}>
+        {pageNum >= 1 && (
+          <Link to={pageNum === 1 ? "" : `/page-${pageNum - 1}`}>
             <button
               id="previous-btn"
               className="btn page-btn"
-              onClick={pageDown}
+              // onClick={pageDown}
             >
               Previous Page
             </button>
           </Link>
         )}
-        <Link to={`/page-${page}`}>
-          <button id="next-btn" className="btn page-btn" onClick={pageUp}>
+        <Link to={`/page-${pageNum + 1}`}>
+          <button
+            id="next-btn"
+            className="btn page-btn"
+            // onClick={pageUp}
+          >
             Next Page
           </button>
         </Link>
