@@ -29,6 +29,7 @@ router.get("/", async function (req, res) {
 //@desc: retrieve more posts
 //@access: Public
 // router.get("/page/:pageNum", async function (req, res) {
+
 router.get("/page-:pageNum", async function (req, res) {
   try {
     const posts = await Post.find()
@@ -36,7 +37,7 @@ router.get("/page-:pageNum", async function (req, res) {
       .limit(10);
 
     if (posts.length < 1) {
-      return res.status(400).json({ msg: "No posts found" });
+      return res.status(404).json({ msg: "No posts found" });
     }
 
     res.json(posts);

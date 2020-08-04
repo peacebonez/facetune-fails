@@ -5,47 +5,27 @@ import { useParams, Link } from "react-router-dom";
 import { getPosts, getMorePosts } from "../actions/post-action";
 import Post from "./Post";
 import Loading from "./Loading";
+import NotFound from "./NotFound";
 
-const Home = ({ post: { posts, loading }, getPosts, getMorePosts }) => {
-  // let [page, setPage] = useState(
-  //   typeof pageNum === "number" ? parseInt(pageNum) : 0
-  // );
-
-  // console.log("CURRENT PAGE:", page);
+const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
   let { pageNum } = useParams();
+  if (!pageNum) {
+    pageNum = 0;
+  }
   pageNum = parseInt(pageNum);
   console.log("Global PAGENum:", pageNum);
 
   useEffect(() => {
     if (!pageNum) {
-      // pageNum = 0;
-      console.log("PAGENUM ON HOME PAGE:", pageNum);
       getPosts();
     } else {
       getMorePosts(pageNum);
     }
   }, [pageNum]);
 
-  // const pageUp = () => {
-  //   if (!pageNum) {
-  //     // setPage(1);
-  //     pageNum = 1;
-  //   } else {
-  //     pageNum += 1;
-  //   }
-  // else setPage(parseInt(page) + 1);
-  // setPage((page) => page + 1);
-  //   console.log("PAGENUM:", pageNum);
-  // };
-
-  // const pageDown = () => {
-  //   // setPage(() => page - 1);
-  //   // setPage(parseInt(page) - 1);
-
-  //   parseInt((pageNum -= 1));
-  //   console.log("PAGENUM:", pageNum);
-  //   // console.log("CURRENT PAGE:", page);
-  // };
+  if (error.hasOwnProperty("msg")) {
+    return <NotFound />;
+  }
 
   return loading ? (
     <Loading type="spokes" />
@@ -65,7 +45,7 @@ const Home = ({ post: { posts, loading }, getPosts, getMorePosts }) => {
             <button
               id="previous-btn"
               className="btn page-btn"
-              // onClick={pageDown}
+              onClick={() => window.scrollTo(0, 0)}
             >
               Previous Page
             </button>
@@ -75,7 +55,7 @@ const Home = ({ post: { posts, loading }, getPosts, getMorePosts }) => {
           <button
             id="next-btn"
             className="btn page-btn"
-            // onClick={pageUp}
+            onClick={() => window.scrollTo(0, 0)}
           >
             Next Page
           </button>
@@ -90,7 +70,7 @@ Home.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  // console.log("POST STATE:", state.post);
+  console.log("POST STATE:", state.post);
   return { post: state.post };
 };
 
