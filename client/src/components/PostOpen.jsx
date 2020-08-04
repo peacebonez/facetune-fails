@@ -7,7 +7,8 @@ import { addScore, deletePost } from "../actions/post-action";
 import Moment from "react-moment";
 
 import Loading from "../components/Loading";
-console.log(document.location.pathname);
+import CommentForm from "../components/CommentForm";
+
 const PostOpen = ({
   getOnePost,
   addScore,
@@ -183,6 +184,7 @@ const PostOpen = ({
           </button>
         )}
       </div>
+      <CommentForm post={post} />
     </div>
   );
 };

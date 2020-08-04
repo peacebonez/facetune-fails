@@ -19,8 +19,6 @@ import { connect } from "react-redux";
 // };
 
 const Post = ({ post: { title, name, date, imageURL, score, text, _id } }) => {
-  // const linkToPost = `${_id.substr(_id.length - 5, _id.length - 1)}-${title}`;
-
   const determineScore = () => {};
 
   return (

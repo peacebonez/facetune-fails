@@ -8,9 +8,10 @@ import Loading from "./Loading";
 import NotFound from "./NotFound";
 
 const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
-  const [onLastPage, setOnLastPage] = useState(false);
   const oldest_id = "5f25c79c4a88d1b5628c2ce5";
   let postIDs;
+
+  const [onLastPage, setOnLastPage] = useState(false);
 
   //grabbing page number from URL
   let { pageNum } = useParams();
@@ -24,6 +25,8 @@ const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
 
   useEffect(() => {
     postIDs = posts.map((post) => post._id);
+
+    //sets state if the posts on the page include the oldest post
     setOnLastPage(postIDs.includes(oldest_id));
   }, [pageNum, posts]);
 

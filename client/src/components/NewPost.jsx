@@ -72,15 +72,19 @@ const NewPost = ({ isAdmin, addPost }) => {
           ></textarea>
         </div>
         <div className="form-group">
-          <input
-            type="submit"
-            className="btn form-btn"
-            name="submit-post"
-          ></input>
-          <Link className="btn btn-light my-1" to="/">
-            Go Back
-          </Link>
+          <div className="post-btn-container">
+            <input
+              type="submit"
+              className="post-btn"
+              name="submit-post"
+              value="Post"
+              disabled={formInfo.text === "" ? true : false}
+            ></input>
+          </div>
         </div>
+        <Link className="btn btn-light my-1" to="/">
+          Go Back
+        </Link>
       </form>
     </div>
   );

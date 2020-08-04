@@ -26,6 +26,10 @@ li {
   color: $lite;
 }
 
+textarea {
+  resize: none;
+}
+
 .navbar {
   display: flex;
   justify-content: center;
@@ -110,7 +114,7 @@ li {
 }
 
 .post-body {
-  margin-top: 10vh;
+  margin: 15vh 0;
 }
 
 .new-post {
@@ -165,6 +169,19 @@ li {
 #next-btn {
   display: flex;
   justify-self: flex-end;
+}
+
+.post-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -7vh;
+  z-index: 1;
+}
+
+.post-btn {
+  background: none;
+  width: 10%;
+  border: none;
 }
 
 footer {
