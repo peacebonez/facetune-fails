@@ -12,7 +12,7 @@ const User = require("../models/User");
 
 router.get("/", async function (req, res) {
   try {
-    const posts = await Post.find().limit(10);
+    const posts = await Post.find().sort({ date: -1 }).limit(10);
 
     if (posts.length < 1) {
       return res.status(400).json({ msg: "No posts found" });
@@ -32,12 +32,21 @@ router.get("/", async function (req, res) {
 
 router.get("/page-:pageNum", async function (req, res) {
   try {
+    const oldestPost = await Post.find().sort({ date: 1 }).limit(1);
+    console.log("OLDEST POST:", oldestPost);
+
+    let pageNum = Number(req.params.pageNum);
     const posts = await Post.find()
-      .skip(10 * Number(req.params.pageNum))
+      .sort({ date: -1 })
+      .skip(10 * pageNum)
       .limit(10);
 
     if (posts.length < 1) {
       return res.status(404).json({ msg: "No posts found" });
+    }
+
+    if (posts.includes(oldestPost)) {
+      return res.json({ posts, msg: "Oldest post included" });
     }
 
     res.json(posts);

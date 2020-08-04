@@ -32,7 +32,9 @@ const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
   ) : (
     <section className="post-container">
       <ul>
-        {posts.map((post) => <Post key={post._id} post={post} />).reverse()}
+        {posts.map((post) => (
+          <Post key={post._id} post={post} />
+        ))}
       </ul>
       <div
         className="pagination-container"
@@ -45,7 +47,7 @@ const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
             <button
               id="previous-btn"
               className="btn page-btn"
-              onClick={() => window.scrollTo(0, 0)}
+              onClick={() => window.scrollTo(0, 0)} // jumps to top of page
             >
               Previous Page
             </button>
@@ -55,7 +57,7 @@ const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
           <button
             id="next-btn"
             className="btn page-btn"
-            onClick={() => window.scrollTo(0, 0)}
+            onClick={() => window.scrollTo(0, 0)} // jumps to top of page
           >
             Next Page
           </button>
