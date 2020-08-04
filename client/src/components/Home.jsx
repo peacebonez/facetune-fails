@@ -8,20 +8,24 @@ import Loading from "./Loading";
 import NotFound from "./NotFound";
 
 const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
+  const [onLastPage, setOnLastPage] = useState(false);
+  const oldest_id = "5f25c79c4a88d1b5628c2ce5";
+  let postIDs;
+
+  //grabbing page number from URL
   let { pageNum } = useParams();
-  if (!pageNum) {
-    pageNum = 0;
-  }
+  if (!pageNum) pageNum = 0;
   pageNum = parseInt(pageNum);
-  console.log("Global PAGENum:", pageNum);
 
   useEffect(() => {
-    if (!pageNum) {
-      getPosts();
-    } else {
-      getMorePosts(pageNum);
-    }
+    if (!pageNum) getPosts();
+    else getMorePosts(pageNum);
   }, [pageNum]);
+
+  useEffect(() => {
+    postIDs = posts.map((post) => post._id);
+    setOnLastPage(postIDs.includes(oldest_id));
+  }, [pageNum, posts]);
 
   if (error.hasOwnProperty("msg")) {
     return <NotFound />;
@@ -53,15 +57,17 @@ const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
             </button>
           </Link>
         )}
-        <Link to={`/page-${pageNum + 1}`}>
-          <button
-            id="next-btn"
-            className="btn page-btn"
-            onClick={() => window.scrollTo(0, 0)} // jumps to top of page
-          >
-            Next Page
-          </button>
-        </Link>
+        {!onLastPage && (
+          <Link to={`/page-${pageNum + 1}`}>
+            <button
+              id="next-btn"
+              className="btn page-btn"
+              onClick={() => window.scrollTo(0, 0)} // jumps to top of page
+            >
+              Next Page
+            </button>
+          </Link>
+        )}
       </div>
     </section>
   );
@@ -72,7 +78,7 @@ Home.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  console.log("POST STATE:", state.post);
+  // console.log("POST STATE:", state.post);
   return { post: state.post };
 };
 

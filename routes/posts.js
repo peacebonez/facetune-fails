@@ -32,10 +32,8 @@ router.get("/", async function (req, res) {
 
 router.get("/page-:pageNum", async function (req, res) {
   try {
-    const oldestPost = await Post.find().sort({ date: 1 }).limit(1);
-    console.log("OLDEST POST:", oldestPost);
-
     let pageNum = Number(req.params.pageNum);
+
     const posts = await Post.find()
       .sort({ date: -1 })
       .skip(10 * pageNum)
@@ -43,10 +41,6 @@ router.get("/page-:pageNum", async function (req, res) {
 
     if (posts.length < 1) {
       return res.status(404).json({ msg: "No posts found" });
-    }
-
-    if (posts.includes(oldestPost)) {
-      return res.json({ posts, msg: "Oldest post included" });
     }
 
     res.json(posts);
