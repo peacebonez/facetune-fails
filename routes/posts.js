@@ -183,4 +183,39 @@ router.post(
   }
 );
 
+//@route: POST /posts/comment
+//@desc: Create a comment
+//@access: Private
+
+router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
+  //match user to user of post
+  try {
+    // find the post by url parameter
+    const post = await Post.findById(req.params.id);
+
+    //match the comment to the url parameter
+    const comment = post.comments.find(
+      (comment) => comment.id === req.params.comment_id
+    );
+
+    if (!comment) {
+      return res.status(404).json({ msg: "No comment to find" });
+    }
+
+    //finding index of userId in comments array
+    const removeIndex = post.comments
+      .map((comment) => comment.user.toString())
+      .indexOf(req.user.id);
+
+    post.comments.splice(removeIndex, 1);
+
+    await post.save();
+
+    res.json(post.comments);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error at delete comment!");
+  }
+});
+
 module.exports = router;

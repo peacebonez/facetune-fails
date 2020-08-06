@@ -108,6 +108,20 @@ export const addComment = (postId, formInfo) => async (dispatch) => {
 
 //Delete a comment (Private)
 
+export const deleteComment = (postId, commentId) => async (dispatch) => {
+  try {
+    await axios.delete(`/posts/comment/${postId}/${commentId}`);
+
+    dispatch({ type: DELETE_COMMENT, payload: commentId });
+    alert("Comment Deleted!");
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Comment not deleted", status: 400 },
+    });
+  }
+};
+
 //Put a score
 
 export const addScore = (postId, score) => async (dispatch) => {

@@ -63,10 +63,14 @@ export default function (state = initialState, action) {
       };
     case DELETE_COMMENT:
       return {
-        ...state.post,
-        comments: state.post.comments.filter(
-          (comment) => comment._id !== payload
-        ),
+        ...state,
+        loading: false,
+        post: {
+          ...state.post,
+          comments: state.post.comments.filter(
+            (comment) => comment._id !== payload
+          ),
+        },
       };
     default:
       return state;

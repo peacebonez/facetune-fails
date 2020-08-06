@@ -6,8 +6,6 @@ import PropTypes from "prop-types";
 import CommentItem from "./CommentItem";
 
 const CommentForm = ({ post, user, isAuthenticated, addComment }) => {
-  console.log("COMMENTS:", post.comments);
-
   const [text, setText] = useState("");
 
   const handleCommentChange = (e) => {
