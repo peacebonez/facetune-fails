@@ -50,7 +50,7 @@ const CommentForm = ({ post, user, isAuthenticated, addComment }) => {
       </form>
       <ul className="container comments-list">
         {post.comments.map((comment) => (
-          <CommentItem key={comment._id} comment={comment} />
+          <CommentItem key={comment._id} comment={comment} post={post} />
         ))}
       </ul>
     </div>
