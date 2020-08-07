@@ -218,4 +218,29 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
   }
 });
 
+//@route: PUT /posts/like/:id
+//@desc: Update posts with likes
+//@access: Private
+
+router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
+  if (!req.user) {
+    return res.status(403).send("Must login to heart a comment");
+  }
+  try {
+    const post = await Post.findById(req.params.post_Id);
+    // console.log("POST:", post);
+    const comment = post.comments.find(
+      (comment) => comment._id.toString() === req.params.comment_Id
+    );
+    // console.log("COMMENT:", comment);
+    comment.hearts = [{ user: req.user.id }, ...comment.hearts];
+    console.log("COMMENT:", comment);
+
+    // console.log("comment.hearts:", comment.hearts);
+    await post.save();
+
+    res.json(comment.hearts);
+  } catch (err) {}
+});
+
 module.exports = router;

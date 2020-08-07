@@ -51,10 +51,14 @@ const PostSchema = new Schema({
       name: {
         type: String,
       },
-      hearts: {
-        type: Schema.Types.ObjectId,
-        ref: "users",
-      },
+      hearts: [
+        {
+          user: {
+            type: Schema.Types.ObjectId,
+            ref: "users",
+          },
+        },
+      ],
       date: {
         type: Date,
         default: Date.now,
