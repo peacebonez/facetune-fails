@@ -5,15 +5,18 @@ import { deleteComment } from "../actions/post-action";
 import PropTypes from "prop-types";
 
 const CommentItem = ({ comment, post, auth, deleteComment }) => {
+  console.log("AUTH", auth);
   return (
     <div className="comment-item">
       <div className="comment-header">
         <p style={{ textDecoration: "underline" }}>{comment.name}</p>
-        {!auth.loading && auth.user._id === comment.user && (
-          <button onClick={() => deleteComment(post._id, comment._id)}>
-            X
-          </button>
-        )}
+        {!auth.loading &&
+          auth.user !== null &&
+          auth.user._id === comment.user && (
+            <button onClick={() => deleteComment(post._id, comment._id)}>
+              X
+            </button>
+          )}
       </div>
       <Moment format="MM/DD/YYYY">{comment.date}</Moment>
       <p>{comment.text}</p>
