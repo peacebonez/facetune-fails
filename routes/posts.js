@@ -228,19 +228,25 @@ router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
   }
   try {
     const post = await Post.findById(req.params.post_Id);
-    // console.log("POST:", post);
+
     const comment = post.comments.find(
       (comment) => comment._id.toString() === req.params.comment_Id
     );
-    // console.log("COMMENT:", comment);
-    comment.hearts = [{ user: req.user.id }, ...comment.hearts];
-    console.log("COMMENT:", comment);
 
-    // console.log("comment.hearts:", comment.hearts);
+    if (
+      comment.hearts.filter((heart) => heart.user.toString() === req.user.id)
+        .length > 0
+    ) {
+      return res.status(400).json({ msg: "Comment already loved." });
+    }
+    comment.hearts = [{ user: req.user.id }, ...comment.hearts];
+
     await post.save();
 
     res.json(comment.hearts);
-  } catch (err) {}
+  } catch (err) {
+    res.status(500).send("Server Error at adding a heart!");
+  }
 });
 
 module.exports = router;
