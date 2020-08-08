@@ -8,6 +8,7 @@ import {
   ADD_SCORE,
   ADD_COMMENT,
   DELETE_COMMENT,
+  UPDATE_HEART,
 } from "../actions/types";
 
 // actions functions send their payloads to the reducers!
@@ -35,12 +36,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         posts: [payload, ...state.posts],
-        loading: false,
-      };
-    case ADD_SCORE:
-      return {
-        ...state,
-        post: { ...state.post, score: payload },
         loading: false,
       };
     case DELETE_POST:
@@ -71,6 +66,20 @@ export default function (state = initialState, action) {
             (comment) => comment._id !== payload
           ),
         },
+      };
+    case UPDATE_HEART:
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === payload._id ? { ...post, hearts: payload.hearts } : post
+        ),
+        loading: false,
+      };
+    case ADD_SCORE:
+      return {
+        ...state,
+        post: { ...state.post, score: payload },
+        loading: false,
       };
     default:
       return state;

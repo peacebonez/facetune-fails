@@ -9,6 +9,7 @@ import {
   ADD_SCORE,
   ADD_COMMENT,
   DELETE_COMMENT,
+  UPDATE_HEART,
 } from "./types";
 
 const config = {
@@ -118,6 +119,42 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
     dispatch({
       type: POST_ERROR,
       payload: { msg: "Comment not deleted", status: 400 },
+    });
+  }
+};
+
+//add a heart
+
+export const addHeart = (postId, commentId) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/posts/comment/heart/${postId}/${commentId}`);
+    dispatch({
+      type: UPDATE_HEART,
+      payload: { postId, commentId, hearts: res.data },
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Heart not added", status: 400 },
+    });
+  }
+};
+
+//remove a heart
+
+export const removeHeart = (postId, commentId) => async (dispatch) => {
+  try {
+    const res = await axios.put(
+      `/posts/comment/unheart/${postId}/${commentId}`
+    );
+    dispatch({
+      type: UPDATE_HEART,
+      payload: { postId, commentId, hearts: res.data },
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Heart not added", status: 400 },
     });
   }
 };
