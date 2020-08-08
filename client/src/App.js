@@ -35,7 +35,7 @@ const App = () => {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/page-:pageNum" component={Home} />
+            <Route path="/page-:pageNum" component={Home} />
             <Route component={Routes} />
           </Switch>
           <Footer />

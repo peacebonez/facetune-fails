@@ -264,10 +264,8 @@ router.put("/comment/unheart/:post_Id/:comment_Id", auth, async (req, res) => {
       (comment) => comment._id.toString() === req.params.comment_Id
     );
 
-    //If user tag not found in hearts array it means they either never hearted it or already unhearted it
-    if (
-      !comment.hearts.find((heart) => heart.user.toString() === req.user.id)
-    ) {
+    //If user tag not included in hearts array it means they either never hearted it or already unhearted it
+    if (!comment.hearts.includes(req.user.id)) {
       return res.status(400).json({ msg: "Comment already unhearted." });
     }
 
