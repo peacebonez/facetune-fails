@@ -17,4 +17,4 @@ export const POST_ERROR = "POST_ERROR";
 export const ADD_SCORE = "ADD_SCORE";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
-export const UPDATE_HEART = "UPDATE_HEART";
+export const UPDATE_HEARTS = "UPDATE_HEARTS";

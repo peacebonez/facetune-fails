@@ -9,7 +9,7 @@ import {
   ADD_SCORE,
   ADD_COMMENT,
   DELETE_COMMENT,
-  UPDATE_HEART,
+  UPDATE_HEARTS,
 } from "./types";
 
 const config = {
@@ -129,7 +129,7 @@ export const updateHeart = (postId, commentId) => async (dispatch) => {
   try {
     const res = await axios.put(`/posts/comment/heart/${postId}/${commentId}`);
     dispatch({
-      type: UPDATE_HEART,
+      type: UPDATE_HEARTS,
       payload: { postId, commentId, hearts: res.data },
     });
   } catch (err) {
