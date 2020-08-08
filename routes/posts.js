@@ -233,12 +233,12 @@ router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
       (comment) => comment._id.toString() === req.params.comment_Id
     );
 
-    if (
-      comment.hearts.filter((heart) => heart.user.toString() === req.user.id)
-        .length > 0
-    ) {
+    const userHearts = comment.hearts.map((heart) => heart.user.toString());
+    console.log("USERHEARTS:", userHearts);
+
+    if (userHearts.includes(req.user.id)) {
       //unheart
-      let targetIndex = comment.hearts.indexOf(req.user.id);
+      let targetIndex = userHearts.indexOf(req.user.id);
       comment.hearts.splice(targetIndex, 1);
 
       await post.save();

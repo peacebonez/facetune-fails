@@ -22,7 +22,7 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
       !auth.loading && auth.user && heartsUsers.includes(auth.user._id)
     );
     console.log("user hearted state USEEFFECT:", userHearted);
-  }, [auth.loading]);
+  }, [auth.loading, comment.hearts]);
 
   if (!auth.isAuthenticated) {
     return (
