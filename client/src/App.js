@@ -25,9 +25,6 @@ const App = () => {
     store.dispatch(loadUser());
   }, []);
 
-  useEffect(() => {
-    console.log("The token is ", localStorage.token);
-  }, []);
   return (
     <Provider store={store}>
       <Router>

@@ -8,14 +8,22 @@ import PropTypes from "prop-types";
 const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
   let heartsUsers = comment.hearts.map((heart) => heart.user);
   console.log("heartsUsers:", heartsUsers);
-  let [userHearted, setUserHearted] = useState(null);
+  let [userHearted, setUserHearted] = useState(
+    !auth.loading && auth.user ? heartsUsers.includes(auth.user._id) : null
+  );
   // let [heartsUsers, setHeartsUsers] = useState(
   //   comment.hearts.map((heart) => heart.user)
   // );
+  console.log("user hearted state :", userHearted);
+  console.log("Auth:", auth);
 
-  // console.log("Auth:", auth);
-
-  // useEffect(() => {}, [userHearted]);
+  useEffect(() => {
+    // if (!auth.loading) {
+    //   heartsUsers = comment.hearts.map((heart) => heart.user);
+    //   setUserHearted(heartsUsers.includes(auth.user._id));
+    //   console.log("user hearted state USEEFFECT:", userHearted);
+    // }
+  }, []);
 
   if (!auth.isAuthenticated) {
     return (
@@ -35,16 +43,16 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
       </div>
     );
   }
-  if (!auth.loading && auth.isAuthenticated) {
+  if (!auth.loading && auth.isAuthenticated && auth.user) {
     // setUserHearted(heartsUsers.includes(auth.user._id));
-    // console.log("user hearted state:", userHearted);
+    console.log("user hearted state:", userHearted);
     return (
       <div className="comment-item">
         <div className="comment-header">
           <p style={{ textDecoration: "underline" }}>{comment.name}</p>
           {auth.user._id === comment.user && (
             <button onClick={() => deleteComment(post._id, comment._id)}>
-              X
+              <i className="fa fa-times"></i>
             </button>
           )}
         </div>
@@ -52,8 +60,8 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
         <p>{comment.text}</p>
         <button
           onClick={() => {
-            updateHeart(post._id, comment._id);
             setUserHearted(!heartsUsers.includes(auth.user._id));
+            updateHeart(post._id, comment._id);
           }}
         >
           <i className={userHearted ? "fas fa-heart" : "far fa-heart"}>
@@ -67,6 +75,10 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
 
 CommentItem.propTypes = {
   comment: PropTypes.object,
+  post: PropTypes.object,
+  auth: PropTypes.object,
+  deleteComment: PropTypes.func,
+  updateHeart: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({

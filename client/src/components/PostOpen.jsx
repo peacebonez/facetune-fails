@@ -20,7 +20,6 @@ const PostOpen = ({
   let { id } = useParams();
   useEffect(() => {
     getOnePost(id);
-    console.log("UserScore:", userScore);
   }, [getOnePost, userScore]);
 
   const handleDelete = (id) => {
