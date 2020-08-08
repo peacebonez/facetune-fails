@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,16 +7,15 @@ import PropTypes from "prop-types";
 
 const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
   let heartsUsers = comment.hearts.map((heart) => heart.user);
+  console.log("heartsUsers:", heartsUsers);
   let [userHearted, setUserHearted] = useState(null);
   // let [heartsUsers, setHeartsUsers] = useState(
   //   comment.hearts.map((heart) => heart.user)
   // );
 
-  // let [clicked, setClicked] = useState(false);
-
   // console.log("Auth:", auth);
-  console.log("heartsusers:", heartsUsers);
-  // console.log("user hearted state:", userHearted);
+
+  // useEffect(() => {}, [userHearted]);
 
   if (!auth.isAuthenticated) {
     return (
@@ -36,12 +35,14 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
       </div>
     );
   }
-  if (auth.isAuthenticated) {
+  if (!auth.loading && auth.isAuthenticated) {
+    // setUserHearted(heartsUsers.includes(auth.user._id));
+    // console.log("user hearted state:", userHearted);
     return (
       <div className="comment-item">
         <div className="comment-header">
           <p style={{ textDecoration: "underline" }}>{comment.name}</p>
-          {!auth.loading && auth.user._id === comment.user && (
+          {auth.user._id === comment.user && (
             <button onClick={() => deleteComment(post._id, comment._id)}>
               X
             </button>
@@ -49,20 +50,16 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
         </div>
         <Moment format="MM/DD/YYYY">{comment.date}</Moment>
         <p>{comment.text}</p>
-        {!auth.loading && (
-          <button
-            onClick={() => {
-              updateHeart(post._id, comment._id);
-              setUserHearted(!heartsUsers.includes(auth.user._id));
-            }}
-          >
-            {/* <i className="far fa-heart"> */}
-            <i className={userHearted ? "fas fa-heart" : "far fa-heart"}>
-              {/* <i className={clicked ? "fas fa-heart" : "far fa-heart"}> */}
-              {comment.hearts.length > 0 && comment.hearts.length}
-            </i>
-          </button>
-        )}
+        <button
+          onClick={() => {
+            updateHeart(post._id, comment._id);
+            setUserHearted(!heartsUsers.includes(auth.user._id));
+          }}
+        >
+          <i className={userHearted ? "fas fa-heart" : "far fa-heart"}>
+            {comment.hearts.length > 0 && comment.hearts.length}
+          </i>
+        </button>
       </div>
     );
   }
