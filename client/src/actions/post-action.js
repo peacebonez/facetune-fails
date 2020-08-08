@@ -123,9 +123,9 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
   }
 };
 
-//add a heart
+//update a heart
 
-export const addHeart = (postId, commentId) => async (dispatch) => {
+export const updateHeart = (postId, commentId) => async (dispatch) => {
   try {
     const res = await axios.put(`/posts/comment/heart/${postId}/${commentId}`);
     dispatch({
@@ -135,31 +135,10 @@ export const addHeart = (postId, commentId) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POST_ERROR,
-      payload: { msg: "Heart not added", status: 400 },
+      payload: { msg: "Heart not updated", status: 400 },
     });
   }
 };
-
-//remove a heart
-
-export const removeHeart = (postId, commentId) => async (dispatch) => {
-  try {
-    const res = await axios.put(
-      `/posts/comment/unheart/${postId}/${commentId}`
-    );
-    dispatch({
-      type: UPDATE_HEART,
-      payload: { postId, commentId, hearts: res.data },
-    });
-  } catch (err) {
-    dispatch({
-      type: POST_ERROR,
-      payload: { msg: "Heart not added", status: 400 },
-    });
-  }
-};
-
-//Put a score
 
 export const addScore = (postId, score) => async (dispatch) => {
   try {

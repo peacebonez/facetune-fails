@@ -2,17 +2,10 @@ import React, { useEffect } from "react";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteComment, addHeart, removeHeart } from "../actions/post-action";
+import { deleteComment, updateHeart } from "../actions/post-action";
 import PropTypes from "prop-types";
 
-const CommentItem = ({
-  comment,
-  post,
-  auth,
-  deleteComment,
-  addHeart,
-  removeHeart,
-}) => {
+const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
   const heartsUsers = comment.hearts.map((heart) => heart.user);
   console.log("heartsusers:", heartsUsers);
   console.log("Auth:", auth);
@@ -50,13 +43,8 @@ const CommentItem = ({
         </div>
         <Moment format="MM/DD/YYYY">{comment.date}</Moment>
         <p>{comment.text}</p>
-        {!auth.loading && heartsUsers.includes(auth.user._id) && (
-          <button onClick={() => removeHeart(post._id, comment._id)}>
-            <i className="fas fa-heart">{comment.hearts.length}</i>
-          </button>
-        )}
-        {!auth.loading && !heartsUsers.includes(auth.user._id) && (
-          <button onClick={() => addHeart(post._id, comment._id)}>
+        {!auth.loading && (
+          <button onClick={() => updateHeart(post._id, comment._id)}>
             <i className="far fa-heart">
               {comment.hearts.length > 0 && comment.hearts.length}
             </i>
@@ -77,6 +65,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   deleteComment,
-  addHeart,
-  removeHeart,
+  updateHeart,
 })(CommentItem);

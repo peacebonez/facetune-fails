@@ -219,74 +219,8 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
 });
 
 //@route: PUT /posts/comment/heart/postId/commentId
-//@desc: Add heart to a comment
+//@desc: Add or remove heart to a comment
 //@access: Private
-
-// router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
-//   if (!req.user) {
-//     return res.status(403).send("Must login to heart a comment");
-//   }
-//   try {
-//     const post = await Post.findById(req.params.post_Id);
-
-//     const comment = post.comments.find(
-//       (comment) => comment._id.toString() === req.params.comment_Id
-//     );
-
-//     if (
-//       comment.hearts.filter((heart) => heart.user.toString() === req.user.id)
-//         .length > 0
-//     ) {
-//       return res.status(400).json({ msg: "Comment already loved." });
-//     }
-//     comment.hearts = [{ user: req.user.id }, ...comment.hearts];
-
-//     await post.save();
-
-//     res.json(comment.hearts);
-//   } catch (err) {
-//     res.status(500).send("Server Error at adding a heart!");
-//   }
-// });
-
-//@route: PUT /posts/comment/heart/postId/commentId
-//@desc: remove heart from comment
-//@access: Private
-
-// router.put("/comment/unheart/:post_Id/:comment_Id", auth, async (req, res) => {
-//   if (!req.user) {
-//     return res.status(403).send("Must login to heart a comment");
-//   }
-//   try {
-//     const post = await Post.findById(req.params.post_Id);
-
-//     const comment = post.comments.find(
-//       (comment) => comment._id.toString() === req.params.comment_Id
-//     );
-
-//     // console.log("Comment:", comment);
-//     const heartsUsers = comment.hearts.map((hearts) => hearts.user);
-//     console.log("user:", heartsUsers);
-//     console.log(
-//       "Does comment include User?",
-//       heartsUsers.includes(req.user.id)
-//     );
-//     //If user tag not included in hearts array it means they either never hearted it or already unhearted it
-//     if (!heartsUsers.includes(req.user.id)) {
-//       return res.status(400).json({ msg: "Comment already unhearted." });
-//     }
-
-//     //find the index in the hearts array of the user's heart.
-//     let targetIndex = comment.hearts.indexOf(req.user.id);
-//     comment.hearts.splice(targetIndex, 1);
-
-//     await post.save();
-
-//     res.json(comment.hearts);
-//   } catch (err) {
-//     res.status(500).send("Server Error at removing a heart!");
-//   }
-// });
 
 router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
   if (!req.user) {
@@ -304,16 +238,22 @@ router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
         .length > 0
     ) {
       //unheart
+      let targetIndex = comment.hearts.indexOf(req.user.id);
+      comment.hearts.splice(targetIndex, 1);
+
+      await post.save();
+
+      return res.json(comment.hearts);
     } else {
       //heart
+      comment.hearts = [{ user: req.user.id }, ...comment.hearts];
+
+      await post.save();
+
+      return res.json(comment.hearts);
     }
-    comment.hearts = [{ user: req.user.id }, ...comment.hearts];
-
-    await post.save();
-
-    res.json(comment.hearts);
   } catch (err) {
-    res.status(500).send("Server Error at adding a heart!");
+    res.status(500).send("Server Error at updating a heart!");
   }
 });
 
