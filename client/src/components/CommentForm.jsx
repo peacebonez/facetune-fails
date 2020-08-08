@@ -17,6 +17,7 @@ const CommentForm = ({ post, user, isAuthenticated, addComment }) => {
     addComment(post._id, { text });
     setText("");
   };
+
   return (
     <div className="container">
       <h1>

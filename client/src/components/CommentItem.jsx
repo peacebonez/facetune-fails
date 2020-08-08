@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -16,6 +16,8 @@ const CommentItem = ({
   const heartsUsers = comment.hearts.map((heart) => heart.user);
   console.log("heartsusers:", heartsUsers);
   console.log("Auth:", auth);
+
+  useEffect(() => {}, [comment.hearts]);
 
   if (!auth.isAuthenticated) {
     return (
