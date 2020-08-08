@@ -13,35 +13,34 @@ const CommentItem = ({
   removeHeart,
 }) => {
   const heartsUsers = comment.hearts.map((heart) => heart.user);
-  console.log("hearsusers:", heartsUsers);
-  if (!auth.user || !auth.loading) {
-    return (
-      <div className="comment-item">
-        <div className="comment-header">
-          <p style={{ textDecoration: "underline" }}>{comment.name}</p>
-          {auth.user._id === comment.user && (
-            <button onClick={() => deleteComment(post._id, comment._id)}>
-              X
-            </button>
-          )}
-        </div>
-        <Moment format="MM/DD/YYYY">{comment.date}</Moment>
-        <p>{comment.text}</p>
-        {heartsUsers.includes(auth.user._id) && (
-          <button onClick={() => removeHeart(post._id, comment._id)}>
-            <i className="fas fa-heart">{comment.hearts.length}</i>
-          </button>
-        )}
-        {!heartsUsers.includes(auth.user._id) && (
-          <button onClick={() => addHeart(post._id, comment._id)}>
-            <i className="far fa-heart">
-              {comment.hearts.length > 0 && comment.hearts.length}
-            </i>
+  console.log("heartsusers:", heartsUsers);
+  console.log("Auth:", auth);
+  return (
+    <div className="comment-item">
+      <div className="comment-header">
+        <p style={{ textDecoration: "underline" }}>{comment.name}</p>
+        {!auth.loading && auth.user._id === comment.user && (
+          <button onClick={() => deleteComment(post._id, comment._id)}>
+            X
           </button>
         )}
       </div>
-    );
-  }
+      <Moment format="MM/DD/YYYY">{comment.date}</Moment>
+      <p>{comment.text}</p>
+      {!auth.loading && heartsUsers.includes(auth.user._id) && (
+        <button onClick={() => removeHeart(post._id, comment._id)}>
+          <i className="fas fa-heart">{comment.hearts.length}</i>
+        </button>
+      )}
+      {!auth.loading && !heartsUsers.includes(auth.user._id) && (
+        <button onClick={() => addHeart(post._id, comment._id)}>
+          <i className="far fa-heart">
+            {comment.hearts.length > 0 && comment.hearts.length}
+          </i>
+        </button>
+      )}
+    </div>
+  );
 };
 
 CommentItem.propTypes = {
