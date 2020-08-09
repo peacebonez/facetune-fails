@@ -242,14 +242,14 @@ router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
       comment.hearts.splice(targetIndex, 1);
 
       await post.save();
-
+      console.log(("hearts length:", comment.hearts.length));
       return res.json(comment.hearts);
     } else {
       //heart
       comment.hearts = [{ user: req.user.id }, ...comment.hearts];
 
       await post.save();
-
+      console.log(("hearts length:", comment.hearts.length));
       return res.json(comment.hearts);
     }
   } catch (err) {
