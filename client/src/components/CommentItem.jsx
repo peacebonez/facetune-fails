@@ -6,22 +6,19 @@ import { deleteComment, updateHeart } from "../actions/post-action";
 import PropTypes from "prop-types";
 
 const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
+  console.log("comment:", comment);
   let heartsUsers = comment.hearts.map((heart) => heart.user);
-  console.log("heartsUsers:", heartsUsers);
+  // console.log("heartsUsers:", heartsUsers);
   const [userHearted, setUserHearted] = useState(
     !auth.loading && auth.user ? heartsUsers.includes(auth.user._id) : null
   );
-  // let [heartsUsers, setHeartsUsers] = useState(
-  //   comment.hearts.map((heart) => heart.user)
-  // );
-  console.log("user hearted state :", userHearted);
-  console.log("Auth:", auth);
+
+  // console.log("Auth:", auth);
 
   useEffect(() => {
     setUserHearted(
       !auth.loading && auth.user && heartsUsers.includes(auth.user._id)
     );
-    console.log("user hearted state USEEFFECT:", userHearted);
   }, [auth.loading, comment]);
 
   if (!auth.isAuthenticated) {
@@ -43,8 +40,6 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
     );
   }
   if (!auth.loading && auth.isAuthenticated && auth.user) {
-    // setUserHearted(heartsUsers.includes(auth.user._id));
-    console.log("user hearted state:", userHearted);
     return (
       <div className="comment-item">
         <div className="comment-header">
