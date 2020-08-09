@@ -12,6 +12,8 @@ import {
   UPDATE_HEARTS,
 } from "./types";
 
+//Axios receives the information sent from the backend and we can send that to the front end
+
 const config = {
   headers: {
     "Content-Type": "application/json",
@@ -128,7 +130,6 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
 export const updateHeart = (postId, commentId) => async (dispatch) => {
   try {
     const res = await axios.put(`/posts/comment/heart/${postId}/${commentId}`);
-    console.log("res.data:", res.data);
     dispatch({
       type: UPDATE_HEARTS,
       payload: { postId, commentId, hearts: res.data },

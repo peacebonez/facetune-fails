@@ -6,21 +6,28 @@ import { deleteComment, updateHeart } from "../actions/post-action";
 import PropTypes from "prop-types";
 
 const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
-  console.log("comment:", comment);
+  // console.log("Auth:", auth);
+  // console.log("comment:", comment);
+
+  //array of users that hearted a comment
   let heartsUsers = comment.hearts.map((heart) => heart.user);
-  // console.log("heartsUsers:", heartsUsers);
+
+  //length of hearts array
+  const [heartsLength, setHeartsLength] = useState(comment.hearts.length);
+
+  //bool if current user hearted a comment (includes auth validation)
   const [userHearted, setUserHearted] = useState(
     !auth.loading && auth.user ? heartsUsers.includes(auth.user._id) : null
   );
 
-  // console.log("Auth:", auth);
-
+  //
   useEffect(() => {
     setUserHearted(
       !auth.loading && auth.user && heartsUsers.includes(auth.user._id)
     );
   }, [auth.loading, comment]);
 
+  // If user is a visitor
   if (!auth.isAuthenticated) {
     return (
       <div className="comment-item">
@@ -32,13 +39,15 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
         <Link to="/login">
           <button>
             <i className="far fa-heart">
-              {comment.hearts.length > 0 && comment.hearts.length}
+              {comment.hearts.length > 0 && heartsLength}
             </i>
           </button>
         </Link>
       </div>
     );
   }
+
+  // If user is logged in
   if (!auth.loading && auth.isAuthenticated && auth.user) {
     return (
       <div className="comment-item">
@@ -55,11 +64,13 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
         <button
           onClick={() => {
             setUserHearted(!userHearted);
+            if (userHearted) setHeartsLength(heartsLength - 1);
+            else setHeartsLength(heartsLength + 1);
             updateHeart(post._id, comment._id);
           }}
         >
           <i className={userHearted ? "fas fa-heart" : "far fa-heart"}>
-            {comment.hearts.length > 0 && comment.hearts.length}
+            {heartsLength > 0 && heartsLength}
           </i>
         </button>
       </div>
