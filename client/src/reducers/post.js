@@ -78,7 +78,7 @@ export default function (state = initialState, action) {
     case ADD_SCORE:
       return {
         ...state,
-        post: { ...state.post, score: payload },
+        post: { ...state.post, score: payload.score },
         loading: false,
       };
     default:

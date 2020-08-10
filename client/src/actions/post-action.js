@@ -87,7 +87,7 @@ export const deletePost = (postId) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POST_ERROR,
-      payload: { msg: "Post not deleted", status: 400 },
+      payload: { msg: "Post could not be deleted", status: 400 },
     });
   }
 };
@@ -120,7 +120,7 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POST_ERROR,
-      payload: { msg: "Comment not deleted", status: 400 },
+      payload: { msg: "Comment could not be deleted", status: 400 },
     });
   }
 };
@@ -137,14 +137,23 @@ export const updateHeart = (postId, commentId) => async (dispatch) => {
   } catch (err) {
     dispatch({
       type: POST_ERROR,
-      payload: { msg: "Heart not updated", status: 400 },
+      payload: { msg: "Heart could not updated", status: 400 },
     });
   }
 };
 
-export const addScore = (postId, score) => async (dispatch) => {
+export const addScore = (postId, scr) => async (dispatch) => {
   try {
-    const res = await axios.put(`/posts/${postId}`);
-    dispatch({ type: ADD_SCORE, payload: { postId, score: res.data } });
-  } catch (err) {}
+    const res = await axios.put(`/posts/score/${postId}`);
+    console.log("RES.DATA:", res.data);
+    dispatch({
+      type: ADD_SCORE,
+      payload: { score: { val: scr, user: res.data.user } },
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Score could not updated", status: 400 },
+    });
+  }
 };
