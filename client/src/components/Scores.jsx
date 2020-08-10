@@ -1,16 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { addScore } from "../actions/post-action";
 import { connect } from "react-redux";
 
 const Scores = ({ auth, post, postId, addScore }) => {
-  if (!auth.loading && auth.user) {
-    const currentUsersScore = post.score.filter((scr) => {
-      return scr.user === auth.user._id;
-    });
-    console.log("currentUsersScore:", currentUsersScore[0].val);
-  }
-
   console.log("POST:", post);
   const [userScore, setUserScore] = useState(
     !auth.loading && auth.user
@@ -19,9 +12,6 @@ const Scores = ({ auth, post, postId, addScore }) => {
         })[0].val
       : 5
   );
-  //   const [userScore, setUserScore] = useState(
-  //     !auth.loading && auth.user ? "LOGGED IN " + auth.user._id : null
-  //   );
 
   console.log("USER SCORE:", userScore);
 
@@ -29,6 +19,10 @@ const Scores = ({ auth, post, postId, addScore }) => {
     setUserScore(e.target.value);
     addScore(postId, userScore);
   };
+
+  useEffect(() => {
+    document.getElementById(`score${userScore}`).setAttribute("checked", true);
+  });
   return (
     <div className="score-container">
       <h3 className="post-header-open">Cringe Score</h3>

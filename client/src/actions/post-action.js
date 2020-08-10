@@ -148,7 +148,7 @@ export const addScore = (postId, scr) => async (dispatch) => {
     console.log("RES.DATA:", res.data);
     dispatch({
       type: ADD_SCORE,
-      payload: { score: { val: scr, user: res.data.user } },
+      payload: { score: { val: parseInt(scr), user: res.data.user } },
     });
   } catch (err) {
     dispatch({
