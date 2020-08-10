@@ -257,4 +257,40 @@ router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
   }
 });
 
+//@route: PUT /posts/postId
+//@desc: Update post score
+//@access: Private
+
+router.put("/:post_Id", auth, async (req, res) => {
+  if (!req.user) {
+    return res.status(403).send("Must login to submit a score.");
+  }
+
+  try {
+    const post = await Post.findById(req.params.post_Id);
+    // console.log("post:", post);
+    //array of all the users that have submitted scores
+    const scoresUsers = post.score.map((scr) => scr.user);
+    console.log("scoresUsers:", scoresUsers);
+    console.log("userid:", req.user.id);
+
+    //if user has NOT posted a score yet
+    if (!scoresUsers.includes(req.user.id)) {
+      post.score = [{ val: req.body.val, user: req.user.id }, ...post.score];
+    } else {
+      //find the user's entry and update the score
+      const targetIndex = scoresUsers.indexOf(req.user.id);
+      console.log("targetIndex:", targetIndex);
+      post.score.splice(targetIndex, 1);
+      post.score = [{ val: req.body.val, user: req.user.id }, ...post.score];
+    }
+
+    await post.save();
+
+    return res.json(post.score);
+  } catch (err) {
+    res.status(500).send("Error with submitting post score.");
+  }
+});
+
 module.exports = router;

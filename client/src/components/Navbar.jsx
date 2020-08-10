@@ -56,7 +56,7 @@ const Navbar = ({ isAuthenticated, isAdmin, logout }) => {
         ) : (
           <li>
             <Link
-              to=""
+              to="/"
               className="navlink"
               onClick={logout}
               style={{ textDecoration: "none" }}
