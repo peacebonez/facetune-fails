@@ -1,26 +1,23 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 
-// let testArr = [
-//   { val: 10, user: "asd123" },
-//   { val: 20, user: "a23d123" },
-//   { val: 130, user: "a124d123" },
-// ];
+export const determineScore = (arr) => {
+  console.log("arr:", arr);
+  if (!arr) return "-";
 
-// let calcAverage = (arr) => {
-//   let sum = 0;
-//   for (let i = 0; i < arr.length; i++) {
-//     sum += arr[i].val;
-//   }
-//   return Math.round(sum / arr.length);
-// };
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i].val;
+  }
+
+  const output = Math.round(sum / arr.length);
+  return !output ? "-" : output;
+};
 
 const Post = ({ post: { title, name, date, imageURL, score, text, _id } }) => {
-  const determineScore = () => {};
-
   return (
     <li className="post">
       <div className="post-body">
@@ -33,7 +30,7 @@ const Post = ({ post: { title, name, date, imageURL, score, text, _id } }) => {
         <Link to={`/post/${_id}`}>
           <img className="post-img" src={imageURL}></img>
         </Link>
-        <h2>Rating: {score.val}</h2>
+        <h2>Cringe Score: {determineScore(score)}</h2>
         <p className="post-text">{text}</p>
       </div>
     </li>

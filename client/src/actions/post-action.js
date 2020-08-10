@@ -144,14 +144,12 @@ export const updateHeart = (postId, commentId) => async (dispatch) => {
 
 export const addScore = (postId, userScore) => async (dispatch) => {
   userScore = parseInt(userScore);
-  console.log("USERSCORE in ACTION:", userScore);
   try {
     const res = await axios.post(
       `/posts/score/${postId}`,
       { userScore },
       config
     );
-    console.log("RES.DATA:", res.data);
     dispatch({
       type: ADD_SCORE,
       payload: { score: [{ val: userScore, user: res.data[0].user }] },

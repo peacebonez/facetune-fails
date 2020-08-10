@@ -270,11 +270,8 @@ router.post("/score/:post_Id", auth, async (req, res) => {
 
   try {
     const post = await Post.findById(req.params.post_Id);
-    // console.log("post:", post);
     //array of all the users that have submitted scores
     const scoresUsers = post.score.map((scr) => scr.user);
-    console.log("scoresUsers:", scoresUsers);
-    console.log("userid:", req.user.id);
 
     const newScore = {
       val: req.body.userScore,
@@ -287,7 +284,6 @@ router.post("/score/:post_Id", auth, async (req, res) => {
     } else {
       //find the user's entry and update the score
       const targetIndex = scoresUsers.indexOf(req.user.id);
-      console.log("targetIndex:", targetIndex);
       post.score.splice(targetIndex, 1);
       post.score = [newScore, ...post.score];
     }

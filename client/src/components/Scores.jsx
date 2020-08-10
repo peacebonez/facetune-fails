@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { addScore } from "../actions/post-action";
 import { connect } from "react-redux";
+import { determineScore } from "./Post";
 
 const Scores = ({ auth, post, postId, addScore }) => {
-  console.log("POST:", post);
   const allUsers = post.score.map((scr) => scr.user);
-  console.log("allUsers:", allUsers);
 
   //If loading is done, we have a user, AND they have already submitted a score we can preload their score.
   //Otherwise default to 5
@@ -16,19 +15,16 @@ const Scores = ({ auth, post, postId, addScore }) => {
       : 5
   );
 
-  const scoreChange = (e) => {
-    setUserScore(e.target.value);
-
-    addScore(postId, userScore);
-  };
-
+  //Checks the radio button of the user's score upon page load
   useEffect(() => {
     document.getElementById(`score${userScore}`).setAttribute("checked", true);
-    console.log("USER SCORE in EFFECT:", userScore);
   }, [userScore]);
+
   return (
     <div className="score-container">
-      <h3 className="post-header-open">Cringe Score</h3>
+      <h3 className="post-header-open">
+        Cringe Score: {determineScore(post.score)}
+      </h3>
       <div className="form-check form-check-inline">
         <input
           className="form-check-input"
@@ -37,7 +33,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score1"
           value="1"
           onChange={(e) => {
-            console.log("e.target.value", e.target.value);
+            setUserScore(e.target.value);
             addScore(postId, e.target.value);
           }}
         />
@@ -53,7 +49,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score2"
           value="2"
           onChange={(e) => {
-            console.log("e.target.value", e.target.value);
+            setUserScore(e.target.value);
             addScore(postId, e.target.value);
           }}
         />
@@ -69,7 +65,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score3"
           value="3"
           onChange={(e) => {
-            console.log("e.target.value", e.target.value);
+            setUserScore(e.target.value);
             addScore(postId, e.target.value);
           }}
         />
@@ -85,7 +81,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score4"
           value="4"
           onChange={(e) => {
-            console.log("e.target.value", e.target.value);
+            setUserScore(e.target.value);
             addScore(postId, e.target.value);
           }}
         />
@@ -101,7 +97,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score5"
           value="5"
           onChange={(e) => {
-            console.log("e.target.value", e.target.value);
+            setUserScore(e.target.value);
             addScore(postId, e.target.value);
           }}
         />
@@ -117,7 +113,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score6"
           value="6"
           onChange={(e) => {
-            console.log("e.target.value", e.target.value);
+            setUserScore(e.target.value);
             addScore(postId, e.target.value);
           }}
         />
@@ -133,7 +129,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score7"
           value="7"
           onChange={(e) => {
-            console.log("e.target.value", e.target.value);
+            setUserScore(e.target.value);
             addScore(postId, e.target.value);
           }}
         />
@@ -149,7 +145,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score8"
           value="8"
           onChange={(e) => {
-            console.log("e.target.value", e.target.value);
+            setUserScore(e.target.value);
             addScore(postId, e.target.value);
           }}
         />
@@ -165,7 +161,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score9"
           value="9"
           onChange={(e) => {
-            console.log("e.target.value", e.target.value);
+            setUserScore(e.target.value);
             addScore(postId, e.target.value);
           }}
         />
@@ -181,7 +177,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score10"
           value="10"
           onChange={(e) => {
-            console.log("e.target.value", e.target.value);
+            setUserScore(e.target.value);
             addScore(postId, e.target.value);
           }}
         />

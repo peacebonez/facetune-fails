@@ -14,18 +14,19 @@ const PostOpen = ({
   deletePost,
   isAdmin,
   isAuthenticated,
-  post: { post, loading, _id },
+  post: { post, loading },
 }) => {
+  console.log("POST:", post);
   let { id } = useParams();
   useEffect(() => {
     getOnePost(id);
   }, [getOnePost]);
 
   const handleDelete = (id) => {
-    let question = window.confirm("Are you sure you want to delete post");
+    const question = window.confirm("Are you sure you want to delete post");
     if (question) {
       deletePost(id);
-      document.location.pathname = "/";
+      return (document.location.pathname = "/");
     } else return;
   };
 
