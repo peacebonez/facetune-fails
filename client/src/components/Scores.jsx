@@ -6,27 +6,26 @@ import { connect } from "react-redux";
 const Scores = ({ auth, post, postId, addScore }) => {
   console.log("POST:", post);
   const allUsers = post.score.map((scr) => scr.user);
+  console.log("allUsers:", allUsers);
 
   //If loading is done, we have a user, AND they have already submitted a score we can preload their score.
   //Otherwise default to 5
   const [userScore, setUserScore] = useState(
     !auth.loading && auth.user && allUsers.includes(auth.user._id)
-      ? post.score.filter((scr) => {
-          return scr.user === auth.user._id;
-        })[0].val
+      ? post.score.find((scr) => scr.user === auth.user._id).val
       : 5
   );
 
   console.log("USER SCORE:", userScore);
-
   const scoreChange = (e) => {
     setUserScore(e.target.value);
+
     addScore(postId, userScore);
   };
 
   useEffect(() => {
     document.getElementById(`score${userScore}`).setAttribute("checked", true);
-  });
+  }, [userScore]);
   return (
     <div className="score-container">
       <h3 className="post-header-open">Cringe Score</h3>
@@ -37,7 +36,10 @@ const Scores = ({ auth, post, postId, addScore }) => {
           name="score"
           id="score1"
           value="1"
-          onChange={(e) => scoreChange(e)}
+          onChange={(e) => {
+            setUserScore(parseInt(e.target.value));
+            addScore(postId, e.target.value);
+          }}
         />
         <label className="form-check-label" htmlFor="score1">
           1
