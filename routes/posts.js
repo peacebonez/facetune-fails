@@ -261,10 +261,12 @@ router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
 //@desc: Update post score
 //@access: Private
 
-router.put("/score/:post_Id", auth, async (req, res) => {
+router.post("/score/:post_Id", auth, async (req, res) => {
   if (!req.user) {
     return res.status(403).send("Must login to submit a score.");
   }
+
+  console.log("req", req);
 
   try {
     const post = await Post.findById(req.params.post_Id);

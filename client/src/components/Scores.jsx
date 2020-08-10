@@ -37,8 +37,9 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score1"
           value="1"
           onChange={(e) => {
+            // e.target.value = parseInt(e.target.value);
             setUserScore(parseInt(e.target.value));
-            addScore(postId, e.target.value);
+            addScore(postId, parseInt(e.target.value));
           }}
         />
         <label className="form-check-label" htmlFor="score1">

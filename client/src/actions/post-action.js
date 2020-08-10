@@ -144,7 +144,7 @@ export const updateHeart = (postId, commentId) => async (dispatch) => {
 
 export const addScore = (postId, userScore) => async (dispatch) => {
   try {
-    const res = await axios.put(`/posts/score/${postId}`);
+    const res = await axios.post(`/posts/score/${postId}`, userScore, config);
     console.log("RES.DATA:", res.data);
     dispatch({
       type: ADD_SCORE,
