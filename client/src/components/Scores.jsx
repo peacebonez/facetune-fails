@@ -16,7 +16,6 @@ const Scores = ({ auth, post, postId, addScore }) => {
       : 5
   );
 
-  console.log("USER SCORE:", userScore);
   const scoreChange = (e) => {
     setUserScore(e.target.value);
 
@@ -25,6 +24,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
 
   useEffect(() => {
     document.getElementById(`score${userScore}`).setAttribute("checked", true);
+    console.log("USER SCORE in EFFECT:", userScore);
   }, [userScore]);
   return (
     <div className="score-container">
@@ -37,9 +37,8 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score1"
           value="1"
           onChange={(e) => {
-            // e.target.value = parseInt(e.target.value);
-            setUserScore(parseInt(e.target.value));
-            addScore(postId, parseInt(e.target.value));
+            console.log("e.target.value", e.target.value);
+            addScore(postId, e.target.value);
           }}
         />
         <label className="form-check-label" htmlFor="score1">
@@ -53,7 +52,10 @@ const Scores = ({ auth, post, postId, addScore }) => {
           name="score"
           id="score2"
           value="2"
-          onChange={(e) => scoreChange(e)}
+          onChange={(e) => {
+            console.log("e.target.value", e.target.value);
+            addScore(postId, e.target.value);
+          }}
         />
         <label className="form-check-label" htmlFor="score2">
           2
@@ -66,7 +68,10 @@ const Scores = ({ auth, post, postId, addScore }) => {
           name="score"
           id="score3"
           value="3"
-          onChange={(e) => scoreChange(e)}
+          onChange={(e) => {
+            console.log("e.target.value", e.target.value);
+            addScore(postId, e.target.value);
+          }}
         />
         <label className="form-check-label" htmlFor="score3">
           3
@@ -79,7 +84,10 @@ const Scores = ({ auth, post, postId, addScore }) => {
           name="score"
           id="score4"
           value="4"
-          onChange={(e) => scoreChange(e)}
+          onChange={(e) => {
+            console.log("e.target.value", e.target.value);
+            addScore(postId, e.target.value);
+          }}
         />
         <label className="form-check-label" htmlFor="score4">
           4
@@ -92,7 +100,10 @@ const Scores = ({ auth, post, postId, addScore }) => {
           name="score"
           id="score5"
           value="5"
-          onChange={(e) => scoreChange(e)}
+          onChange={(e) => {
+            console.log("e.target.value", e.target.value);
+            addScore(postId, e.target.value);
+          }}
         />
         <label className="form-check-label" htmlFor="score5">
           5
@@ -105,7 +116,10 @@ const Scores = ({ auth, post, postId, addScore }) => {
           name="score"
           id="score6"
           value="6"
-          onChange={(e) => scoreChange(e)}
+          onChange={(e) => {
+            console.log("e.target.value", e.target.value);
+            addScore(postId, e.target.value);
+          }}
         />
         <label className="form-check-label" htmlFor="score6">
           6
@@ -118,7 +132,10 @@ const Scores = ({ auth, post, postId, addScore }) => {
           name="score"
           id="score7"
           value="7"
-          onChange={(e) => scoreChange(e)}
+          onChange={(e) => {
+            console.log("e.target.value", e.target.value);
+            addScore(postId, e.target.value);
+          }}
         />
         <label className="form-check-label" htmlFor="score7">
           7
@@ -131,7 +148,10 @@ const Scores = ({ auth, post, postId, addScore }) => {
           name="score"
           id="score8"
           value="8"
-          onChange={(e) => scoreChange(e)}
+          onChange={(e) => {
+            console.log("e.target.value", e.target.value);
+            addScore(postId, e.target.value);
+          }}
         />
         <label className="form-check-label" htmlFor="score8">
           8
@@ -144,7 +164,10 @@ const Scores = ({ auth, post, postId, addScore }) => {
           name="score"
           id="score9"
           value="9"
-          onChange={(e) => scoreChange(e)}
+          onChange={(e) => {
+            console.log("e.target.value", e.target.value);
+            addScore(postId, e.target.value);
+          }}
         />
         <label className="form-check-label" htmlFor="score9">
           9
@@ -157,7 +180,10 @@ const Scores = ({ auth, post, postId, addScore }) => {
           name="score"
           id="score10"
           value="10"
-          onChange={(e) => scoreChange(e)}
+          onChange={(e) => {
+            console.log("e.target.value", e.target.value);
+            addScore(postId, e.target.value);
+          }}
         />
         <label className="form-check-label" htmlFor="score10">
           10

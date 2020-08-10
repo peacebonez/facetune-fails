@@ -276,15 +276,20 @@ router.post("/score/:post_Id", auth, async (req, res) => {
     console.log("scoresUsers:", scoresUsers);
     console.log("userid:", req.user.id);
 
+    const newScore = {
+      val: req.body.userScore,
+      user: req.user.id,
+    };
+
     //if user has NOT posted a score yet
     if (!scoresUsers.includes(req.user.id)) {
-      post.score = [{ val: req.body.val, user: req.user.id }, ...post.score];
+      post.score = [newScore, ...post.score];
     } else {
       //find the user's entry and update the score
       const targetIndex = scoresUsers.indexOf(req.user.id);
       console.log("targetIndex:", targetIndex);
       post.score.splice(targetIndex, 1);
-      post.score = [{ val: req.body.val, user: req.user.id }, ...post.score];
+      post.score = [newScore, ...post.score];
     }
 
     await post.save();
