@@ -5,8 +5,12 @@ import { connect } from "react-redux";
 
 const Scores = ({ auth, post, postId, addScore }) => {
   console.log("POST:", post);
+  const allUsers = post.score.map((scr) => scr.user);
+
+  //If loading is done, we have a user, AND they have already submitted a score we can preload their score.
+  //Otherwise default to 5
   const [userScore, setUserScore] = useState(
-    !auth.loading && auth.user
+    !auth.loading && auth.user && allUsers.includes(auth.user._id)
       ? post.score.filter((scr) => {
           return scr.user === auth.user._id;
         })[0].val
