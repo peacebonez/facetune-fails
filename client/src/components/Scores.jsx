@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { determineScore } from "./Post";
 
 const Scores = ({ auth, post, postId, addScore }) => {
-  console.log("POST:", post);
+  // console.log("POST:", post);
   const allUsers = post.score.map((scr) => scr.user);
 
   //If loading is done, we have a user, AND they have already submitted a score we can preload their score.
@@ -16,6 +16,8 @@ const Scores = ({ auth, post, postId, addScore }) => {
       : 5
   );
 
+  const [avgScore, setAvgScore] = useState(post.averageScore);
+
   //Checks the radio button of the user's score upon page load
   useEffect(() => {
     document.getElementById(`score${userScore}`).setAttribute("checked", true);
@@ -23,7 +25,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
 
   return (
     <div className="score-container">
-      <h3 className="post-header-open">Cringe Score: {post.averageScore}</h3>
+      <h3 className="post-header-open">Cringe Score: {avgScore}</h3>
       <div className="form-check form-check-inline">
         <input
           className="form-check-input"
@@ -32,6 +34,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
           id="score1"
           value="1"
           onChange={(e) => {
+            console.log("e.target.value:", e.target.value);
             setUserScore(e.target.value);
             addScore(postId, e.target.value);
           }}

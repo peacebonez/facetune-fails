@@ -16,7 +16,7 @@ const PostOpen = ({
   isAuthenticated,
   post: { post, loading },
 }) => {
-  console.log("POST:", post);
+  // console.log("POST:", post);
   let { id } = useParams();
   useEffect(() => {
     getOnePost(id);
