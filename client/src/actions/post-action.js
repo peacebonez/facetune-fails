@@ -3,6 +3,7 @@ import {
   GET_POSTS,
   GET_MORE_POSTS,
   GET_ONE_POST,
+  GET_TOP_POSTS,
   POST_ERROR,
   DELETE_POST,
   ADD_POST,
@@ -39,6 +40,18 @@ export const getMorePosts = (pageNum) => async (dispatch) => {
     const res = await axios.get(`/posts/page-${pageNum}`);
 
     dispatch({ type: GET_MORE_POSTS, payload: res.data });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Server Error on retrieving posts", status: 500 },
+    });
+  }
+};
+export const getTopPosts = () => async (dispatch) => {
+  try {
+    const res = await axios.get("/posts/top-posts");
+
+    dispatch({ type: GET_TOP_POSTS, payload: res.data });
   } catch (err) {
     dispatch({
       type: POST_ERROR,

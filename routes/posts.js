@@ -31,7 +31,7 @@ router.get("/", async function (req, res) {
 
 router.get("/top-posts", async function (req, res) {
   try {
-    const posts = await Post.find().sort({ score: -1 }).limit(10);
+    const posts = await Post.find().sort({ averageScore: -1 }).limit(10);
 
     if (posts.length < 1) {
       return res.status(400).json({ msg: "No top posts found" });
@@ -136,7 +136,6 @@ router.get("/:id", async (req, res) => {
     if (!post) {
       return res.status(400).send("Bad Request");
     }
-
     res.json(post);
   } catch (err) {
     console.error(err);
@@ -151,7 +150,6 @@ router.get("/:id", async (req, res) => {
 router.delete("/:id", auth, async (req, res) => {
   try {
     let user = await User.findById(req.user.id);
-    console.log("USER:", user);
 
     //if user is not admin NOT AUTHORIZED
     if (!user.admin) {
@@ -253,7 +251,6 @@ router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
     );
 
     const userHearts = comment.hearts.map((heart) => heart.user.toString());
-    // console.log("USERHEARTS:", userHearts);
 
     if (userHearts.includes(req.user.id)) {
       //unheart
@@ -261,14 +258,12 @@ router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
       comment.hearts.splice(targetIndex, 1);
 
       await post.save();
-      console.log("comment.hearts.length:", comment.hearts.length);
       return res.json(comment.hearts);
     } else {
       //heart
       comment.hearts = [{ user: req.user.id }, ...comment.hearts];
 
       await post.save();
-      console.log("comment.hearts.length:", comment.hearts.length);
       return res.json(comment.hearts);
     }
   } catch (err) {
@@ -285,12 +280,11 @@ router.post("/score/:post_Id", auth, async (req, res) => {
     return res.status(403).send("Must login to submit a score.");
   }
 
-  console.log("req", req);
-
   try {
     const post = await Post.findById(req.params.post_Id);
     //array of all the users that have submitted scores
     const scoresUsers = post.score.map((scr) => scr.user);
+    const scoreVals = post.score.map((scr) => scr.val);
 
     const newScore = {
       val: req.body.userScore,
@@ -307,6 +301,21 @@ router.post("/score/:post_Id", auth, async (req, res) => {
       post.score = [newScore, ...post.score];
     }
 
+    const determineScore = (arr) => {
+      if (!arr) return;
+
+      let sum = 0;
+      for (let i = 0; i < arr.length; i++) {
+        sum += arr[i];
+      }
+
+      const output = Math.round(sum / arr.length);
+      return output;
+    };
+    console.log("scoreVals:", scoreVals);
+    console.log("determined score:", determineScore(scoreVals));
+
+    post.averageScore = determineScore(scoreVals);
     await post.save();
 
     return res.json(post.score);

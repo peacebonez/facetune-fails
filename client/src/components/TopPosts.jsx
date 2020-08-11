@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getPosts } from "../actions/post-action";
+import { getTopPosts } from "../actions/post-action";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -7,9 +7,9 @@ import Post from "./Post";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
 
-const TopPosts = ({ post: { posts, loading, error }, getPosts }) => {
+const TopPosts = ({ post: { posts, loading, error, post }, getTopPosts }) => {
   useEffect(() => {
-    getPosts();
+    getTopPosts();
   }, []);
 
   if (error.hasOwnProperty("msg")) {
@@ -35,4 +35,4 @@ const mapStateToProps = (state) => ({
   post: state.post,
 });
 
-export default connect(mapStateToProps, { getPosts })(TopPosts);
+export default connect(mapStateToProps, { getTopPosts })(TopPosts);

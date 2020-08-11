@@ -11,6 +11,7 @@ export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
 export const GET_POSTS = "GET_POSTS";
 export const GET_MORE_POSTS = "GET_MORE_POSTS";
 export const GET_ONE_POST = "GET_ONE_POST";
+export const GET_TOP_POSTS = "GET_TOP_POSTS";
 export const ADD_POST = "ADD_POST";
 export const DELETE_POST = "DELETE_POST";
 export const POST_ERROR = "POST_ERROR";

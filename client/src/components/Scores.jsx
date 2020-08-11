@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { determineScore } from "./Post";
 
 const Scores = ({ auth, post, postId, addScore }) => {
+  console.log("POST:", post);
   const allUsers = post.score.map((scr) => scr.user);
 
   //If loading is done, we have a user, AND they have already submitted a score we can preload their score.
@@ -22,9 +23,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
 
   return (
     <div className="score-container">
-      <h3 className="post-header-open">
-        Cringe Score: {determineScore(post.score)}
-      </h3>
+      <h3 className="post-header-open">Cringe Score: {post.averageScore}</h3>
       <div className="form-check form-check-inline">
         <input
           className="form-check-input"

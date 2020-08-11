@@ -2,6 +2,19 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
+// const determineScore = (arr) => {
+//   console.log("ARR:", arr);
+//   if (!arr) return "-";
+
+//   let sum = 0;
+//   for (let i = 0; i < arr.length; i++) {
+//     sum += arr[i].val;
+//   }
+
+//   const output = Math.round(sum / arr.length);
+//   return !output ? "-" : toString(output);
+// };
+
 const PostSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
@@ -38,6 +51,9 @@ const PostSchema = new Schema({
       },
     },
   ],
+  averageScore: {
+    type: Number,
+  },
   comments: [
     {
       user: {
@@ -65,6 +81,19 @@ const PostSchema = new Schema({
       },
     },
   ],
+});
+
+PostSchema.virtual("scoreAverage").get(function () {
+  console.log("AVERAGE FUNCTION RUNNING!");
+  if (!this.score) return "-";
+
+  let sum = 0;
+  for (let i = 0; i < this.score.length; i++) {
+    sum += this.score[i].val;
+  }
+
+  const output = Math.round(sum / this.score.length);
+  return !output ? "-" : output;
 });
 
 module.exports = User = mongoose.model("post", PostSchema);

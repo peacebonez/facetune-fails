@@ -2,6 +2,7 @@ import {
   GET_POSTS,
   GET_ONE_POST,
   GET_MORE_POSTS,
+  GET_TOP_POSTS,
   POST_ERROR,
   DELETE_POST,
   ADD_POST,
@@ -25,6 +26,7 @@ export default function (state = initialState, action) {
   switch (type) {
     case GET_POSTS:
     case GET_MORE_POSTS:
+    case GET_TOP_POSTS:
       return {
         ...state,
         posts: payload,
