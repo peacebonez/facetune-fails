@@ -1,16 +1,38 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect } from "react";
+import { getPosts } from "../actions/post-action";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const TopPosts = props => {
-    return (
-        <div>
-            TOP POSTS
-        </div>
-    )
-}
+import Post from "./Post";
+import Loading from "./Loading";
+import NotFound from "./NotFound";
 
-TopPosts.propTypes = {
+const TopPosts = ({ post: { posts, loading, error }, getPosts }) => {
+  useEffect(() => {
+    getPosts();
+  }, []);
 
-}
+  if (error.hasOwnProperty("msg")) {
+    return <NotFound />;
+  }
 
-export default TopPosts
+  return loading ? (
+    <Loading type="spokes" />
+  ) : (
+    <section className="post-container">
+      <ul>
+        {posts.map((post) => (
+          <Post key={post._id} post={post} />
+        ))}
+      </ul>
+    </section>
+  );
+};
+
+TopPosts.propTypes = {};
+
+const mapStateToProps = (state) => ({
+  post: state.post,
+});
+
+export default connect(mapStateToProps, { getPosts })(TopPosts);

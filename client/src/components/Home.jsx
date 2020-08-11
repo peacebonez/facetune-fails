@@ -11,7 +11,7 @@ const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
   const oldest_id = "5f25c79c4a88d1b5628c2ce5";
   let postIDs;
 
-  //determines if user is on the last page of posts
+  //determines if user is on the last page
   const [onLastPage, setOnLastPage] = useState(false);
 
   //grabbing page number from URL
@@ -82,7 +82,6 @@ Home.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  // console.log("POST STATE:", state.post);
   return { post: state.post };
 };
 
