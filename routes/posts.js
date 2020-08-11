@@ -26,6 +26,25 @@ router.get("/", async function (req, res) {
 });
 
 //@route: GET /posts
+//@desc: retrieve top posts
+//@access: Public
+
+router.get("/top-posts", async function (req, res) {
+  try {
+    const posts = await Post.find().sort({ score: -1 }).limit(10);
+
+    if (posts.length < 1) {
+      return res.status(400).json({ msg: "No top posts found" });
+    }
+
+    res.json(posts);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error at GET /top-posts");
+  }
+});
+
+//@route: GET /posts
 //@desc: retrieve more posts
 //@access: Public
 // router.get("/page/:pageNum", async function (req, res) {
