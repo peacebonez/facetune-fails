@@ -302,7 +302,8 @@ router.post("/score/:post_Id", auth, async (req, res) => {
     }
 
     const determineScore = (arr) => {
-      if (!arr) return;
+      console.log("newScore.val:", newScore.val);
+      if (arr.length === 0) return newScore.val;
 
       let sum = 0;
       for (let i = 0; i < arr.length; i++) {
