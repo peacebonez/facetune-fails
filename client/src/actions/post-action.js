@@ -127,17 +127,24 @@ export const addComment = (postId, formInfo) => async (dispatch) => {
 
 //Add a sub-comment (Private)
 
-export const addSubComment = (postId, formInfo) => async (dispatch) => {
+export const addSubComment = (postId, commentId, formInfo) => async (
+  dispatch
+) => {
   try {
     //posting the formData that will be passed from the front end
-    const res = await axios.post(`/posts/comment/${postId}`, formInfo, config);
+    const res = await axios.post(
+      `/posts/${postId}/comment/${commentId}`,
+      formInfo,
+      config
+    );
 
-    dispatch({ type: ADD_COMMENT, payload: res.data });
+    //payload is the comment object that was sub-comment on
+    dispatch({ type: ADD_SUBCOMMENT, payload: res.data });
     alert("Comment Added!");
   } catch (err) {
     dispatch({
       type: POST_ERROR,
-      payload: { msg: "Server Error @ POST a comment", status: 500 },
+      payload: { msg: "Server Error @ POST a sub-comment", status: 500 },
     });
   }
 };

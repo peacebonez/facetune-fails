@@ -20,6 +20,7 @@ import {
 const initialState = {
   posts: [],
   post: null,
+  comment: null,
   loading: true,
   error: {},
 };
@@ -61,6 +62,15 @@ export default function (state = initialState, action) {
         post: { ...state.post, comments: payload },
         loading: false,
       };
+    case ADD_SUBCOMMENT:
+      return {
+        ...state,
+        comment: {
+          ...state.comment,
+          subComments: [...state.comment.subComments, payload],
+        },
+        loading: false,
+      };
     case DELETE_COMMENT:
       return {
         ...state,
@@ -72,6 +82,8 @@ export default function (state = initialState, action) {
           ),
         },
       };
+    case DELETE_SUBCOMMENT:
+      return {};
     case UPDATE_HEARTS:
       return {
         ...state,
@@ -80,6 +92,8 @@ export default function (state = initialState, action) {
         ),
         loading: false,
       };
+    case UPDATE_SUBHEARTS:
+      return {};
     case ADD_SCORE:
       return {
         ...state,

@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Moment from "react-moment";
 import { deleteSubComment } from "../actions/post-action";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 const SubComment = ({ comment, subComment, deleteSubComment, auth }) => {
-  console.log("auth:", auth);
   return (
     <li className="sub-comment-item">
       <div className="sub-comment-container">
@@ -22,7 +21,6 @@ const SubComment = ({ comment, subComment, deleteSubComment, auth }) => {
               </button>
             )}
         </div>
-
         <p>{subComment.subText}</p>
       </div>
     </li>

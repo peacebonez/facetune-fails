@@ -2,12 +2,23 @@ import React, { useState, useEffect, Fragment } from "react";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteComment, updateHeart } from "../actions/post-action";
+import {
+  deleteComment,
+  updateHeart,
+  addSubComment,
+} from "../actions/post-action";
 import PropTypes from "prop-types";
 
 import SubComment from "./SubComment";
 
-const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
+const CommentItem = ({
+  comment,
+  post,
+  auth,
+  deleteComment,
+  updateHeart,
+  addSubComment,
+}) => {
   //array of users that hearted a comment
   let heartsUsers = comment.hearts.map((heart) => heart.user);
 
@@ -18,6 +29,18 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
   const [userHearted, setUserHearted] = useState(
     !auth.loading && auth.user ? heartsUsers.includes(auth.user._id) : null
   );
+
+  const [text, setText] = useState("");
+
+  const handleCommentChange = (e) => {
+    setText(e.target.value);
+  };
+
+  const submitSubComment = (e) => {
+    e.preventDefault();
+    addSubComment(comment._id, { text });
+    setText("");
+  };
 
   //
   useEffect(() => {
@@ -39,7 +62,6 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
               </button>
             )}
           </div>
-
           <p>{comment.text}</p>
           <div style={{ display: "flex" }}>
             <button
@@ -55,7 +77,7 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
                 {heartsLength > 0 && heartsLength}
               </i>
             </button>
-            <p>Hide Replies</p>
+            {comment.subComments.length > 0 && <p>Hide Replies</p>}
           </div>
         </Fragment>
       ) : (
@@ -73,11 +95,10 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
                 </i>
               </button>
             </Link>
-            <p>Hide Replies</p>
+            {comment.subComments.length > 0 && <p>Hide Replies</p>}
           </div>
         </Fragment>
       )}
-
       <div className="sub-comment-list">
         <ul>
           {comment.subComments &&
@@ -90,6 +111,30 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
             ))}
         </ul>
       </div>
+      <form
+        className="form"
+        action={`/posts/${post._id}/comment/${comment._id}`}
+        onSubmit={(e) => submitSubComment(e)}
+      >
+        <div className="form-group">
+          <textarea
+            rows="1"
+            className="form-control blog-text"
+            placeholder="Add a reply.."
+            name="reply"
+            value={text}
+            onChange={(e) => handleCommentChange(e)}
+          ></textarea>
+          <div className="post-btn-container">
+            <input
+              type="submit"
+              value="Post"
+              className="post-btn"
+              disabled={text === "" ? true : false}
+            />
+          </div>
+        </div>
+      </form>
     </div>
   );
 };
@@ -109,4 +154,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   deleteComment,
   updateHeart,
+  addSubComment,
 })(CommentItem);

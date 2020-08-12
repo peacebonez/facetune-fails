@@ -221,8 +221,6 @@ router.post(
       let targetComment = post.comments.find(
         (comment) => comment._id.toString() === req.params.comment_Id
       );
-
-      console.log("targetComment:", targetComment);
       //Create a new comment
 
       const newSubComment = {
@@ -231,14 +229,12 @@ router.post(
         subUser: req.user.id,
       };
 
-      console.log("newSubComment:", newSubComment);
-
       targetComment.subComments = [...targetComment.subComments, newSubComment];
-      console.log("modified comment:", targetComment);
 
       await post.save();
 
-      return res.json(targetComment);
+      //returns the comment object that was just sub-commented on
+      return res.json(newSubComment);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error at POST a sub-comment");
