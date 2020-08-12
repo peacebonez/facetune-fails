@@ -5,10 +5,9 @@ import { Link } from "react-router-dom";
 import { deleteComment, updateHeart } from "../actions/post-action";
 import PropTypes from "prop-types";
 
-const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
-  // console.log("Auth:", auth);
-  // console.log("comment:", comment);
+import SubComment from "./SubComment";
 
+const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
   //array of users that hearted a comment
   let heartsUsers = comment.hearts.map((heart) => heart.user);
 
@@ -36,13 +35,17 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
         </div>
         <Moment format="MM/DD/YYYY">{comment.date}</Moment>
         <p>{comment.text}</p>
-        <Link to="/login">
-          <button>
-            <i className="far fa-heart">
-              {comment.hearts.length > 0 && heartsLength}
-            </i>
-          </button>
-        </Link>
+        <div style={{ display: "flex" }}>
+          <Link to="/login">
+            <button>
+              <i className="far fa-heart">
+                {comment.hearts.length > 0 && heartsLength}
+              </i>
+            </button>
+          </Link>
+          <p>Hide Replies</p>
+        </div>
+        <SubComment />
       </div>
     );
   }
@@ -61,18 +64,22 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
         </div>
         <Moment format="MM/DD/YYYY">{comment.date}</Moment>
         <p>{comment.text}</p>
-        <button
-          onClick={() => {
-            setUserHearted(!userHearted);
-            if (userHearted) setHeartsLength(heartsLength - 1);
-            else setHeartsLength(heartsLength + 1);
-            updateHeart(post._id, comment._id);
-          }}
-        >
-          <i className={userHearted ? "fas fa-heart" : "far fa-heart"}>
-            {heartsLength > 0 && heartsLength}
-          </i>
-        </button>
+        <div style={{ display: "flex" }}>
+          <button
+            onClick={() => {
+              setUserHearted(!userHearted);
+              if (userHearted) setHeartsLength(heartsLength - 1);
+              else setHeartsLength(heartsLength + 1);
+              updateHeart(post._id, comment._id);
+            }}
+          >
+            <i className={userHearted ? "fas fa-heart" : "far fa-heart"}>
+              {heartsLength > 0 && heartsLength}
+            </i>
+          </button>
+          <p>Hide Replies</p>
+        </div>
+        <SubComment />
       </div>
     );
   }

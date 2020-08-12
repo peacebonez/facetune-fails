@@ -66,21 +66,35 @@ const PostSchema = new Schema({
         type: Date,
         default: Date.now,
       },
+      subComments: [
+        {
+          subUser: {
+            type: Schema.Types.ObjectId,
+            ref: "users",
+          },
+          subText: {
+            type: String,
+            required: true,
+          },
+          subName: {
+            type: String,
+          },
+          subHearts: [
+            {
+              user: {
+                type: Schema.Types.ObjectId,
+                ref: "users",
+              },
+            },
+          ],
+          subDate: {
+            type: Date,
+            default: Date.now,
+          },
+        },
+      ],
     },
   ],
 });
-
-// PostSchema.virtual("scoreAverage").get(function () {
-//   console.log("AVERAGE FUNCTION RUNNING!");
-//   if (!this.score) return "-";
-
-//   let sum = 0;
-//   for (let i = 0; i < this.score.length; i++) {
-//     sum += this.score[i].val;
-//   }
-
-//   const output = Math.round(sum / this.score.length);
-//   return !output ? "-" : output;
-// });
 
 module.exports = User = mongoose.model("post", PostSchema);

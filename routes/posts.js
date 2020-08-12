@@ -168,7 +168,7 @@ router.delete("/:id", auth, async (req, res) => {
 
 router.post(
   "/comment/:id",
-  [auth, [check("text", "Comment text is require").notEmpty()]],
+  [auth, [check("text", "Comment text is required").notEmpty()]],
   async (req, res) => {
     const errors = validationResult(req);
 
@@ -193,6 +193,52 @@ router.post(
       await post.save();
 
       return res.json(post.comments);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+//@route: POST /posts/post_Id/comment/comment_Id/
+//@desc: Create a sub-comment
+//@access: Private
+
+router.post(
+  "/:post_Id/comment/:comment_Id",
+  [auth, [check("subText", "Sub-Comment text is required").notEmpty()]],
+  async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const user = await User.findById(req.user.id).select("-password");
+      const post = await Post.findById(req.params.post_Id);
+
+      //locate specfic comment
+      let targetComment = post.comments.find(
+        (comment) => comment._id.toString() === req.params.comment_Id
+      );
+
+      console.log("targetComment:", targetComment);
+      //Create a new comment
+
+      const newSubComment = {
+        subText: req.body.subText,
+        name: user.name,
+        user: req.user.id,
+      };
+
+      console.log("newSubComment:", newSubComment);
+
+      targetComment.subComments = [...targetComment.subComments, newSubComment];
+      console.log("modified comment:", targetComment);
+
+      await post.save();
+
+      return res.json(targetComment);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error");
