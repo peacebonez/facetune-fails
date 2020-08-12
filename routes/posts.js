@@ -228,7 +228,7 @@ router.post(
       const newSubComment = {
         subText: req.body.subText,
         name: user.name,
-        user: req.user.id,
+        subUser: req.user.id,
       };
 
       console.log("newSubComment:", newSubComment);

@@ -43,6 +43,7 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
           <p>{comment.text}</p>
           <div style={{ display: "flex" }}>
             <button
+              className="heart-btn"
               onClick={() => {
                 setUserHearted(!userHearted);
                 if (userHearted) setHeartsLength(heartsLength - 1);
