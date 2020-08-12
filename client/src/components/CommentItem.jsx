@@ -45,7 +45,16 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
           </Link>
           <p>Hide Replies</p>
         </div>
-        <SubComment />
+        <ul>
+          {comment.subComments &&
+            comment.subComments.map((subComment) => (
+              <SubComment
+                subComment={subComment}
+                comment={comment}
+                key={subComment._id}
+              />
+            ))}
+        </ul>
       </div>
     );
   }
@@ -56,13 +65,14 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
       <div className="comment-item">
         <div className="comment-header">
           <p style={{ textDecoration: "underline" }}>{comment.name}</p>
+          <Moment format="MM/DD/YYYY">{comment.date}</Moment>
           {auth.user._id === comment.user && (
             <button onClick={() => deleteComment(post._id, comment._id)}>
               <i className="fa fa-times"></i>
             </button>
           )}
         </div>
-        <Moment format="MM/DD/YYYY">{comment.date}</Moment>
+
         <p>{comment.text}</p>
         <div style={{ display: "flex" }}>
           <button
@@ -79,7 +89,18 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
           </button>
           <p>Hide Replies</p>
         </div>
-        <SubComment />
+        <div className="sub-comment-list">
+          <ul>
+            {comment.subComments &&
+              comment.subComments.map((subComment) => (
+                <SubComment
+                  subComment={subComment}
+                  comment={comment}
+                  key={subComment._id}
+                />
+              ))}
+          </ul>
+        </div>
       </div>
     );
   }

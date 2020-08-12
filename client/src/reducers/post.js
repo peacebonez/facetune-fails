@@ -8,8 +8,11 @@ import {
   ADD_POST,
   ADD_SCORE,
   ADD_COMMENT,
+  ADD_SUBCOMMENT,
   DELETE_COMMENT,
+  DELETE_SUBCOMMENT,
   UPDATE_HEARTS,
+  UPDATE_SUBHEARTS,
 } from "../actions/types";
 
 // actions functions send their payloads to the reducers!

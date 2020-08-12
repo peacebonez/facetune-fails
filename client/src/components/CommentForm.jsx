@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import { connect } from "react-redux";
 import { addComment } from "../actions/post-action";
 import PropTypes from "prop-types";
@@ -24,31 +24,35 @@ const CommentForm = ({ post, user, isAuthenticated, addComment }) => {
         {post.comments.length}{" "}
         {post.comments.length === 1 ? "comment" : "comments"}
       </h1>
-      {isAuthenticated && <h1>{user.name}</h1>}
-      <form
-        className="form"
-        action={`/posts/comment/${post._id}`}
-        onSubmit={(e) => submitComment(e)}
-      >
-        <div className="form-group">
-          <textarea
-            rows="5"
-            className="form-control blog-text"
-            placeholder="Add a comment.."
-            name="comment"
-            value={text}
-            onChange={(e) => handleCommentChange(e)}
-          ></textarea>
-          <div className="post-btn-container">
-            <input
-              type="submit"
-              value="Post"
-              className="post-btn"
-              disabled={text === "" ? true : false}
-            />
-          </div>
-        </div>
-      </form>
+      {isAuthenticated && (
+        <Fragment>
+          <h1>{user.name}</h1>
+          <form
+            className="form"
+            action={`/posts/comment/${post._id}`}
+            onSubmit={(e) => submitComment(e)}
+          >
+            <div className="form-group">
+              <textarea
+                rows="5"
+                className="form-control blog-text"
+                placeholder="Add a comment.."
+                name="comment"
+                value={text}
+                onChange={(e) => handleCommentChange(e)}
+              ></textarea>
+              <div className="post-btn-container">
+                <input
+                  type="submit"
+                  value="Post"
+                  className="post-btn"
+                  disabled={text === "" ? true : false}
+                />
+              </div>
+            </div>
+          </form>
+        </Fragment>
+      )}
       <ul className="container comments-list">
         {post.comments.map((comment) => (
           <CommentItem key={comment._id} comment={comment} post={post} />

@@ -241,13 +241,13 @@ router.post(
       return res.json(targetComment);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Server Error");
+      res.status(500).send("Server Error at POST a sub-comment");
     }
   }
 );
 
-//@route: POST /posts/comment
-//@desc: Create a comment
+//@route: POST /posts/comment/postId/commentId
+//@desc: delete a comment
 //@access: Private
 
 router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
@@ -256,19 +256,19 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
     // find the post by url parameter
     const post = await Post.findById(req.params.id);
 
+    console.log("post.comments:", post.comments);
     //match the comment to the url parameter
     const comment = post.comments.find(
-      (comment) => comment.id === req.params.comment_id
+      (comment) => comment._id.toString() === req.params.comment_id
     );
+
+    console.log("comment:", comment);
 
     if (!comment) {
       return res.status(404).json({ msg: "No comment to find" });
     }
 
-    //finding index of userId in comments array
-    const removeIndex = post.comments
-      .map((comment) => comment.user.toString())
-      .indexOf(req.user.id);
+    const removeIndex = post.comments.indexOf(comment);
 
     post.comments.splice(removeIndex, 1);
 
@@ -280,6 +280,44 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
     res.status(500).send("Server Error at delete comment!");
   }
 });
+//@route: POST /posts/comment/postId/commentId
+//@desc: delete a sub-comment
+//@access: Private
+
+router.delete(
+  "/comment/:post_id/:comment_id/:sub_comment_id",
+  auth,
+  async (req, res) => {
+    //match user to user of post
+    try {
+      // find the post by url parameter
+      const post = await Post.findById(req.params.id);
+
+      console.log("post.comments:", post.comments);
+      //match the comment to the url parameter
+      const comment = post.comments.find(
+        (comment) => comment._id.toString() === req.params.comment_id
+      );
+
+      console.log("comment:", comment);
+
+      if (!comment) {
+        return res.status(404).json({ msg: "No comment to find" });
+      }
+
+      const removeIndex = post.comments.indexOf(comment);
+
+      post.comments.splice(removeIndex, 1);
+
+      await post.save();
+
+      res.json(post.comments);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error at delete comment!");
+    }
+  }
+);
 
 //@route: PUT /posts/comment/heart/postId/commentId
 //@desc: Add or remove heart to a comment

@@ -9,8 +9,11 @@ import {
   ADD_POST,
   ADD_SCORE,
   ADD_COMMENT,
+  ADD_SUBCOMMENT,
   DELETE_COMMENT,
+  DELETE_SUBCOMMENT,
   UPDATE_HEARTS,
+  UPDATE_SUBHEARTS,
 } from "./types";
 
 //Axios receives the information sent from the backend and we can send that to the front end
@@ -122,9 +125,41 @@ export const addComment = (postId, formInfo) => async (dispatch) => {
   }
 };
 
+//Add a sub-comment (Private)
+
+export const addSubComment = (postId, formInfo) => async (dispatch) => {
+  try {
+    //posting the formData that will be passed from the front end
+    const res = await axios.post(`/posts/comment/${postId}`, formInfo, config);
+
+    dispatch({ type: ADD_COMMENT, payload: res.data });
+    alert("Comment Added!");
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Server Error @ POST a comment", status: 500 },
+    });
+  }
+};
+
 //Delete a comment (Private)
 
 export const deleteComment = (postId, commentId) => async (dispatch) => {
+  try {
+    await axios.delete(`/posts/comment/${postId}/${commentId}`);
+
+    dispatch({ type: DELETE_COMMENT, payload: commentId });
+    alert("Comment Deleted!");
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Comment could not be deleted", status: 400 },
+    });
+  }
+};
+//Delete a sub-comment (Private)
+
+export const deleteSubComment = (postId, commentId) => async (dispatch) => {
   try {
     await axios.delete(`/posts/comment/${postId}/${commentId}`);
 
@@ -141,6 +176,22 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
 //update a heart
 
 export const updateHeart = (postId, commentId) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/posts/comment/heart/${postId}/${commentId}`);
+    dispatch({
+      type: UPDATE_HEARTS,
+      payload: { postId, commentId, hearts: res.data },
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Heart could not updated", status: 400 },
+    });
+  }
+};
+//update a sub-heart
+
+export const updateSubHeart = (postId, commentId) => async (dispatch) => {
   try {
     const res = await axios.put(`/posts/comment/heart/${postId}/${commentId}`);
     dispatch({

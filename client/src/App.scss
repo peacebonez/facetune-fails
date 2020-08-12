@@ -206,6 +206,19 @@ textarea {
   justify-content: space-between;
 }
 
+//SUBCOMMENTS
+
+.sub-comment-list {
+  border-left: $lite 1px solid;
+}
+
+.sub-comment-item {
+}
+
+.sub-comment-container {
+  padding: 1vw;
+}
+
 //FOOTER
 
 footer {
