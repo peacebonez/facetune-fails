@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import Moment from "react-moment";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -26,25 +26,58 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
     );
   }, [auth.loading, comment]);
 
-  // If user is a visitor
-  if (!auth.isAuthenticated) {
-    return (
-      <div className="comment-item">
-        <div className="comment-header">
-          <p style={{ textDecoration: "underline" }}>{comment.name}</p>
-        </div>
-        <Moment format="MM/DD/YYYY">{comment.date}</Moment>
-        <p>{comment.text}</p>
-        <div style={{ display: "flex" }}>
-          <Link to="/login">
-            <button>
-              <i className="far fa-heart">
-                {comment.hearts.length > 0 && heartsLength}
+  return (
+    <div className="comment-item">
+      {!auth.loading && auth.isAuthenticated && auth.user ? (
+        <Fragment>
+          <div className="comment-header">
+            <p style={{ textDecoration: "underline" }}>{comment.name}</p>
+            <Moment format="MM/DD/YYYY">{comment.date}</Moment>
+            {auth.user._id === comment.user && (
+              <button onClick={() => deleteComment(post._id, comment._id)}>
+                <i className="fa fa-times"></i>
+              </button>
+            )}
+          </div>
+
+          <p>{comment.text}</p>
+          <div style={{ display: "flex" }}>
+            <button
+              onClick={() => {
+                setUserHearted(!userHearted);
+                if (userHearted) setHeartsLength(heartsLength - 1);
+                else setHeartsLength(heartsLength + 1);
+                updateHeart(post._id, comment._id);
+              }}
+            >
+              <i className={userHearted ? "fas fa-heart" : "far fa-heart"}>
+                {heartsLength > 0 && heartsLength}
               </i>
             </button>
-          </Link>
-          <p>Hide Replies</p>
-        </div>
+            <p>Hide Replies</p>
+          </div>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <div className="comment-header">
+            <p style={{ textDecoration: "underline" }}>{comment.name}</p>
+          </div>
+          <Moment format="MM/DD/YYYY">{comment.date}</Moment>
+          <p>{comment.text}</p>
+          <div style={{ display: "flex" }}>
+            <Link to="/login">
+              <button>
+                <i className="far fa-heart">
+                  {comment.hearts.length > 0 && heartsLength}
+                </i>
+              </button>
+            </Link>
+            <p>Hide Replies</p>
+          </div>
+        </Fragment>
+      )}
+
+      <div className="sub-comment-list">
         <ul>
           {comment.subComments &&
             comment.subComments.map((subComment) => (
@@ -56,54 +89,8 @@ const CommentItem = ({ comment, post, auth, deleteComment, updateHeart }) => {
             ))}
         </ul>
       </div>
-    );
-  }
-
-  // If user is logged in
-  if (!auth.loading && auth.isAuthenticated && auth.user) {
-    return (
-      <div className="comment-item">
-        <div className="comment-header">
-          <p style={{ textDecoration: "underline" }}>{comment.name}</p>
-          <Moment format="MM/DD/YYYY">{comment.date}</Moment>
-          {auth.user._id === comment.user && (
-            <button onClick={() => deleteComment(post._id, comment._id)}>
-              <i className="fa fa-times"></i>
-            </button>
-          )}
-        </div>
-
-        <p>{comment.text}</p>
-        <div style={{ display: "flex" }}>
-          <button
-            onClick={() => {
-              setUserHearted(!userHearted);
-              if (userHearted) setHeartsLength(heartsLength - 1);
-              else setHeartsLength(heartsLength + 1);
-              updateHeart(post._id, comment._id);
-            }}
-          >
-            <i className={userHearted ? "fas fa-heart" : "far fa-heart"}>
-              {heartsLength > 0 && heartsLength}
-            </i>
-          </button>
-          <p>Hide Replies</p>
-        </div>
-        <div className="sub-comment-list">
-          <ul>
-            {comment.subComments &&
-              comment.subComments.map((subComment) => (
-                <SubComment
-                  subComment={subComment}
-                  comment={comment}
-                  key={subComment._id}
-                />
-              ))}
-          </ul>
-        </div>
-      </div>
-    );
-  }
+    </div>
+  );
 };
 
 CommentItem.propTypes = {
