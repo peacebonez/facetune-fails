@@ -287,14 +287,13 @@ router.delete(
     //match user to user of post
     try {
       // find the post by url parameter
-      const post = await Post.findById(req.params.id);
+      const post = await Post.findById(req.params.post_id);
 
-      console.log("post.comments:", post.comments);
       //match the comment to the url parameter
       const comment = post.comments.find(
         (comment) => comment._id.toString() === req.params.comment_id
       );
-
+      //match the sub-comment to the url parameter
       const subComment = comment.subComments.find(
         (subComment) => subComment._id.toString() === req.params.sub_comment_id
       );
@@ -303,11 +302,9 @@ router.delete(
         return res.status(404).json({ msg: "No reply to find" });
       }
 
-      console.log("subComment:", subComment);
+      const removeIndex = comment.subComments.indexOf(subComment);
 
-      const removeIndex = comment.indexOf(subComment);
-
-      comment.splice(removeIndex, 1);
+      comment.subComments.splice(removeIndex, 1);
 
       await post.save();
 

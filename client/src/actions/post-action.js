@@ -167,16 +167,18 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
 
 //Delete a sub-comment (Private)
 
-export const deleteSubComment = (postId, commentId) => async (dispatch) => {
+export const deleteSubComment = (postId, commentId, subCommentId) => async (
+  dispatch
+) => {
   try {
-    await axios.delete(`/posts/comment/${postId}/${commentId}`);
+    await axios.delete(`/posts/comment/${postId}/${commentId}/${subCommentId}`);
 
-    dispatch({ type: DELETE_SUBCOMMENT, payload: commentId });
+    dispatch({ type: DELETE_SUBCOMMENT, payload: subCommentId });
     alert("Reply Deleted!");
   } catch (err) {
     dispatch({
       type: POST_ERROR,
-      payload: { msg: "Comment could not be deleted", status: 400 },
+      payload: { msg: "Reply could not be deleted", status: 400 },
     });
   }
 };

@@ -105,6 +105,7 @@ const CommentItem = ({
             comment.subComments.map((subComment) => (
               <SubComment
                 subComment={subComment}
+                post={post}
                 comment={comment}
                 key={subComment._id}
               />

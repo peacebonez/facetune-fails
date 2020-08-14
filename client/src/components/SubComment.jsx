@@ -4,7 +4,7 @@ import { deleteSubComment } from "../actions/post-action";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-const SubComment = ({ comment, subComment, deleteSubComment, auth }) => {
+const SubComment = ({ post, comment, subComment, deleteSubComment, auth }) => {
   console.log("subComment:", subComment);
   return (
     <li className="sub-comment-item">
@@ -16,7 +16,9 @@ const SubComment = ({ comment, subComment, deleteSubComment, auth }) => {
             auth.isAuthenticated &&
             auth.user._id === subComment.subUser && (
               <button
-                onClick={() => deleteSubComment(comment._id, subComment._id)}
+                onClick={() =>
+                  deleteSubComment(post._id, comment._id, subComment._id)
+                }
               >
                 <i className="fa fa-times"></i>
               </button>
@@ -29,6 +31,7 @@ const SubComment = ({ comment, subComment, deleteSubComment, auth }) => {
 };
 
 SubComment.propTypes = {
+  post: PropTypes.object,
   comment: PropTypes.object,
   subComment: PropTypes.object,
   deleteSubComment: PropTypes.func,
