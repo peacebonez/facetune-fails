@@ -82,13 +82,13 @@ export default function (state = initialState, action) {
     case DELETE_SUBCOMMENT:
       return {
         ...state,
+        loading: false,
         comment: {
           ...state.comment,
           subComments: state.comment.subComments.filter(
             (subComment) => subComment._id !== payload
           ),
         },
-        loading: false,
       };
     case UPDATE_HEARTS:
       return {

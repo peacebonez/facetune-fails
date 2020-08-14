@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
 import { deleteSubComment } from "../actions/post-action";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 const SubComment = ({ post, comment, subComment, deleteSubComment, auth }) => {
-  console.log("subComment:", subComment);
   return (
     <li className="sub-comment-item">
       <div className="sub-comment-container">

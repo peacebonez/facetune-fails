@@ -173,8 +173,8 @@ export const deleteSubComment = (postId, commentId, subCommentId) => async (
   try {
     await axios.delete(`/posts/comment/${postId}/${commentId}/${subCommentId}`);
 
-    dispatch({ type: DELETE_SUBCOMMENT, payload: subCommentId });
     alert("Reply Deleted!");
+    dispatch({ type: DELETE_SUBCOMMENT, payload: subCommentId });
   } catch (err) {
     dispatch({
       type: POST_ERROR,

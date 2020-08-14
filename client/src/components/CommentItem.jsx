@@ -21,7 +21,7 @@ const CommentItem = ({
 }) => {
   //array of users that hearted a comment
   let heartsUsers = comment.hearts.map((heart) => heart.user);
-  // console.log("comment._id:", comment._id);
+
   //length of hearts array
   const [heartsLength, setHeartsLength] = useState(comment.hearts.length);
 
@@ -30,7 +30,12 @@ const CommentItem = ({
     !auth.loading && auth.user ? heartsUsers.includes(auth.user._id) : null
   );
 
+  //state of text in the sub-comment
   const [subText, setSubText] = useState("");
+
+  const [theSubComments, setTheSubComments] = useState(comment.subComments);
+
+  const [repliesShown, setRepliesShown] = useState(true);
 
   const handleCommentChange = (e) => {
     setSubText(e.target.value);
@@ -39,18 +44,24 @@ const CommentItem = ({
   const submitSubComment = (e) => {
     e.preventDefault();
     addSubComment(post._id, comment._id, { subText });
+    setTheSubComments(comment.subComments);
     setSubText("");
   };
 
-  //
+  //determines upon page load if user has already hearted the comment
   useEffect(() => {
     setUserHearted(
       !auth.loading && auth.user && heartsUsers.includes(auth.user._id)
     );
   }, [auth.loading, comment]);
 
+  useEffect(() => {
+    setTheSubComments(comment.subComments);
+  }, [comment.subComments, theSubComments]);
+
   return (
     <div className="comment-item">
+      {/* if logged in */}
       {!auth.loading && auth.isAuthenticated && auth.user ? (
         <Fragment>
           <div className="comment-header">
@@ -77,10 +88,22 @@ const CommentItem = ({
                 {heartsLength > 0 && heartsLength}
               </i>
             </button>
-            {comment.subComments.length > 0 && <p>Hide Replies</p>}
+            {comment.subComments.length > 0 && repliesShown ? (
+              <button onClick={() => setRepliesShown(!repliesShown)}>
+                Hide Replies
+              </button>
+            ) : (
+              comment.subComments.length > 0 &&
+              !repliesShown && (
+                <button onClick={() => setRepliesShown(!repliesShown)}>
+                  Show Replies ({theSubComments.length})
+                </button>
+              )
+            )}
           </div>
         </Fragment>
       ) : (
+        // if guest
         <Fragment>
           <div className="comment-header">
             <p style={{ textDecoration: "underline" }}>{comment.name}</p>
@@ -95,14 +118,26 @@ const CommentItem = ({
                 </i>
               </button>
             </Link>
-            {comment.subComments.length > 0 && <p>Hide Replies</p>}
+            {comment.subComments.length > 0 && repliesShown ? (
+              <button onClick={() => setRepliesShown(!repliesShown)}>
+                Hide Replies
+              </button>
+            ) : (
+              comment.subComments.length > 0 &&
+              !repliesShown && (
+                <button onClick={() => setRepliesShown(!repliesShown)}>
+                  Show Replies ({theSubComments.length})
+                </button>
+              )
+            )}
           </div>
         </Fragment>
       )}
       <div className="sub-comment-list">
         <ul>
-          {comment.subComments &&
-            comment.subComments.map((subComment) => (
+          {repliesShown &&
+            theSubComments &&
+            theSubComments.map((subComment) => (
               <SubComment
                 subComment={subComment}
                 post={post}
@@ -112,7 +147,6 @@ const CommentItem = ({
             ))}
         </ul>
       </div>
-
       {!auth.loading && auth.isAuthenticated && (
         <form
           className="form"

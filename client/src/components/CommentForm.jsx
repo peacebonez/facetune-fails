@@ -53,7 +53,7 @@ const CommentForm = ({ post, user, isAuthenticated, addComment }) => {
           </form>
         </Fragment>
       )}
-      <ul className="container comments-list">
+      <ul className="comments-list">
         {post.comments.map((comment) => (
           <CommentItem key={comment._id} comment={comment} post={post} />
         ))}
