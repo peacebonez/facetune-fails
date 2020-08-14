@@ -116,7 +116,7 @@ export const addComment = (postId, formInfo) => async (dispatch) => {
     const res = await axios.post(`/posts/comment/${postId}`, formInfo, config);
 
     dispatch({ type: ADD_COMMENT, payload: res.data });
-    alert("Comment Added!");
+    alert("Comment posted!");
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -131,7 +131,6 @@ export const addSubComment = (postId, commentId, formInfo) => async (
   dispatch
 ) => {
   try {
-    console.log("commentId:", commentId);
     //posting the formData that will be passed from the front end
     const res = await axios.post(
       `/posts/${postId}/comment/${commentId}`,
@@ -141,7 +140,7 @@ export const addSubComment = (postId, commentId, formInfo) => async (
 
     //payload is the comment object that was sub-comment on
     dispatch({ type: ADD_SUBCOMMENT, payload: res.data });
-    alert("Comment Added!");
+    alert("Reply posted!");
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -157,22 +156,23 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
     await axios.delete(`/posts/comment/${postId}/${commentId}`);
 
     dispatch({ type: DELETE_COMMENT, payload: commentId });
-    alert("Comment Deleted!");
+    alert("Comment deleted!");
   } catch (err) {
     dispatch({
       type: POST_ERROR,
-      payload: { msg: "Comment could not be deleted", status: 400 },
+      payload: { msg: "Reply could not be deleted", status: 400 },
     });
   }
 };
+
 //Delete a sub-comment (Private)
 
 export const deleteSubComment = (postId, commentId) => async (dispatch) => {
   try {
     await axios.delete(`/posts/comment/${postId}/${commentId}`);
 
-    dispatch({ type: DELETE_COMMENT, payload: commentId });
-    alert("Comment Deleted!");
+    dispatch({ type: DELETE_SUBCOMMENT, payload: commentId });
+    alert("Reply Deleted!");
   } catch (err) {
     dispatch({
       type: POST_ERROR,

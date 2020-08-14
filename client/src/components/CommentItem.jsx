@@ -111,30 +111,33 @@ const CommentItem = ({
             ))}
         </ul>
       </div>
-      <form
-        className="form"
-        action={`/posts/${post._id}/comment/${comment._id}`}
-        onSubmit={(e) => submitSubComment(e)}
-      >
-        <div className="form-group">
-          <textarea
-            rows="1"
-            className="form-control blog-text"
-            placeholder="Add a reply.."
-            name="reply"
-            value={subText}
-            onChange={(e) => handleCommentChange(e)}
-          ></textarea>
-          <div className="post-btn-container">
-            <input
-              type="submit"
-              value="Post"
-              className="post-btn"
-              disabled={subText === "" ? true : false}
-            />
+
+      {!auth.loading && auth.isAuthenticated && (
+        <form
+          className="form"
+          action={`/posts/${post._id}/comment/${comment._id}`}
+          onSubmit={(e) => submitSubComment(e)}
+        >
+          <div className="form-group">
+            <textarea
+              rows="1"
+              className="form-control blog-text"
+              placeholder="Add a reply.."
+              name="reply"
+              value={subText}
+              onChange={(e) => handleCommentChange(e)}
+            ></textarea>
+            <div className="post-btn-container">
+              <input
+                type="submit"
+                value="Post"
+                className="post-btn"
+                disabled={subText === "" ? true : false}
+              />
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      )}
     </div>
   );
 };

@@ -215,6 +215,7 @@ router.post(
 
     try {
       const user = await User.findById(req.user.id).select("-password");
+      console.log("user:", user);
       const post = await Post.findById(req.params.post_Id);
 
       //locate specfic comment
@@ -225,7 +226,7 @@ router.post(
 
       const newSubComment = {
         subText: req.body.subText,
-        name: user.name,
+        subName: user.name,
         subUser: req.user.id,
       };
 
@@ -252,7 +253,6 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
     // find the post by url parameter
     const post = await Post.findById(req.params.id);
 
-    console.log("post.comments:", post.comments);
     //match the comment to the url parameter
     const comment = post.comments.find(
       (comment) => comment._id.toString() === req.params.comment_id
@@ -295,19 +295,23 @@ router.delete(
         (comment) => comment._id.toString() === req.params.comment_id
       );
 
-      console.log("comment:", comment);
+      const subComment = comment.subComments.find(
+        (subComment) => subComment._id.toString() === req.params.sub_comment_id
+      );
 
-      if (!comment) {
-        return res.status(404).json({ msg: "No comment to find" });
+      if (!subComment) {
+        return res.status(404).json({ msg: "No reply to find" });
       }
 
-      const removeIndex = post.comments.indexOf(comment);
+      console.log("subComment:", subComment);
 
-      post.comments.splice(removeIndex, 1);
+      const removeIndex = comment.indexOf(subComment);
+
+      comment.splice(removeIndex, 1);
 
       await post.save();
 
-      res.json(post.comments);
+      res.json(comment);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error at delete comment!");
