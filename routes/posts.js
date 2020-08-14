@@ -234,7 +234,7 @@ router.post(
       await post.save();
 
       //returns the comment object that was just sub-commented on
-      return res.json(newSubComment);
+      return res.json(targetComment);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error at POST a sub-comment");

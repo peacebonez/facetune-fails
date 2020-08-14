@@ -21,7 +21,7 @@ const CommentItem = ({
 }) => {
   //array of users that hearted a comment
   let heartsUsers = comment.hearts.map((heart) => heart.user);
-
+  // console.log("comment._id:", comment._id);
   //length of hearts array
   const [heartsLength, setHeartsLength] = useState(comment.hearts.length);
 
@@ -30,16 +30,16 @@ const CommentItem = ({
     !auth.loading && auth.user ? heartsUsers.includes(auth.user._id) : null
   );
 
-  const [text, setText] = useState("");
+  const [subText, setSubText] = useState("");
 
   const handleCommentChange = (e) => {
-    setText(e.target.value);
+    setSubText(e.target.value);
   };
 
   const submitSubComment = (e) => {
     e.preventDefault();
-    addSubComment(comment._id, { text });
-    setText("");
+    addSubComment(post._id, comment._id, { subText });
+    setSubText("");
   };
 
   //
@@ -122,7 +122,7 @@ const CommentItem = ({
             className="form-control blog-text"
             placeholder="Add a reply.."
             name="reply"
-            value={text}
+            value={subText}
             onChange={(e) => handleCommentChange(e)}
           ></textarea>
           <div className="post-btn-container">
@@ -130,7 +130,7 @@ const CommentItem = ({
               type="submit"
               value="Post"
               className="post-btn"
-              disabled={text === "" ? true : false}
+              disabled={subText === "" ? true : false}
             />
           </div>
         </div>

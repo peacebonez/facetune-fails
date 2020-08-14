@@ -34,7 +34,7 @@ const CommentForm = ({ post, user, isAuthenticated, addComment }) => {
           >
             <div className="form-group">
               <textarea
-                rows="5"
+                rows="3"
                 className="form-control blog-text"
                 placeholder="Add a comment.."
                 name="comment"

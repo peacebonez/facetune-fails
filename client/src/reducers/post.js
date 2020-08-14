@@ -65,10 +65,7 @@ export default function (state = initialState, action) {
     case ADD_SUBCOMMENT:
       return {
         ...state,
-        comment: {
-          ...state.comment,
-          subComments: [...state.comment.subComments, payload],
-        },
+        comment: payload,
         loading: false,
       };
     case DELETE_COMMENT:

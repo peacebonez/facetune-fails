@@ -131,6 +131,7 @@ export const addSubComment = (postId, commentId, formInfo) => async (
   dispatch
 ) => {
   try {
+    console.log("commentId:", commentId);
     //posting the formData that will be passed from the front end
     const res = await axios.post(
       `/posts/${postId}/comment/${commentId}`,
