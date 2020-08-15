@@ -65,8 +65,23 @@ export default function (state = initialState, action) {
     case ADD_SUBCOMMENT:
       return {
         ...state,
-        comment: payload,
         loading: false,
+        //replace comment with updated comment with new subComment
+        post: {
+          ...state.post,
+          comments: [
+            ...state.post.comments.splice(
+              state.post.comments.indexOf(
+                state.post.comments.find(
+                  (comment) => comment._id.toString() === payload._id
+                )
+              ),
+              1
+            ),
+            payload,
+          ],
+        },
+        // comment: payload,
       };
     case DELETE_COMMENT:
       return {

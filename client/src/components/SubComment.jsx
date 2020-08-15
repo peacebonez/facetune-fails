@@ -5,19 +5,23 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 const SubComment = ({ post, comment, subComment, deleteSubComment, auth }) => {
+  console.log("comment:", comment);
   return (
     <li className="sub-comment-item">
       <div className="sub-comment-container">
         <div className="comment-header">
-          <p style={{ textDecoration: "underline" }}>{subComment.subName}</p>
-          <Moment format="MM/DD/YYYY">{subComment.subDate}</Moment>
+          <div style={{ display: "flex" }}>
+            <p style={{ textDecoration: "underline" }}>{subComment.subName}</p>
+            <Moment format="MM/DD/YYYY">{subComment.subDate}</Moment>
+          </div>
           {!auth.loading &&
             auth.isAuthenticated &&
             auth.user._id === subComment.subUser && (
               <button
-                onClick={() =>
-                  deleteSubComment(post._id, comment._id, subComment._id)
-                }
+                className="delete-btn"
+                onClick={() => {
+                  deleteSubComment(post._id, comment._id, subComment._id);
+                }}
               >
                 <i className="fa fa-times"></i>
               </button>
@@ -39,6 +43,7 @@ SubComment.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  // comment: state.post.comment,
 });
 
 export default connect(mapStateToProps, { deleteSubComment })(SubComment);

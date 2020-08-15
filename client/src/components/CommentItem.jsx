@@ -19,6 +19,7 @@ const CommentItem = ({
   updateHeart,
   addSubComment,
 }) => {
+  console.log("comment:", comment);
   //array of users that hearted a comment
   let heartsUsers = comment.hearts.map((heart) => heart.user);
 
@@ -33,8 +34,6 @@ const CommentItem = ({
   //state of text in the sub-comment
   const [subText, setSubText] = useState("");
 
-  const [theSubComments, setTheSubComments] = useState(comment.subComments);
-
   const [repliesShown, setRepliesShown] = useState(true);
 
   const handleCommentChange = (e) => {
@@ -44,8 +43,8 @@ const CommentItem = ({
   const submitSubComment = (e) => {
     e.preventDefault();
     addSubComment(post._id, comment._id, { subText });
-    setTheSubComments(comment.subComments);
     setSubText("");
+    // window.location.reload(false);
   };
 
   //determines upon page load if user has already hearted the comment
@@ -56,8 +55,8 @@ const CommentItem = ({
   }, [auth.loading, comment]);
 
   useEffect(() => {
-    setTheSubComments(comment.subComments);
-  }, [comment.subComments, theSubComments]);
+    console.log("comment.subComments:", comment.subComments);
+  }, [comment]);
 
   return (
     <div className="comment-item">
@@ -68,7 +67,10 @@ const CommentItem = ({
             <p style={{ textDecoration: "underline" }}>{comment.name}</p>
             <Moment format="MM/DD/YYYY">{comment.date}</Moment>
             {auth.user._id === comment.user && (
-              <button onClick={() => deleteComment(post._id, comment._id)}>
+              <button
+                className="delete-btn"
+                onClick={() => deleteComment(post._id, comment._id)}
+              >
                 <i className="fa fa-times"></i>
               </button>
             )}
@@ -96,7 +98,7 @@ const CommentItem = ({
               comment.subComments.length > 0 &&
               !repliesShown && (
                 <button onClick={() => setRepliesShown(!repliesShown)}>
-                  Show Replies ({theSubComments.length})
+                  Show Replies ({comment.subComments.length})
                 </button>
               )
             )}
@@ -126,7 +128,7 @@ const CommentItem = ({
               comment.subComments.length > 0 &&
               !repliesShown && (
                 <button onClick={() => setRepliesShown(!repliesShown)}>
-                  Show Replies ({theSubComments.length})
+                  Show Replies ({comment.subComments.length})
                 </button>
               )
             )}
@@ -136,8 +138,8 @@ const CommentItem = ({
       <div className="sub-comment-list">
         <ul>
           {repliesShown &&
-            theSubComments &&
-            theSubComments.map((subComment) => (
+            comment.subComments &&
+            comment.subComments.map((subComment) => (
               <SubComment
                 subComment={subComment}
                 post={post}
@@ -147,7 +149,7 @@ const CommentItem = ({
             ))}
         </ul>
       </div>
-      {!auth.loading && auth.isAuthenticated && (
+      {!auth.loading && auth.isAuthenticated && repliesShown && (
         <form
           className="form"
           action={`/posts/${post._id}/comment/${comment._id}`}

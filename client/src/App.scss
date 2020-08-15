@@ -3,6 +3,13 @@ $large: 3vw;
 $mg-sm: 2vw;
 $lite: #aaa;
 
+//Mixins
+
+@mixin basic-btn {
+  ouline: none;
+  border: none;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -11,7 +18,6 @@ $lite: #aaa;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  // justify-content: center;
   align-items: center;
 }
 
@@ -191,10 +197,13 @@ textarea {
 }
 
 .post-btn {
-  background: none;
-  width: 10%;
-  border: none;
+  @include basic-btn();
+  width: 5%;
+  padding: 0;
+  transform: translateY(50%);
 }
+
+//COMMENTS
 
 .comment-item {
   width: 100%;
@@ -204,11 +213,19 @@ textarea {
 .comment-header {
   display: flex;
   justify-content: space-between;
+  color: #000;
+}
+
+.comment-header p {
+  margin: 0 1vw 0 0;
 }
 
 .heart-btn {
-  outline: none;
-  border: none;
+  @include basic-btn();
+}
+
+.delete-btn {
+  @include basic-btn();
 }
 
 //SUBCOMMENTS
