@@ -16,11 +16,11 @@ const PostOpen = ({
   isAuthenticated,
   post: { post, loading },
 }) => {
-  // console.log("POST:", post);
+  //Retrieve the post whenever a change in the post takes place
   let { id } = useParams();
   useEffect(() => {
     getOnePost(id);
-  }, [getOnePost]);
+  }, [getOnePost, post, id]);
 
   const handleDelete = (id) => {
     const question = window.confirm("Are you sure you want to delete post");

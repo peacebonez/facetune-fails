@@ -19,7 +19,6 @@ const CommentItem = ({
   updateHeart,
   addSubComment,
 }) => {
-  console.log("comment:", comment);
   //array of users that hearted a comment
   let heartsUsers = comment.hearts.map((heart) => heart.user);
 
@@ -53,10 +52,6 @@ const CommentItem = ({
       !auth.loading && auth.user && heartsUsers.includes(auth.user._id)
     );
   }, [auth.loading, comment]);
-
-  useEffect(() => {
-    console.log("comment.subComments:", comment.subComments);
-  }, [comment]);
 
   return (
     <div className="comment-item">

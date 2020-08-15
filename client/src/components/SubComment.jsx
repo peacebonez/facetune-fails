@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 const SubComment = ({ post, comment, subComment, deleteSubComment, auth }) => {
-  console.log("comment:", comment);
   return (
     <li className="sub-comment-item">
       <div className="sub-comment-container">

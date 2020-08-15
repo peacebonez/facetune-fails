@@ -71,14 +71,12 @@ export default function (state = initialState, action) {
           ...state.post,
           comments: [
             ...state.post.comments.splice(
-              state.post.comments.indexOf(
-                state.post.comments.find(
-                  (comment) => comment._id.toString() === payload._id
-                )
+              state.post.comments.findIndex(
+                (comment) => comment._id.toString() === payload._id
               ),
-              1
+              1,
+              ...payload
             ),
-            payload,
           ],
         },
         // comment: payload,
