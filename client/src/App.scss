@@ -8,6 +8,7 @@ $lite: #aaa;
 @mixin basic-btn {
   ouline: none;
   border: none;
+  background: transparent;
 }
 
 * {
@@ -239,6 +240,10 @@ textarea {
 
 .sub-comment-container {
   padding: 1vw;
+}
+
+.show-hide-btn {
+  @include basic-btn();
 }
 
 //FOOTER

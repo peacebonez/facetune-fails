@@ -63,7 +63,7 @@ const CommentItem = ({
             <Moment format="MM/DD/YYYY">{comment.date}</Moment>
             {auth.user._id === comment.user && (
               <button
-                className="delete-btn"
+                className="btn delete-btn"
                 onClick={() => deleteComment(post._id, comment._id)}
               >
                 <i className="fa fa-times"></i>
@@ -86,13 +86,19 @@ const CommentItem = ({
               </i>
             </button>
             {comment.subComments.length > 0 && repliesShown ? (
-              <button onClick={() => setRepliesShown(!repliesShown)}>
+              <button
+                className="btn show-hide-btn"
+                onClick={() => setRepliesShown(!repliesShown)}
+              >
                 Hide Replies
               </button>
             ) : (
               comment.subComments.length > 0 &&
               !repliesShown && (
-                <button onClick={() => setRepliesShown(!repliesShown)}>
+                <button
+                  className="btn show-hide-btn"
+                  onClick={() => setRepliesShown(!repliesShown)}
+                >
                   Show Replies ({comment.subComments.length})
                 </button>
               )
@@ -154,7 +160,7 @@ const CommentItem = ({
             <textarea
               rows="1"
               className="form-control blog-text"
-              placeholder="Add a reply.."
+              placeholder="Reply..."
               name="reply"
               value={subText}
               onChange={(e) => handleCommentChange(e)}

@@ -17,7 +17,7 @@ const SubComment = ({ post, comment, subComment, deleteSubComment, auth }) => {
             auth.isAuthenticated &&
             auth.user._id === subComment.subUser && (
               <button
-                className="delete-btn"
+                className="btn delete-btn"
                 onClick={() => {
                   deleteSubComment(post._id, comment._id, subComment._id);
                 }}
