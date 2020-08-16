@@ -1,10 +1,29 @@
 import React, { useState, useEffect } from "react";
 import Moment from "react-moment";
-import { deleteSubComment } from "../actions/post-action";
+import { deleteSubComment, updateSubHeart } from "../actions/post-action";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const SubComment = ({ post, comment, subComment, deleteSubComment, auth }) => {
+const SubComment = ({
+  post,
+  comment,
+  subComment,
+  deleteSubComment,
+  updateSubHeart,
+  auth,
+}) => {
+  //array of users that hearted a comment
+  let heartsUsers = subComment.subHearts.map((heart) => heart.user);
+
+  //length of hearts array
+  const [heartsLength, setHeartsLength] = useState(subComment.subHearts.length);
+
+  //bool if current user hearted a comment (includes auth validation)
+  const [userHearted, setUserHearted] = useState(
+    !auth.loading && auth.user ? heartsUsers.includes(auth.user._id) : null
+  );
+
   return (
     <li className="sub-comment-item">
       <div className="sub-comment-container">
@@ -27,6 +46,29 @@ const SubComment = ({ post, comment, subComment, deleteSubComment, auth }) => {
             )}
         </div>
         <p>{subComment.subText}</p>
+        {!auth.loading && auth.isAuthenticated ? (
+          <button
+            className="heart-btn"
+            onClick={() => {
+              setUserHearted(!userHearted);
+              if (userHearted) setHeartsLength(heartsLength - 1);
+              else setHeartsLength(heartsLength + 1);
+              updateSubHeart(post._id, comment._id, subComment._id);
+            }}
+          >
+            <i className={userHearted ? "fas fa-heart" : "far fa-heart"}>
+              {heartsLength > 0 && heartsLength}
+            </i>
+          </button>
+        ) : (
+          <Link to="/login">
+            <button className="btn">
+              <i className="far fa-heart">
+                {subComment.subHearts.length > 0 && heartsLength}
+              </i>
+            </button>
+          </Link>
+        )}
       </div>
     </li>
   );
@@ -37,12 +79,14 @@ SubComment.propTypes = {
   comment: PropTypes.object,
   subComment: PropTypes.object,
   deleteSubComment: PropTypes.func,
+  updateSubHeart: PropTypes.func,
   auth: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  // comment: state.post.comment,
 });
 
-export default connect(mapStateToProps, { deleteSubComment })(SubComment);
+export default connect(mapStateToProps, { deleteSubComment, updateSubHeart })(
+  SubComment
+);

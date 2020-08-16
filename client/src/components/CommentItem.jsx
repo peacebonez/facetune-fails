@@ -115,20 +115,26 @@ const CommentItem = ({
           <p>{comment.text}</p>
           <div style={{ display: "flex" }}>
             <Link to="/login">
-              <button>
+              <button className="btn">
                 <i className="far fa-heart">
                   {comment.hearts.length > 0 && heartsLength}
                 </i>
               </button>
             </Link>
             {comment.subComments.length > 0 && repliesShown ? (
-              <button onClick={() => setRepliesShown(!repliesShown)}>
+              <button
+                className="btn show-hide-btn"
+                onClick={() => setRepliesShown(!repliesShown)}
+              >
                 Hide Replies
               </button>
             ) : (
               comment.subComments.length > 0 &&
               !repliesShown && (
-                <button onClick={() => setRepliesShown(!repliesShown)}>
+                <button
+                  className="btn show-hide-btn"
+                  onClick={() => setRepliesShown(!repliesShown)}
+                >
                   Show Replies ({comment.subComments.length})
                 </button>
               )
