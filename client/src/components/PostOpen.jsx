@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { useParams, Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -48,9 +48,14 @@ const PostOpen = ({
         </Link>
       )}
       {isAdmin && (
-        <button className="btn form-btn" onClick={() => handleDelete(id)}>
-          Delete Post
-        </button>
+        <div style={{ display: "flex" }}>
+          <Link to={`/post/edit-post/${id}`}>
+            <button className="btn form-btn">Edit Post</button>
+          </Link>
+          <button className="btn form-btn" onClick={() => handleDelete(id)}>
+            Delete Post
+          </button>
+        </div>
       )}
       <CommentForm post={post} postId={id} />
     </div>

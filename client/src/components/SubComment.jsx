@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Moment from "react-moment";
 import { deleteSubComment, updateSubHeart } from "../actions/post-action";
 import { connect } from "react-redux";

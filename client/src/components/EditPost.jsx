@@ -1,17 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Redirect, Link } from "react-router-dom";
-import { addPost } from "../actions/post-action";
+import { Redirect, Link, useParams } from "react-router-dom";
+import { addPost, getOnePost } from "../actions/post-action";
 import PropTypes from "prop-types";
 
-const NewPost = ({ isAdmin, addPost }) => {
+const EditPost = ({ post, isAdmin, addPost, getOnePost }) => {
+  console.log("post:", post);
   const [formInfo, setFormInfo] = useState({
     title: "",
     imageURL: "",
     text: "",
   });
+  //   const [formInfo, setFormInfo] = useState({
+  //     title: !post.loading && post.title ? post.title : "",
+  //     imageURL: !post.loading && post.imageURL ? post.imageURL : "",
+  //     text: !post.loading && post.text ? post.text : "",
+  //   });
 
   const { title, imageURL, text } = formInfo;
+
+  let { id } = useParams();
+
+  useEffect(() => {
+    getOnePost(id);
+  }, [getOnePost, id]);
+
+  useEffect(() => {
+    if (post && !post.loading) {
+      setFormInfo({
+        title: post.post.title ? post.post.title : "",
+        text: post.post.text ? post.post.text : "",
+        imageURL: post.post.imageURL ? post.post.imageURL : "",
+      });
+      console.log("formInfo:", formInfo);
+    }
+  }, [post]);
 
   const formChange = (e) => {
     setFormInfo({
@@ -31,10 +54,10 @@ const NewPost = ({ isAdmin, addPost }) => {
   }
   return (
     <div className="new-post">
-      <h1 className="large">New Post</h1>
+      <h1 className="large">Edit Post</h1>
       <p>
         <i className="fas fa-user"></i>
-        {"     "} Create a new post
+        {"     "} Edit post
       </p>
       <form
         className="form"
@@ -90,13 +113,14 @@ const NewPost = ({ isAdmin, addPost }) => {
   );
 };
 
-NewPost.propTypes = {
+EditPost.propTypes = {
   isAdmin: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => {
-  if (state.auth.user) return { isAdmin: state.auth.user.admin };
+  if (state.auth.user)
+    return { isAdmin: state.auth.user.admin, post: state.post };
   else return {};
 };
 
-export default connect(mapStateToProps, { addPost })(NewPost);
+export default connect(mapStateToProps, { addPost, getOnePost })(EditPost);

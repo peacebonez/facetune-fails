@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
-import { connect } from "react-redux";
 
 const Post = ({
-  post: { post, title, name, date, imageURL, text, averageScore, _id },
+  post: { title, name, date, imageURL, text, averageScore, _id },
 }) => {
   const [avgScore, setAvgScore] = useState(averageScore);
   return (

@@ -6,6 +6,7 @@ import Register from "./Register";
 import Post from "./Post";
 import PostOpen from "./PostOpen";
 import NewPost from "./NewPost";
+import EditPost from "./EditPost";
 import TopPosts from "./TopPosts";
 import NotFound from "./NotFound";
 
@@ -18,6 +19,7 @@ const Routes = () => {
         <Route exact path="/post" component={Post} />
         <Route exact path="/post/:id" component={PostOpen} />
         <Route exact path="/new-post" component={NewPost} />
+        <Route path="/post/edit-post" component={EditPost} />
         <Route exact path="/top-posts" component={TopPosts} />
         <Route component={NotFound} />
       </Switch>

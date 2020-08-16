@@ -1,7 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-const Footer = (props) => {
+const Footer = () => {
   return (
     <footer>
       <p>Terms of Service</p>
@@ -9,7 +8,5 @@ const Footer = (props) => {
     </footer>
   );
 };
-
-Footer.propTypes = {};
 
 export default Footer;

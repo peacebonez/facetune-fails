@@ -22,7 +22,7 @@ const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
   useEffect(() => {
     if (!pageNum) getPosts();
     else getMorePosts(pageNum);
-  }, [pageNum]);
+  }, [pageNum, getMorePosts, getPosts]);
 
   useEffect(() => {
     postIDs = posts.map((post) => post._id);
