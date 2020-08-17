@@ -7,10 +7,10 @@ import Post from "./Post";
 import Loading from "./Loading";
 import NotFound from "./NotFound";
 
-const TopPosts = ({ post: { posts, loading, error, post }, getTopPosts }) => {
+const TopPosts = ({ post: { posts, loading, error }, getTopPosts }) => {
   useEffect(() => {
     getTopPosts();
-  }, []);
+  }, [getTopPosts]);
 
   if (error.hasOwnProperty("msg")) {
     return <NotFound />;

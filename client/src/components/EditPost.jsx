@@ -5,7 +5,6 @@ import { updatePost, getOnePost } from "../actions/post-action";
 import PropTypes from "prop-types";
 
 const EditPost = ({ post, isAdmin, updatePost, getOnePost }) => {
-  console.log("post:", post);
   const [formInfo, setFormInfo] = useState({
     title: "",
     imageURL: "",
@@ -13,8 +12,6 @@ const EditPost = ({ post, isAdmin, updatePost, getOnePost }) => {
   });
 
   const { title, imageURL, text } = formInfo;
-
-  console.log("formInfo:", formInfo);
 
   let { id } = useParams();
 
@@ -102,7 +99,7 @@ const EditPost = ({ post, isAdmin, updatePost, getOnePost }) => {
             ></input>
           </div>
         </div>
-        <Link className="btn btn-light my-1" to="/">
+        <Link className="btn btn-light my-1" to={`/post/${id}`}>
           Go Back
         </Link>
       </form>

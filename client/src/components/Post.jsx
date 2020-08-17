@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
@@ -6,7 +6,6 @@ import Moment from "react-moment";
 const Post = ({
   post: { title, name, date, imageURL, text, averageScore, _id },
 }) => {
-  const [avgScore, setAvgScore] = useState(averageScore);
   return (
     <li className="post">
       <div className="post-body">
@@ -17,9 +16,9 @@ const Post = ({
           {name} · <Moment format="MM/DD/YYYY">{date}</Moment>
         </p>
         <Link to={`/post/${_id}`}>
-          <img className="post-img" src={imageURL}></img>
+          <img className="post-img" alt="" src={imageURL}></img>
         </Link>
-        <h2>Cringe Score: {avgScore}</h2>
+        <h2>Cringe Score: {averageScore}</h2>
         <p className="post-text">{text}</p>
       </div>
     </li>

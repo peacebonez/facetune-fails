@@ -9,7 +9,6 @@ import NotFound from "./NotFound";
 
 const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
   const oldest_id = "5f25c79c4a88d1b5628c2ce5";
-  let postIDs;
 
   //determines if user is on the last page
   const [onLastPage, setOnLastPage] = useState(false);
@@ -25,10 +24,8 @@ const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
   }, [pageNum, getMorePosts, getPosts]);
 
   useEffect(() => {
-    postIDs = posts.map((post) => post._id);
-
     //sets state if the posts on the page include the oldest post
-    setOnLastPage(postIDs.includes(oldest_id));
+    setOnLastPage(posts.map((post) => post._id).includes(oldest_id));
   }, [pageNum, posts]);
 
   if (error.hasOwnProperty("msg")) {

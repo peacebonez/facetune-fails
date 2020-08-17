@@ -51,7 +51,7 @@ const CommentItem = ({
     setUserHearted(
       !auth.loading && auth.user && heartsUsers.includes(auth.user._id)
     );
-  }, [auth.loading, comment]);
+  }, [auth.loading, comment, auth.user, heartsUsers]);
 
   return (
     <div className="comment-item">

@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useParams, Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -38,7 +38,7 @@ const PostOpen = ({
       <p className="post-details post-details-open">
         {post.name} · <Moment format="MM/DD/YYYY">{post.date}</Moment>
       </p>
-      <img className="post-img post-img-open" src={post.imageURL}></img>
+      <img className="post-img post-img-open" alt="" src={post.imageURL}></img>
       <p className="post-text post-text-open">{post.text}</p>
       {isAuthenticated ? (
         <Scores post={post} postId={id} />
