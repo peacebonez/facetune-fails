@@ -6,6 +6,7 @@ import {
   POST_ERROR,
   DELETE_POST,
   ADD_POST,
+  UPDATE_POST,
   ADD_SCORE,
   ADD_COMMENT,
   ADD_SUBCOMMENT,
@@ -39,6 +40,7 @@ export default function (state = initialState, action) {
     case GET_ONE_POST:
       return { ...state, post: payload, loading: false };
     case ADD_POST:
+    case UPDATE_POST:
       return {
         ...state,
         posts: [payload, ...state.posts],
@@ -79,7 +81,6 @@ export default function (state = initialState, action) {
             ),
           ],
         },
-        // comment: payload,
       };
     case DELETE_COMMENT:
       return {
@@ -99,7 +100,7 @@ export default function (state = initialState, action) {
         comment: {
           ...state.comment,
           subComments: state.comment.subComments.filter(
-            (subComment) => subComment._id !== payload
+            (subComment) => subComment._id.toString() !== payload.subCommentId
           ),
         },
       };
@@ -112,7 +113,18 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case UPDATE_SUBHEARTS:
-      return {};
+      return {
+        ...state,
+        loading: false,
+        comment: {
+          ...state.comment,
+          subComments: state.comment.subComments.map((subComment) =>
+            subComment._id === payload.subCommentId
+              ? { ...subComment, subHearts: payload.subHearts }
+              : subComment
+          ),
+        },
+      };
     case ADD_SCORE:
       return {
         ...state,

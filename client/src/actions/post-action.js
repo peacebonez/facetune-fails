@@ -7,6 +7,7 @@ import {
   POST_ERROR,
   DELETE_POST,
   ADD_POST,
+  UPDATE_POST,
   ADD_SCORE,
   ADD_COMMENT,
   ADD_SUBCOMMENT,
@@ -77,8 +78,6 @@ export const getOnePost = (postId) => async (dispatch) => {
   }
 };
 
-//Add a post (ADMIN PRIVILEGES)
-
 export const addPost = (formInfo) => async (dispatch) => {
   try {
     const res = await axios.post("/posts/new-post", formInfo, config);
@@ -88,6 +87,23 @@ export const addPost = (formInfo) => async (dispatch) => {
     dispatch({
       type: POST_ERROR,
       payload: { msg: "Blog Post Failed", status: err.status },
+    });
+  }
+};
+
+//Update a post (ADMIN PRIVILEGES)
+
+export const updatePost = (formInfo, postId) => async (dispatch) => {
+  console.log("postId:", postId);
+  console.log("formInfo:", formInfo);
+  try {
+    const res = await axios.put(`/posts/edit-post/${postId}`, formInfo, config);
+
+    dispatch({ type: UPDATE_POST, payload: res.data });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: "Blog Post Edit Failed", status: err.status },
     });
   }
 };
@@ -116,7 +132,6 @@ export const addComment = (postId, formInfo) => async (dispatch) => {
     const res = await axios.post(`/posts/comment/${postId}`, formInfo, config);
 
     dispatch({ type: ADD_COMMENT, payload: res.data });
-    alert("Comment posted!");
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -140,7 +155,6 @@ export const addSubComment = (postId, commentId, formInfo) => async (
 
     //payload is the comment object that was sub-comment on
     dispatch({ type: ADD_SUBCOMMENT, payload: res.data });
-    alert("Reply posted!");
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -174,7 +188,7 @@ export const deleteSubComment = (postId, commentId, subCommentId) => async (
     await axios.delete(`/posts/comment/${postId}/${commentId}/${subCommentId}`);
 
     alert("Reply Deleted!");
-    dispatch({ type: DELETE_SUBCOMMENT, payload: subCommentId });
+    dispatch({ type: DELETE_SUBCOMMENT, payload: { commentId, subCommentId } });
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -199,14 +213,18 @@ export const updateHeart = (postId, commentId) => async (dispatch) => {
     });
   }
 };
-//update a sub-heart
 
-export const updateSubHeart = (postId, commentId) => async (dispatch) => {
+//update a sub-heart
+export const updateSubHeart = (postId, commentId, subCommentId) => async (
+  dispatch
+) => {
   try {
-    const res = await axios.put(`/posts/comment/heart/${postId}/${commentId}`);
+    const res = await axios.put(
+      `/posts/comment/heart/${postId}/${commentId}/${subCommentId}`
+    );
     dispatch({
-      type: UPDATE_HEARTS,
-      payload: { postId, commentId, hearts: res.data },
+      type: UPDATE_SUBHEARTS,
+      payload: { postId, commentId, subCommentId, subHearts: res.data },
     });
   } catch (err) {
     dispatch({

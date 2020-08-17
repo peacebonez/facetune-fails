@@ -69,13 +69,30 @@ router.get("/page-:pageNum", async function (req, res) {
   }
 });
 
+//@route: GET /posts/:id
+//@desc: Get a single blog post
+//@access: PUBLIC
+
+router.get("/:id", async (req, res) => {
+  const post = await Post.findById(req.params.id);
+
+  try {
+    if (!post) {
+      return res.status(400).send("Bad Request");
+    }
+    res.json(post);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error at GET ONE POST");
+  }
+});
+
 //@route: GET /new-posts page
 //@desc: retrieve form to create new post
 //@access: ADMIN
 
 router.get("/new-post", auth, async (req, res) => {
   let user = await User.findById(req.user.id);
-  console.log("USER:", user);
 
   //if user is not admin NOT AUTHORIZED
   if (!user.admin) {
@@ -117,7 +134,7 @@ router.post(
       });
 
       await post.save();
-      res.json(post);
+      return res.json(post);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server Error @ /new-post");
@@ -125,23 +142,38 @@ router.post(
   }
 );
 
-//@route: GET /posts/:id
-//@desc: Get a single blog post
-//@access: PUBLIC
+router.put(
+  "/edit-post/:post_id",
+  auth,
+  [check("title", "Title required").notEmpty()],
+  async (req, res) => {
+    const errors = validationResult(req);
 
-router.get("/:id", async (req, res) => {
-  const post = await Post.findById(req.params.id);
-
-  try {
-    if (!post) {
-      return res.status(400).send("Bad Request");
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
-    res.json(post);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server Error at GET ONE POST");
+
+    const postFields = {
+      title: req.body.title,
+      text: req.body.text,
+      imageURL: req.body.imageURL,
+    };
+
+    try {
+      const post = await Post.findByIdAndUpdate(
+        { _id: req.params.post_id },
+        { $set: postFields },
+        { new: true }
+      );
+
+      await post.save();
+      return res.json(post);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error @ /edit-post");
+    }
   }
-});
+);
 
 //@route: POST /posts/
 //@desc: Delete a post
@@ -215,7 +247,6 @@ router.post(
 
     try {
       const user = await User.findById(req.user.id).select("-password");
-      console.log("user:", user);
       const post = await Post.findById(req.params.post_Id);
 
       //locate specfic comment
@@ -257,8 +288,6 @@ router.delete("/comment/:id/:comment_id", auth, async (req, res) => {
     const comment = post.comments.find(
       (comment) => comment._id.toString() === req.params.comment_id
     );
-
-    console.log("comment:", comment);
 
     if (!comment) {
       return res.status(404).json({ msg: "No comment to find" });
@@ -320,15 +349,15 @@ router.delete(
 //@desc: Add or remove heart to a comment
 //@access: Private
 
-router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
+router.put("/comment/heart/:post_id/:comment_id", auth, async (req, res) => {
   if (!req.user) {
     return res.status(403).send("Must login to heart a comment");
   }
   try {
-    const post = await Post.findById(req.params.post_Id);
+    const post = await Post.findById(req.params.post_id);
 
     const comment = post.comments.find(
-      (comment) => comment._id.toString() === req.params.comment_Id
+      (comment) => comment._id.toString() === req.params.comment_id
     );
 
     const userHearts = comment.hearts.map((heart) => heart.user.toString());
@@ -338,19 +367,57 @@ router.put("/comment/heart/:post_Id/:comment_Id", auth, async (req, res) => {
       let targetIndex = userHearts.indexOf(req.user.id);
       comment.hearts.splice(targetIndex, 1);
 
-      await post.save();
-      return res.json(comment.hearts);
-    } else {
-      //heart
-      comment.hearts = [{ user: req.user.id }, ...comment.hearts];
+      //add a heart
+    } else comment.hearts = [{ user: req.user.id }, ...comment.hearts];
 
-      await post.save();
-      return res.json(comment.hearts);
-    }
+    await post.save();
+    return res.json(comment.hearts);
   } catch (err) {
     res.status(500).send("Server Error at updating a heart!");
   }
 });
+//@route: PUT /posts/comment/heart/postId/commentId/subCommentId
+//@desc: Add or remove subheart to a subcomment
+//@access: Private
+
+router.put(
+  "/comment/heart/:post_id/:comment_id/:subComment_id",
+  auth,
+  async (req, res) => {
+    if (!req.user) {
+      return res.status(403).send("Must login to heart a comment");
+    }
+    try {
+      const post = await Post.findById(req.params.post_id);
+
+      const comment = post.comments.find(
+        (comment) => comment._id.toString() === req.params.comment_id
+      );
+
+      const subComment = comment.subComments.find(
+        (reply) => reply._id.toString() === req.params.subComment_id
+      );
+
+      //find all the users who have hearted a comment
+      const subUserHearts = subComment.subHearts.map((heart) =>
+        heart.user.toString()
+      );
+
+      //unheart
+      if (subUserHearts.includes(req.user.id)) {
+        subComment.subHearts.splice(subUserHearts.indexOf(req.user.id), 1);
+      }
+      //Add a heart
+      else
+        subComment.subHearts = [{ user: req.user.id }, ...subComment.subHearts];
+
+      await post.save();
+      return res.json(subComment.subHearts);
+    } catch (err) {
+      res.status(500).send("Server Error at updating a heart!");
+    }
+  }
+);
 
 //@route: PUT /posts/postId
 //@desc: Update post score
@@ -361,11 +428,24 @@ router.post("/score/:post_Id", auth, async (req, res) => {
     return res.status(403).send("Must login to submit a score.");
   }
 
+  //function to average all user scores into one output
+  const determineScore = (arr) => {
+    if (arr.length === 0) return newScore.val;
+
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+      sum += arr[i];
+    }
+
+    const output = Math.round(sum / arr.length);
+    return output;
+  };
+
   try {
     const post = await Post.findById(req.params.post_Id);
+
     //array of all the users that have submitted scores
     const scoresUsers = post.score.map((scr) => scr.user);
-    const scoreVals = post.score.map((scr) => scr.val);
 
     const newScore = {
       val: req.body.userScore,
@@ -382,22 +462,11 @@ router.post("/score/:post_Id", auth, async (req, res) => {
       post.score = [newScore, ...post.score];
     }
 
-    const determineScore = (arr) => {
-      console.log("newScore.val:", newScore.val);
-      if (arr.length === 0) return newScore.val;
-
-      let sum = 0;
-      for (let i = 0; i < arr.length; i++) {
-        sum += arr[i];
-      }
-
-      const output = Math.round(sum / arr.length);
-      return output;
-    };
-    console.log("scoreVals:", scoreVals);
-    console.log("determined score:", determineScore(scoreVals));
+    //array of all the score values the post has received
+    const scoreVals = post.score.map((scr) => scr.val);
 
     post.averageScore = determineScore(scoreVals);
+
     await post.save();
 
     return res.json(post.score);
