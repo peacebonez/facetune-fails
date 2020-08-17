@@ -153,6 +153,19 @@ textarea {
   }
 }
 
+.post-header-open {
+}
+
+.scores-link {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.score-label {
+}
+
 .post-details {
   font-size: 1.5vw;
   color: $lite;
@@ -167,7 +180,12 @@ textarea {
 }
 
 .score-container {
+  text-decoration: none;
   margin: 12vh 0 25vh 0;
+  color: black;
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .pagination-container {

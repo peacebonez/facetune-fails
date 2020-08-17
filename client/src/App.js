@@ -12,16 +12,10 @@ import setAuthToken from "./utils/setAuthToken";
 import store from "./store";
 import { loadUser } from "./actions/auth-action";
 
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-  console.log("YES WE HAVE A TOKEN");
-} else {
-  console.log("NO TOKEN FOUND");
-}
+if (localStorage.token) setAuthToken(localStorage.token);
 
 const App = () => {
   useEffect(() => {
-    // store.dispatch(getPosts());
     store.dispatch(loadUser());
   }, []);
 
@@ -32,7 +26,7 @@ const App = () => {
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/page-:pageNum" component={Home} />
+            <Route exact path="/page-:pageNum" component={Home} />
             <Route component={Routes} />
           </Switch>
           <Footer />

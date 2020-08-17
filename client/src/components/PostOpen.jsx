@@ -14,17 +14,24 @@ const PostOpen = ({
   deletePost,
   isAdmin,
   isAuthenticated,
-  post: { post, loading },
+  postState: { post, loading },
 }) => {
   //Retrieve the post whenever a change in the post takes place
   let { id } = useParams();
+
   useEffect(() => {
-    getOnePost(id);
+    //added a quick and dirty way to limit constant refreshes
+    const limiter = setInterval(() => {
+      getOnePost(id);
+    }, 250);
+
+    return () => {
+      clearInterval(limiter);
+    };
   }, [getOnePost, post, id]);
 
   const handleDelete = (id) => {
-    const question = window.confirm("Are you sure you want to delete post");
-    if (question) {
+    if (window.confirm("Are you sure you want to delete post")) {
       deletePost(id);
       return (document.location.pathname = "/");
     } else return;
@@ -43,7 +50,7 @@ const PostOpen = ({
       {isAuthenticated ? (
         <Scores post={post} postId={id} />
       ) : (
-        <Link to="/login">
+        <Link to="/login" className="scores-link">
           <Scores post={post} postId={id} />
         </Link>
       )}
@@ -77,12 +84,12 @@ const mapStateToProps = (state) => {
     return {
       isAuthenticated: state.auth.isAuthenticated,
       isAdmin: state.auth.user.admin,
-      post: state.post,
+      postState: state.post,
     };
   } else {
     return {
       isAuthenticated: state.auth.isAuthenticated,
-      post: state.post,
+      postState: state.post,
     };
   }
 };

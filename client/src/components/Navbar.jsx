@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { logout } from "../actions/auth-action";
 
 const Navbar = ({ isAuthenticated, isAdmin, logout }) => {
-  // console.log("isAuthenticated:", isAuthenticated);
   return (
     <nav className="navbar navbar-expand-xl">
       <Link to="/" style={{ textDecoration: "none" }}>

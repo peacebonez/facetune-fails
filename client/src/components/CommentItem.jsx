@@ -196,6 +196,7 @@ CommentItem.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  // isAdmin: state.auth.user.admin,
 });
 
 export default connect(mapStateToProps, {

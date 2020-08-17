@@ -24,7 +24,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
       <h3 className="post-header-open">Cringe Score: {post.averageScore}</h3>
       <div className="form-check form-check-inline">
         <input
-          className="form-check-input"
+          className="form-check-input "
           type="radio"
           name="score"
           id="score1"
@@ -35,7 +35,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
             addScore(postId, e.target.value);
           }}
         />
-        <label className="form-check-label" htmlFor="score1">
+        <label className="form-check-label score-label" htmlFor="score1">
           1
         </label>
       </div>
@@ -51,7 +51,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
             addScore(postId, e.target.value);
           }}
         />
-        <label className="form-check-label" htmlFor="score2">
+        <label className="form-check-label score-label" htmlFor="score2">
           2
         </label>
       </div>
@@ -67,7 +67,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
             addScore(postId, e.target.value);
           }}
         />
-        <label className="form-check-label" htmlFor="score3">
+        <label className="form-check-label score-label" htmlFor="score3">
           3
         </label>
       </div>
@@ -83,7 +83,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
             addScore(postId, e.target.value);
           }}
         />
-        <label className="form-check-label" htmlFor="score4">
+        <label className="form-check-label score-label" htmlFor="score4">
           4
         </label>
       </div>
@@ -99,7 +99,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
             addScore(postId, e.target.value);
           }}
         />
-        <label className="form-check-label" htmlFor="score5">
+        <label className="form-check-label score-label" htmlFor="score5">
           5
         </label>
       </div>
@@ -115,7 +115,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
             addScore(postId, e.target.value);
           }}
         />
-        <label className="form-check-label" htmlFor="score6">
+        <label className="form-check-label score-label" htmlFor="score6">
           6
         </label>
       </div>
@@ -131,7 +131,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
             addScore(postId, e.target.value);
           }}
         />
-        <label className="form-check-label" htmlFor="score7">
+        <label className="form-check-label score-label" htmlFor="score7">
           7
         </label>
       </div>
@@ -147,7 +147,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
             addScore(postId, e.target.value);
           }}
         />
-        <label className="form-check-label" htmlFor="score8">
+        <label className="form-check-label score-label" htmlFor="score8">
           8
         </label>
       </div>
@@ -163,7 +163,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
             addScore(postId, e.target.value);
           }}
         />
-        <label className="form-check-label" htmlFor="score9">
+        <label className="form-check-label score-label" htmlFor="score9">
           9
         </label>
       </div>
@@ -179,7 +179,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
             addScore(postId, e.target.value);
           }}
         />
-        <label className="form-check-label" htmlFor="score10">
+        <label className="form-check-label score-label" htmlFor="score10">
           10
         </label>
       </div>

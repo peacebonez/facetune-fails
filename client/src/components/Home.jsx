@@ -76,6 +76,7 @@ const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
 
 Home.propTypes = {
   getPosts: PropTypes.func.isRequired,
+  getMorePosts: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
