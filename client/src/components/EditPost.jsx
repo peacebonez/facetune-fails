@@ -1,23 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Redirect, Link, useParams } from "react-router-dom";
-import { addPost, getOnePost } from "../actions/post-action";
+import { updatePost, getOnePost } from "../actions/post-action";
 import PropTypes from "prop-types";
 
-const EditPost = ({ post, isAdmin, addPost, getOnePost }) => {
+const EditPost = ({ post, isAdmin, updatePost, getOnePost }) => {
   console.log("post:", post);
   const [formInfo, setFormInfo] = useState({
     title: "",
     imageURL: "",
     text: "",
   });
-  //   const [formInfo, setFormInfo] = useState({
-  //     title: !post.loading && post.title ? post.title : "",
-  //     imageURL: !post.loading && post.imageURL ? post.imageURL : "",
-  //     text: !post.loading && post.text ? post.text : "",
-  //   });
 
   const { title, imageURL, text } = formInfo;
+
+  console.log("formInfo:", formInfo);
 
   let { id } = useParams();
 
@@ -32,7 +29,6 @@ const EditPost = ({ post, isAdmin, addPost, getOnePost }) => {
         text: post.post.text ? post.post.text : "",
         imageURL: post.post.imageURL ? post.post.imageURL : "",
       });
-      console.log("formInfo:", formInfo);
     }
   }, [post]);
 
@@ -45,8 +41,9 @@ const EditPost = ({ post, isAdmin, addPost, getOnePost }) => {
 
   const submitForm = (e) => {
     e.preventDefault();
-    addPost(formInfo);
+    updatePost(formInfo, id);
     setFormInfo({ title: "", imageURL: "", text: "" });
+    window.location = "/";
   };
 
   if (!isAdmin) {
@@ -57,11 +54,11 @@ const EditPost = ({ post, isAdmin, addPost, getOnePost }) => {
       <h1 className="large">Edit Post</h1>
       <p>
         <i className="fas fa-user"></i>
-        {"     "} Edit post
+        {"     "} Edit post {!post.post.loading && post.post._id}
       </p>
       <form
         className="form"
-        action="/posts/new-post"
+        action={`/posts/edit-post/${id}`}
         onSubmit={(e) => submitForm(e)}
       >
         <div className="form-group">
@@ -114,7 +111,10 @@ const EditPost = ({ post, isAdmin, addPost, getOnePost }) => {
 };
 
 EditPost.propTypes = {
+  post: PropTypes.object.isRequired,
   isAdmin: PropTypes.bool,
+  updatePost: PropTypes.func.isRequired,
+  getOnePost: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -123,4 +123,4 @@ const mapStateToProps = (state) => {
   else return {};
 };
 
-export default connect(mapStateToProps, { addPost, getOnePost })(EditPost);
+export default connect(mapStateToProps, { updatePost, getOnePost })(EditPost);

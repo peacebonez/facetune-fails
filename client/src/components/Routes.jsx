@@ -19,7 +19,7 @@ const Routes = () => {
         <Route exact path="/post" component={Post} />
         <Route exact path="/post/:id" component={PostOpen} />
         <Route exact path="/new-post" component={NewPost} />
-        <Route path="/post/edit-post" component={EditPost} />
+        <Route exact path="/post/edit-post/:id" component={EditPost} />
         <Route exact path="/top-posts" component={TopPosts} />
         <Route component={NotFound} />
       </Switch>

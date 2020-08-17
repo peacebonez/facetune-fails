@@ -29,7 +29,10 @@ const TopPosts = ({ post: { posts, loading, error, post }, getTopPosts }) => {
   );
 };
 
-TopPosts.propTypes = {};
+TopPosts.propTypes = {
+  post: PropTypes.object,
+  getTopPosts: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   post: state.post,

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { addScore } from "../actions/post-action";
 import { connect } from "react-redux";
-import { determineScore } from "./Post";
 
 const Scores = ({ auth, post, postId, addScore }) => {
   // console.log("POST:", post);
