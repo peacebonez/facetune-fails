@@ -1,5 +1,5 @@
 $border-light: 1px solid #ddd;
-$large: 3vw;
+$large: 2.5vw;
 $mg-sm: 2vw;
 $lite: #aaa;
 
@@ -32,6 +32,11 @@ body {
 
 a {
   text-decoration: none;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 li {
@@ -126,6 +131,7 @@ textarea {
   flex-direction: column;
   align-items: center;
   padding-bottom: 15vh;
+  // background: pink;
 }
 
 .large {
@@ -133,7 +139,10 @@ textarea {
 }
 
 .post-body {
-  margin: 15vh 0;
+  margin: 5vh 0;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
 }
 
 .new-post {
@@ -143,11 +152,16 @@ textarea {
 .blog-text {
 }
 
+.header-link {
+  width: max-content;
+}
+
 .post-header {
   font-size: $large;
-  color: $lite;
+  color: #000;
+
   &:hover {
-    color: #000;
+    color: $lite;
     text-decoration: underline;
     cursor: pointer;
   }
@@ -171,8 +185,14 @@ textarea {
   color: $lite;
 }
 
+.post-img-link {
+  display: flex;
+  justify-content: center;
+  margin: 3vh;
+}
+
 .post-img {
-  width: 110%;
+  width: 60%;
 }
 
 .post-text {
@@ -287,6 +307,23 @@ footer p {
 }
 
 //MEDIA QUERIES
+
+@media only screen and (max-width: 400px) {
+  .post-container {
+    width: 90%;
+  }
+
+  .post-header {
+    font-size: 6vw;
+  }
+  .post-details {
+    font-size: 4vw;
+  }
+
+  .post-img {
+    width: 100%;
+  }
+}
 
 @media only screen and (max-width: 875px) {
   .navbar {

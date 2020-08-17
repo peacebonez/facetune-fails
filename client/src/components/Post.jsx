@@ -6,20 +6,21 @@ import Moment from "react-moment";
 const Post = ({
   post: { title, name, date, imageURL, text, averageScore, _id },
 }) => {
+  const textPreview = text.substr(0, 100);
   return (
     <li className="post">
       <div className="post-body">
-        <Link to={`/post/${_id}`}>
+        <Link to={`/post/${_id}`} className="post-header-link">
           <h3 className="post-header">{title}</h3>
         </Link>
         <p className="post-details">
           {name} · <Moment format="MM/DD/YYYY">{date}</Moment>
         </p>
-        <Link to={`/post/${_id}`}>
+        <Link to={`/post/${_id}`} className="post-img-link">
           <img className="post-img" alt="" src={imageURL}></img>
         </Link>
-        <h2>Cringe Score: {averageScore}</h2>
-        <p className="post-text">{text}</p>
+        <h2 className="lead">Cringe Score: {averageScore}</h2>
+        <p className="post-text">{textPreview}...</p>
       </div>
     </li>
   );
