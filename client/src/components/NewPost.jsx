@@ -64,7 +64,7 @@ const NewPost = ({ isAdmin, addPost }) => {
         <div className="form-group">
           <textarea
             rows="10"
-            className="form-control blog-text"
+            className="form-control"
             placeholder="Blog text"
             name="text"
             value={text}
@@ -72,13 +72,13 @@ const NewPost = ({ isAdmin, addPost }) => {
           ></textarea>
         </div>
         <div className="form-group">
-          <div className="post-btn-container">
+          <div className="post-btn-container new-edit-btn">
             <input
               type="submit"
               className="post-btn"
               name="submit-post"
               value="Post"
-              disabled={formInfo.text === "" ? true : false}
+              // disabled={formInfo.text === "" ? true : false}
             ></input>
           </div>
         </div>

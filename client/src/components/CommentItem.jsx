@@ -70,7 +70,7 @@ const CommentItem = ({
               </button>
             )}
           </div>
-          <p>{comment.text}</p>
+          <p className="comment-text">{comment.text}</p>
           <div style={{ display: "flex" }}>
             <button
               className="heart-btn"
@@ -82,7 +82,10 @@ const CommentItem = ({
               }}
             >
               <i className={userHearted ? "fas fa-heart" : "far fa-heart"}>
-                {heartsLength > 0 && heartsLength}
+                {"  "}
+                <span style={{ color: "#000" }}>
+                  {heartsLength > 0 && heartsLength}
+                </span>
               </i>
             </button>
             {comment.subComments.length > 0 && repliesShown ? (
@@ -165,7 +168,7 @@ const CommentItem = ({
           <div className="form-group">
             <textarea
               rows="1"
-              className="form-control blog-text"
+              className="form-control"
               placeholder="Reply..."
               name="reply"
               value={subText}

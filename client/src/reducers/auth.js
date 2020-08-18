@@ -7,6 +7,7 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   DELETE_ACCOUNT,
+  CLEAR_PROFILE,
 } from "../actions/types";
 
 const initialState = {
@@ -40,6 +41,7 @@ export default function (state = initialState, action) {
     case AUTH_ERROR:
     case LOGOUT:
     case DELETE_ACCOUNT:
+    case CLEAR_PROFILE:
       localStorage.removeItem("token");
       return {
         ...state,

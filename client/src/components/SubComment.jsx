@@ -45,7 +45,7 @@ const SubComment = ({
               </button>
             )}
         </div>
-        <p>{subComment.subText}</p>
+        <p className="comment-text">{subComment.subText}</p>
         {!auth.loading && auth.isAuthenticated ? (
           <button
             className="heart-btn"
@@ -57,14 +57,19 @@ const SubComment = ({
             }}
           >
             <i className={userHearted ? "fas fa-heart" : "far fa-heart"}>
-              {heartsLength > 0 && heartsLength}
+              {"  "}
+              <span style={{ color: "#000" }}>
+                {heartsLength > 0 && heartsLength}
+              </span>
             </i>
           </button>
         ) : (
           <Link to="/login">
             <button className="btn">
               <i className="far fa-heart">
-                {subComment.subHearts.length > 0 && heartsLength}
+                <span style={{ color: "#000" }}>
+                  {subComment.subHearts.length > 0 && heartsLength}
+                </span>
               </i>
             </button>
           </Link>

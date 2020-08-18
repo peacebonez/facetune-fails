@@ -1,7 +1,10 @@
 $border-light: 1px solid #ddd;
-$large: 2.5vw;
+$large: 2vw;
 $mg-sm: 2vw;
 $lite: #aaa;
+$header-font: "Raleway", sans-serif;
+$pink-light: #ffa5de;
+$pink-dark: #894b72;
 
 //Mixins
 
@@ -48,6 +51,13 @@ textarea {
   resize: none;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
 //NAVBAR
 
 .navbar {
@@ -55,11 +65,21 @@ textarea {
   justify-content: center;
   border: $border-light;
   width: 100vw;
+  margin-bottom: 5vh;
 }
 
 .navbar h1 {
   font-size: $large;
   color: $lite;
+}
+
+#facetune-title {
+  font-family: "Norican", cursive;
+  color: $pink-light;
+}
+#fails-title {
+  font-family: "Permanent Marker", cursive;
+  color: $pink-dark;
 }
 
 .navbar div {
@@ -142,14 +162,23 @@ textarea {
   margin: 5vh 0;
   display: flex;
   flex-direction: column;
-  // align-items: center;
+}
+
+.post-body-open {
+  // background: pink;
+  width: 75%;
+  margin-bottom: 20vh;
 }
 
 .new-post {
   margin: 10vh 0 15vh;
+  width: 80%;
 }
 
 .blog-text {
+  width: 80%;
+  white-space: pre-wrap;
+  font-family: $header-font;
 }
 
 .header-link {
@@ -159,6 +188,7 @@ textarea {
 .post-header {
   font-size: $large;
   color: #000;
+  font-family: $header-font;
 
   &:hover {
     color: $lite;
@@ -168,20 +198,12 @@ textarea {
 }
 
 .post-header-open {
-}
-
-.scores-link {
-  text-decoration: none;
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-.score-label {
+  margin-bottom: 3vh;
+  font-family: $header-font;
 }
 
 .post-details {
-  font-size: 1.5vw;
+  font-size: 1vw;
   color: $lite;
 }
 
@@ -192,20 +214,74 @@ textarea {
 }
 
 .post-img {
-  width: 60%;
+  width: 75%;
+}
+
+.post-img-open {
+  width: 50%;
 }
 
 .post-text {
   margin: $mg-sm;
+  color: #000;
+  font-family: $header-font;
 }
 
 .score-container {
   text-decoration: none;
-  margin: 12vh 0 25vh 0;
+  margin: 12vh 0 15vh 0;
+  padding: 5vh 0 10vh 0;
+  border-bottom: 1px solid $lite;
   color: black;
   &:hover {
     text-decoration: none;
   }
+}
+
+.scores-link {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.score-btn {
+  cursor: pointer;
+  opacity: 0;
+  z-index: 1;
+  padding: 2vw;
+  &:checked ~ .rd-selected {
+    background: $pink-light;
+  }
+  &:checked ~ .rd-selected:after {
+    display: block;
+  }
+}
+
+.rd-selected {
+  cursor: pointer;
+  position: absolute;
+  top: -13px;
+  left: -18px;
+  height: 50px;
+  width: 50px;
+  background-color: #eee;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  &:hover {
+    background: #ccc;
+    border: 1px solid #eee;
+  }
+}
+
+.score-label {
+  z-index: 1;
+  transform: translate(-15px, 0px);
+  font-family: "Permanent Marker", cursive;
+}
+
+#score-10-label {
+  transform: translate(-18px, 0px);
 }
 
 .pagination-container {
@@ -231,8 +307,12 @@ textarea {
 .post-btn-container {
   display: flex;
   justify-content: flex-end;
-  margin-top: -7vh;
+  margin-top: -6vh;
   z-index: 1;
+}
+
+.new-edit-btn {
+  transform: translateY(-10px);
 }
 
 .post-btn {
@@ -240,6 +320,10 @@ textarea {
   width: 5%;
   padding: 0;
   transform: translateY(50%);
+}
+
+.btn-edit-delete {
+  margin: 3vw;
 }
 
 //COMMENTS
@@ -250,17 +334,28 @@ textarea {
 }
 
 .comment-header {
+  font-family: $header-font;
   display: flex;
   justify-content: space-between;
   color: #000;
 }
 
 .comment-header p {
+  font-family: $header-font;
   margin: 0 1vw 0 0;
+}
+
+.comment-text {
+  color: #555;
+  font-family: $header-font;
 }
 
 .heart-btn {
   @include basic-btn();
+}
+
+.fa-heart {
+  color: $pink-light;
 }
 
 .delete-btn {
@@ -309,8 +404,18 @@ footer p {
 //MEDIA QUERIES
 
 @media only screen and (max-width: 400px) {
+  .navbar h1 {
+    margin: 1vh 1vh 1vh -1vh;
+    padding: 2vw;
+    font-size: 3.5vw;
+    border-right: $lite 1px solid;
+  }
   .post-container {
     width: 90%;
+  }
+
+  .post-body-open {
+    width: 100%;
   }
 
   .post-header {
@@ -322,6 +427,22 @@ footer p {
 
   .post-img {
     width: 100%;
+  }
+
+  .post-btn {
+    width: 10%;
+  }
+
+  .score-container {
+    width: 60%;
+    margin: 5vh 0 5vh 0;
+    // background: pink;
+  }
+
+  .rd-selected {
+    margin: 2.5vw;
+    height: 30px;
+    width: 30px;
   }
 }
 

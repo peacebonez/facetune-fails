@@ -40,13 +40,34 @@ const PostOpen = ({
   return loading || post === null ? (
     <Loading type="spokes" />
   ) : (
-    <div className="post-body post-body-open">
-      <h3 className="post-header post-header-open">{post.title}</h3>
+    <section className="post-body post-body-open">
+      <div className="post-img-link">
+        <img
+          className="post-img post-img-open"
+          alt=""
+          src={post.imageURL}
+        ></img>
+      </div>
+      {isAdmin && (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <Link to={`/post/edit-post/${id}`}>
+            <button className="btn btn-secondary btn-edit-delete">
+              Edit Post
+            </button>
+          </Link>
+          <button
+            className="btn btn-danger btn-edit-delete"
+            onClick={() => handleDelete(id)}
+          >
+            Delete Post
+          </button>
+        </div>
+      )}
+      <h3 className=" post-header-open">{post.title}</h3>
       <p className="post-details post-details-open">
         {post.name} · <Moment format="MM/DD/YYYY">{post.date}</Moment>
       </p>
-      <img className="post-img post-img-open" alt="" src={post.imageURL}></img>
-      <p className="post-text post-text-open">{post.text}</p>
+      <pre className="blog-text">{post.text}</pre>
       {isAuthenticated ? (
         <Scores post={post} postId={id} />
       ) : (
@@ -54,18 +75,8 @@ const PostOpen = ({
           <Scores post={post} postId={id} />
         </Link>
       )}
-      {isAdmin && (
-        <div style={{ display: "flex" }}>
-          <Link to={`/post/edit-post/${id}`}>
-            <button className="btn form-btn">Edit Post</button>
-          </Link>
-          <button className="btn form-btn" onClick={() => handleDelete(id)}>
-            Delete Post
-          </button>
-        </div>
-      )}
       <CommentForm post={post} postId={id} />
-    </div>
+    </section>
   );
 };
 
@@ -78,8 +89,6 @@ PostOpen.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  // console.log("STATE POST FROM REDUCER:", state.post);
-
   if (state.auth.user) {
     return {
       isAuthenticated: state.auth.isAuthenticated,

@@ -8,7 +8,7 @@ import Loading from "./Loading";
 import NotFound from "./NotFound";
 
 const Home = ({ post: { posts, loading, error }, getPosts, getMorePosts }) => {
-  const oldest_id = "5f25c79c4a88d1b5628c2ce5";
+  const oldest_id = "5f3ac4725888df93950cb9f5";
 
   //determines if user is on the last page
   const [onLastPage, setOnLastPage] = useState(false);

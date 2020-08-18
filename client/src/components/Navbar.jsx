@@ -8,7 +8,11 @@ const Navbar = ({ isAuthenticated, isAdmin, logout }) => {
   return (
     <nav className="navbar navbar-expand-xl">
       <Link to="/" style={{ textDecoration: "none" }}>
-        <h1>FaceTune Fails</h1>
+        <h1>
+          <span id="facetune-title">FaceTune</span>
+          {"  "}
+          <span id="fails-title">Fails</span>
+        </h1>
       </Link>
       <ul>
         {isAdmin && (
@@ -57,7 +61,7 @@ const Navbar = ({ isAuthenticated, isAdmin, logout }) => {
             <Link
               to="/"
               className="navlink"
-              onClick={logout}
+              onClick={() => logout()}
               style={{ textDecoration: "none" }}
             >
               Logout

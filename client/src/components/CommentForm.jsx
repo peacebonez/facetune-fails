@@ -19,14 +19,14 @@ const CommentForm = ({ post, user, isAuthenticated, addComment }) => {
   };
 
   return (
-    <div className="container">
-      <h1>
+    <div className="comment-form-container">
+      <h3>
         {post.comments.length}{" "}
         {post.comments.length === 1 ? "comment" : "comments"}
-      </h1>
+      </h3>
       {isAuthenticated && (
         <Fragment>
-          <h1>{user.name}</h1>
+          <h4>{user.name}</h4>
           <form
             className="form"
             action={`/posts/comment/${post._id}`}
@@ -35,7 +35,7 @@ const CommentForm = ({ post, user, isAuthenticated, addComment }) => {
             <div className="form-group">
               <textarea
                 rows="3"
-                className="form-control blog-text"
+                className="form-control"
                 placeholder="Add a comment.."
                 name="comment"
                 value={text}

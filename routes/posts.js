@@ -437,7 +437,7 @@ router.post("/score/:post_Id", auth, async (req, res) => {
       sum += arr[i];
     }
 
-    const output = Math.round(sum / arr.length);
+    const output = (sum / arr.length).toPrecision(2);
     return output;
   };
 
