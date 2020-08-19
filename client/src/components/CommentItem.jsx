@@ -179,7 +179,6 @@ const CommentItem = ({
               name="reply"
               value={subText}
               onChange={(e) => handleCommentChange(e)}
-              contentEditable
             ></textarea>
             <div className="post-btn-container">
               <input

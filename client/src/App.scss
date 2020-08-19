@@ -131,6 +131,7 @@ textarea {
 .form-btn {
   display: block;
   border: $border-light;
+  border-radius: 20px;
   width: 20vw;
   color: white;
   background: #222;
@@ -303,7 +304,7 @@ textarea {
   border-radius: 15px;
   margin: $mg-sm;
   padding: 1vw 2vw;
-  font-size: 1vw;
+  font-size: 16px;
   color: $lite;
 }
 

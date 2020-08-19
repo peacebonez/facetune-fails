@@ -39,7 +39,7 @@ const Register = ({ register, isAuthenticated }) => {
     <div className="login-reg-container">
       <h1 className="large">Sign Up</h1>
       <p>
-        <i className="fas fa-user"></i>Create Your Account
+        <i className="fas fa-user"></i> Create Your Account
       </p>
       <form className="form" action="/users" onSubmit={(e) => submitForm(e)}>
         <div className="form-group">

@@ -64,7 +64,7 @@ const Navbar = ({ isAuthenticated, isAdmin, logout }) => {
               onClick={() => logout()}
               style={{ textDecoration: "none" }}
             >
-              Logout
+              <i className="fas fa-sign-out-alt"></i> Logout
             </Link>
           </li>
         )}

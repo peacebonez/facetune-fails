@@ -32,7 +32,7 @@ const Login = ({ isAuthenticated, login }) => {
     <div className="login-reg-container">
       <h1 className="large">Sign In</h1>
       <p>
-        <i className="fas fa-user"></i>Login Into Your Account
+        <i className="fas fa-user"></i> Login Into Your Account
       </p>
       <form className="form" action="/auth" onSubmit={(e) => formSubmit(e)}>
         <div className="form-group">
