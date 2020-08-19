@@ -1,5 +1,0 @@
-{
-  "PORT": "5000",
-  "DB_URI": "mongodb+srv://admin:admin@facetune-fail.lagx6.mongodb.net/facetune-fail?retryWrites=true&w=majority",
-  "jwtSecret": "mack"
-}
