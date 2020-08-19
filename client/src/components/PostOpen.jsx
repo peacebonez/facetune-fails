@@ -67,7 +67,7 @@ const PostOpen = ({
       <p className="post-details post-details-open">
         {post.name} · <Moment format="MM/DD/YYYY">{post.date}</Moment>
       </p>
-      <pre className="blog-text">{post.text}</pre>
+      <pre className="blog-text post-text">{post.text}</pre>
       {isAuthenticated ? (
         <Scores post={post} postId={id} />
       ) : (

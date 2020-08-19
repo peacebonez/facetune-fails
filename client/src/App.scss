@@ -119,6 +119,7 @@ textarea {
 
 .form-control {
   margin: 1vh;
+  border-radius: 20px;
 }
 
 .form-check {
@@ -130,12 +131,18 @@ textarea {
 .form-btn {
   display: block;
   border: $border-light;
-  width: 15vw;
+  width: 20vw;
   color: white;
   background: #222;
+  transform: translateX(10px);
   &:hover {
     background: white;
   }
+}
+
+//LOGIN & REGISTER
+
+.login-reg-container {
 }
 
 //POSTS
@@ -178,7 +185,8 @@ textarea {
 .blog-text {
   width: 80%;
   white-space: pre-wrap;
-  font-family: $header-font;
+  font-family: Georgia, serif;
+  font-size: 16px;
 }
 
 .header-link {
@@ -186,7 +194,7 @@ textarea {
 }
 
 .post-header {
-  font-size: $large;
+  font-size: 1.5vw;
   color: #000;
   font-family: $header-font;
 
@@ -224,7 +232,7 @@ textarea {
 .post-text {
   margin: $mg-sm;
   color: #000;
-  font-family: $header-font;
+  font-family: Georgia, serif;
 }
 
 .score-container {
@@ -307,7 +315,7 @@ textarea {
 .post-btn-container {
   display: flex;
   justify-content: flex-end;
-  margin-top: -6vh;
+  margin-top: -5.5vh;
   z-index: 1;
 }
 
@@ -347,7 +355,17 @@ textarea {
 
 .comment-text {
   color: #555;
-  font-family: $header-font;
+  font-family: Georgia, serif;
+}
+
+.comment-area {
+  // max-height: 10vh;
+  // overflow: auto;
+  // min-height: 3vh;
+  // max-height: 10vh;
+}
+
+.reply-area {
 }
 
 .heart-btn {
@@ -419,7 +437,7 @@ footer p {
   }
 
   .post-header {
-    font-size: 6vw;
+    font-size: 4vw;
   }
   .post-details {
     font-size: 4vw;
@@ -431,6 +449,10 @@ footer p {
 
   .post-btn {
     width: 10%;
+  }
+
+  .post-text {
+    font-size: 12px;
   }
 
   .score-container {

@@ -36,7 +36,7 @@ const Register = ({ register, isAuthenticated }) => {
     return <Redirect to="/" />;
   }
   return (
-    <div>
+    <div className="login-reg-container">
       <h1 className="large">Sign Up</h1>
       <p>
         <i className="fas fa-user"></i>Create Your Account

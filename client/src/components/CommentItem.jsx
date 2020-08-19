@@ -8,6 +8,7 @@ import {
   addSubComment,
 } from "../actions/post-action";
 import PropTypes from "prop-types";
+import autosize from "autosize";
 
 import SubComment from "./SubComment";
 
@@ -52,6 +53,11 @@ const CommentItem = ({
       !auth.loading && auth.user && heartsUsers.includes(auth.user._id)
     );
   }, [auth.loading, comment, auth.user, heartsUsers]);
+
+  //Auto resizes the text area for user
+  useEffect(() => {
+    autosize(document.querySelector(".reply-area"));
+  });
 
   return (
     <div className="comment-item">
@@ -167,12 +173,13 @@ const CommentItem = ({
         >
           <div className="form-group">
             <textarea
-              rows="1"
-              className="form-control"
+              // rows="1"
+              className="form-control reply-area"
               placeholder="Reply..."
               name="reply"
               value={subText}
               onChange={(e) => handleCommentChange(e)}
+              contentEditable
             ></textarea>
             <div className="post-btn-container">
               <input

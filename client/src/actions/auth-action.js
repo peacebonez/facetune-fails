@@ -56,7 +56,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     dispatch(loadUser());
   } catch (err) {
     //TO DO: set up proper alerts
-    console.err(err);
+    console.error(err);
 
     dispatch({ type: REGISTER_FAIL });
   }

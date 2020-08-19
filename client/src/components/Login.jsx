@@ -29,7 +29,7 @@ const Login = ({ isAuthenticated, login }) => {
   }
 
   return (
-    <div>
+    <div className="login-reg-container">
       <h1 className="large">Sign In</h1>
       <p>
         <i className="fas fa-user"></i>Login Into Your Account

@@ -1,7 +1,8 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import { addComment } from "../actions/post-action";
 import PropTypes from "prop-types";
+import autosize from "autosize";
 
 import CommentItem from "./CommentItem";
 
@@ -17,6 +18,11 @@ const CommentForm = ({ post, user, isAuthenticated, addComment }) => {
     addComment(post._id, { text });
     setText("");
   };
+
+  //Auto resizes the text area for user
+  useEffect(() => {
+    autosize(document.querySelector(".comment-area"));
+  });
 
   return (
     <div className="comment-form-container">
@@ -34,8 +40,8 @@ const CommentForm = ({ post, user, isAuthenticated, addComment }) => {
           >
             <div className="form-group">
               <textarea
-                rows="3"
-                className="form-control"
+                // rows="2"
+                className="form-control comment-area"
                 placeholder="Add a comment.."
                 name="comment"
                 value={text}
