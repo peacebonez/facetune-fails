@@ -6,6 +6,7 @@ const path = require("path");
 router.get("/", (req, res) => {
   try {
     res.sendFile(path.join(__dirname + "/client/build/index.html"));
+    console.log("__dirname:", __dirname);
     // res.sendFile(path.join(__dirname + "/client/public/index.html"));
   } catch (err) {
     return console.error(err);
