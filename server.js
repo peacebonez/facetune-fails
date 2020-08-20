@@ -11,21 +11,21 @@ var app = express();
 
 const connectDB = async () => {
   try {
-    // await mongoose.connect(
-    //   "mongodb+srv://admin:admin@facetune-fail.lagx6.mongodb.net/facetune-fail?retryWrites=true&w=majority",
-    //   {
-    //     useNewUrlParser: true,
-    //     useUnifiedTopology: true,
-    //     useCreateIndex: true,
-    //     useFindAndModify: false,
-    //   }
-    // );
-    await mongoose.connect(process.env.DB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    });
+    await mongoose.connect(
+      "mongodb+srv://admin:admin@facetune-fail.lagx6.mongodb.net/facetune-fail?retryWrites=true&w=majority",
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+      }
+    );
+    // await mongoose.connect(process.env.DB_URI, {
+    //   useNewUrlParser: true,
+    //   useUnifiedTopology: true,
+    //   useCreateIndex: true,
+    //   useFindAndModify: false,
+    // });
     console.log("Kevin's MongoDB Connected!");
   } catch (err) {
     console.error(err.message);
