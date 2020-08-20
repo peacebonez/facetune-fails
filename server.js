@@ -11,22 +11,22 @@ var app = express();
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://admin:admin@facetune-fail.lagx6.mongodb.net/facetune-fail?retryWrites=true&w=majority",
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-      }
-    );
-    // await mongoose.connect(process.env.DB_URI, {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true,
-    //   useCreateIndex: true,
-    //   useFindAndModify: false,
-    // });
-    console.log("MongoDB Connected!");
+    // await mongoose.connect(
+    //   "mongodb+srv://admin:admin@facetune-fail.lagx6.mongodb.net/facetune-fail?retryWrites=true&w=majority",
+    //   {
+    //     useNewUrlParser: true,
+    //     useUnifiedTopology: true,
+    //     useCreateIndex: true,
+    //     useFindAndModify: false,
+    //   }
+    // );
+    await mongoose.connect(process.env.DB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    });
+    console.log("Kevin's MongoDB Connected!");
   } catch (err) {
     console.error(err.message);
 
@@ -42,7 +42,8 @@ app.use(logger("dev"));
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "client", "public")));
+// app.use(express.static(path.join(__dirname, "client", "public")));
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 //Define routes
 app.use("/", require("./routes/index"));
