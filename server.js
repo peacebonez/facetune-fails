@@ -3,6 +3,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const config = require("config");
 
 const mongoose = require("mongoose");
 require("dotenv").config();
@@ -12,7 +13,8 @@ var app = express();
 const connectDB = async () => {
   try {
     await mongoose.connect(
-      "mongodb+srv://admin:admin@facetune-fail.lagx6.mongodb.net/facetune-fail?retryWrites=true&w=majority",
+      // "mongodb+srv://admin:admin@facetune-fail.lagx6.mongodb.net/facetune-fail?retryWrites=true&w=majority",
+      config.get("DB_URI"),
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -20,12 +22,6 @@ const connectDB = async () => {
         useFindAndModify: false,
       }
     );
-    // await mongoose.connect(process.env.DB_URI, {
-    //   useNewUrlParser: true,
-    //   useUnifiedTopology: true,
-    //   useCreateIndex: true,
-    //   useFindAndModify: false,
-    // });
     console.log("Kevin's MongoDB Connected!");
   } catch (err) {
     console.error(err.message);

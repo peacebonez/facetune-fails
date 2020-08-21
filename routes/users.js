@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { check, validationResult } = require("express-validator");
 require("dotenv").config();
+const config = require("config");
 
 router.get("/", function (req, res, next) {
   res.send("new user page");
@@ -66,8 +67,8 @@ router.post(
       };
       jwt.sign(
         payload,
-        process.env.jwtSecret,
-        { expiresIn: 36000 },
+        config.get("jwtSecret"),
+        { expiresIn: 900 },
         (err, token) => {
           if (err) throw err;
 
