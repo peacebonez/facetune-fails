@@ -426,8 +426,11 @@ footer p {
   .navbar h1 {
     margin: 1vh 1vh 1vh -1vh;
     padding: 2vw;
-    font-size: 3.5vw;
-    border-right: $lite 1px solid;
+    font-size: 5vw;
+  }
+
+  .navlink {
+    font-size: 4vw;
   }
   .post-container {
     width: 100%;
@@ -446,7 +449,8 @@ footer p {
   }
 
   .post-img {
-    width: 90%;
+    // width: 90%;
+    width: auto;
     height: auto;
   }
 
@@ -456,7 +460,7 @@ footer p {
   }
 
   .post-text {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .score-container {
