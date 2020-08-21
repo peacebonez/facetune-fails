@@ -64,9 +64,19 @@ const CommentItem = ({
       {/* if logged in */}
       {!auth.loading && auth.isAuthenticated && auth.user ? (
         <Fragment>
-          <div className="comment-header">
-            <p style={{ textDecoration: "underline" }}>{comment.name}</p>
-            <Moment format="MM/DD/YYYY">{comment.date}</Moment>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <div className="comment-header">
+              <p style={{ textDecoration: "underline" }}>{comment.name}</p>
+              <Moment className="date" format="MM/DD/YYYY">
+                {comment.date}
+              </Moment>
+            </div>
             {auth.user._id === comment.user && (
               <button
                 className="btn delete-btn"
@@ -76,6 +86,7 @@ const CommentItem = ({
               </button>
             )}
           </div>
+
           <p className="comment-text">{comment.text}</p>
           <div style={{ display: "flex" }}>
             <button
@@ -117,10 +128,16 @@ const CommentItem = ({
       ) : (
         // if guest
         <Fragment>
-          <div className="comment-header">
+          <div
+            className="comment-header"
+            style={{ display: "flex", justifyContent: "flex-start" }}
+          >
             <p style={{ textDecoration: "underline" }}>{comment.name}</p>
+            <Moment className="date" format="MM/DD/YYYY">
+              {comment.date}
+            </Moment>
           </div>
-          <Moment format="MM/DD/YYYY">{comment.date}</Moment>
+
           <p>{comment.text}</p>
           <div style={{ display: "flex" }}>
             <Link to="/login">
@@ -173,7 +190,7 @@ const CommentItem = ({
         >
           <div className="form-group">
             <textarea
-              // rows="1"
+              rows="1"
               className="form-control reply-area"
               placeholder="Reply..."
               name="reply"
