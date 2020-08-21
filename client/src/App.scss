@@ -422,7 +422,7 @@ footer p {
 
 //MEDIA QUERIES
 
-@media only screen and (max-width: 400px) {
+@media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3) {
   .navbar h1 {
     margin: 1vh 1vh 1vh -1vh;
     padding: 2vw;
@@ -430,7 +430,8 @@ footer p {
     border-right: $lite 1px solid;
   }
   .post-container {
-    width: 90%;
+    width: 100%;
+    margin-left: 1vw;
   }
 
   .post-body-open {
@@ -438,7 +439,7 @@ footer p {
   }
 
   .post-header {
-    font-size: 4vw;
+    font-size: 6vw;
   }
   .post-details {
     font-size: 4vw;
@@ -449,7 +450,8 @@ footer p {
   }
 
   .post-btn {
-    width: 10%;
+    width: 20%;
+    transform: translate(4px);
   }
 
   .post-text {
@@ -459,7 +461,6 @@ footer p {
   .score-container {
     width: 60%;
     margin: 5vh 0 5vh 0;
-    // background: pink;
   }
 
   .rd-selected {
