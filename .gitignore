@@ -1,4 +1,4 @@
 .env
-production.json
+config/default.json
 node_modules
 
