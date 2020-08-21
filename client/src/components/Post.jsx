@@ -17,7 +17,7 @@ const Post = ({
           {name} · <Moment format="MM/DD/YYYY">{date}</Moment>
         </p>
         <Link to={`/post/${_id}`} className="post-img-link">
-          <img className="post-img" alt="" src={imageURL}></img>
+          <img className="img-fluid post-img" alt="" src={imageURL}></img>
         </Link>
         <h2 className=" lead">Cringe Score: {averageScore}</h2>
         <p className="post-text">{textPreview ? textPreview + "..." : ""}</p>

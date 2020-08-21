@@ -43,7 +43,7 @@ const PostOpen = ({
     <section className="post-body post-body-open">
       <div className="post-img-link">
         <img
-          className="post-img post-img-open"
+          className="img-fluid post-img post-img-open"
           alt=""
           src={post.imageURL}
         ></img>
