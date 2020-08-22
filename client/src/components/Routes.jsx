@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
+import Alert from "./Alert";
 import Login from "./Login";
 import Register from "./Register";
 import Post from "./Post";
@@ -13,6 +14,7 @@ import NotFound from "./NotFound";
 const Routes = () => {
   return (
     <section className="container">
+      <Alert />
       <Switch>
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { register } from "../actions/auth-action";
+import { addErrorBorder } from "../actions/alert-action";
 
 const Register = ({ register, isAuthenticated }) => {
   const [formInfo, setFormInfo] = useState({
@@ -25,8 +26,9 @@ const Register = ({ register, isAuthenticated }) => {
     e.preventDefault();
 
     if (password !== password2) {
-      //ToDo
-      return alert("Passwords do not match");
+      addErrorBorder('input[type="password"]');
+      return;
+      // return alert("Passwords do not match");
     }
 
     register({ name, email, password });
@@ -50,7 +52,7 @@ const Register = ({ register, isAuthenticated }) => {
             name="name"
             value={name}
             onChange={(e) => formChange(e)}
-            // required
+            required
           ></input>
           <input
             className="form-control"
@@ -60,8 +62,7 @@ const Register = ({ register, isAuthenticated }) => {
             value={email}
             onChange={(e) => formChange(e)}
             autoComplete="on"
-
-            // required
+            required
           ></input>
           <input
             className="form-control"
@@ -71,8 +72,7 @@ const Register = ({ register, isAuthenticated }) => {
             value={password}
             onChange={(e) => formChange(e)}
             autoComplete="on"
-
-            // required
+            required
           ></input>
           <input
             className="form-control"
@@ -81,8 +81,7 @@ const Register = ({ register, isAuthenticated }) => {
             name="password2"
             value={password2}
             onChange={(e) => formChange(e)}
-
-            // required
+            required
           ></input>
           <input className="btn form-btn" type="submit" name="register"></input>
         </div>

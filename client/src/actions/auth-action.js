@@ -11,6 +11,7 @@ import {
 } from "./types";
 
 import setAuthToken from "../utils/setAuthToken";
+import { setAlert } from "./alert-action";
 
 //load a user
 
@@ -47,7 +48,7 @@ export const register = ({ name, email, password }) => async (dispatch) => {
 
   try {
     const res = await axios.post("/users", body, config);
-    // console.log("REGISTER USER RES", res);
+
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
@@ -56,7 +57,10 @@ export const register = ({ name, email, password }) => async (dispatch) => {
     dispatch(loadUser());
   } catch (err) {
     //TO DO: set up proper alerts
-    console.error(err);
+    const errors = err.response.data.errors;
+    console.log("errors:", errors);
+    if (errors)
+      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
 
     dispatch({ type: REGISTER_FAIL });
   }
