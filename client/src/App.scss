@@ -5,6 +5,7 @@ $lite: #aaa;
 $header-font: "Raleway", sans-serif;
 $pink-light: #ffa5de;
 $pink-dark: #894b72;
+$danger: #ff5959;
 
 //Mixins
 
@@ -428,12 +429,16 @@ footer p {
 
 //ALERTS
 
-input[type="password"] {
-  // background: pink;
+.alert {
+  width: 100%;
+}
+
+.alert-danger {
+  background: $danger;
 }
 
 .error-input {
-  border: solid 1px #ff5959;
+  border: solid 1px $danger;
 }
 
 //MEDIA QUERIES

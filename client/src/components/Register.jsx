@@ -25,11 +25,9 @@ const Register = ({ register, isAuthenticated }) => {
   const submitForm = (e) => {
     e.preventDefault();
 
-    if (password !== password2) {
-      addErrorBorder('input[type="password"]');
-      return;
-      // return alert("Passwords do not match");
-    }
+    if (password !== password2) return addErrorBorder('input[type="password"]');
+    if (!name) return addErrorBorder('input[name="name"]');
+    if (!email) return addErrorBorder('input[name="email"]');
 
     register({ name, email, password });
   };
@@ -52,7 +50,6 @@ const Register = ({ register, isAuthenticated }) => {
             name="name"
             value={name}
             onChange={(e) => formChange(e)}
-            required
           ></input>
           <input
             className="form-control"

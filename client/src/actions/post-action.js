@@ -17,6 +17,8 @@ import {
   UPDATE_SUBHEARTS,
 } from "./types";
 
+import { setAlert } from "./alert-action";
+
 //Axios receives the information sent from the backend and we can send that to the front end
 
 const config = {
@@ -82,7 +84,8 @@ export const addPost = (formInfo) => async (dispatch) => {
   try {
     const res = await axios.post("/posts/new-post", formInfo, config);
     dispatch({ type: ADD_POST, payload: res.data });
-    alert("Post Created!");
+
+    dispatch(setAlert("Post created!", "success"));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -100,6 +103,7 @@ export const updatePost = (formInfo, postId) => async (dispatch) => {
     const res = await axios.put(`/posts/edit-post/${postId}`, formInfo, config);
 
     dispatch({ type: UPDATE_POST, payload: res.data });
+    dispatch(setAlert("Post updated!", "success"));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -115,7 +119,7 @@ export const deletePost = (postId) => async (dispatch) => {
     await axios.delete(`/posts/${postId}`);
 
     dispatch({ type: DELETE_POST, payload: postId });
-    alert("Post Deleted!");
+    dispatch(setAlert("Post deleted!", "success"));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
