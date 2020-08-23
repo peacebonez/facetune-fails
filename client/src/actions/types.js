@@ -8,6 +8,7 @@ export const LOGOUT = "LOGOUT";
 export const CLEAR_PROFILE = "CLEAR_PROFILE";
 export const DELETE_PROFILE = "DELETE_PROFILE";
 export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
+export const EDIT_USER = "EDIT_USER";
 export const GET_POSTS = "GET_POSTS";
 export const GET_MORE_POSTS = "GET_MORE_POSTS";
 export const GET_ONE_POST = "GET_ONE_POST";

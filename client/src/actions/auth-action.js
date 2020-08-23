@@ -8,10 +8,17 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   CLEAR_PROFILE,
+  EDIT_USER,
 } from "./types";
 
 import setAuthToken from "../utils/setAuthToken";
 import { setAlert } from "./alert-action";
+
+const config = {
+  headers: {
+    "Content-Type": "application/json",
+  },
+};
 
 //load a user
 
@@ -95,6 +102,16 @@ export const login = (email, password) => async (dispatch) => {
       type: LOGIN_FAIL,
     });
     throw err;
+  }
+};
+
+export const editUser = (formInfo) => async (dispatch) => {
+  try {
+    const res = await axios.put("/users/profile", formInfo, config);
+    dispatch({ type: EDIT_USER, payload: res.data });
+    dispatch(setAlert("Profile updated!", "success"));
+  } catch (err) {
+    dispatch({ type: USER_LOADED });
   }
 };
 

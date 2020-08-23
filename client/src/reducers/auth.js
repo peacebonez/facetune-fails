@@ -8,6 +8,7 @@ import {
   LOGOUT,
   DELETE_ACCOUNT,
   CLEAR_PROFILE,
+  EDIT_USER,
 } from "../actions/types";
 
 const initialState = {
@@ -21,6 +22,7 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case USER_LOADED:
+    case EDIT_USER:
       return {
         ...state,
         isAuthenticated: true,

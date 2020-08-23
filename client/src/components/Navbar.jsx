@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../actions/auth-action";
 
-const Navbar = ({ isAuthenticated, isAdmin, logout }) => {
+const Navbar = ({ isAuthenticated, isAdmin, name, logout }) => {
   return (
     <nav className="navbar navbar-expand-xl">
       <Link to="/" style={{ textDecoration: "none" }}>
@@ -57,16 +57,27 @@ const Navbar = ({ isAuthenticated, isAdmin, logout }) => {
             </li>
           </Fragment>
         ) : (
-          <li>
-            <Link
-              to="/"
-              className="navlink"
-              onClick={() => logout()}
-              style={{ textDecoration: "none" }}
-            >
-              <i className="fas fa-sign-out-alt"></i> Logout
-            </Link>
-          </li>
+          <Fragment>
+            <li>
+              <Link
+                to="/profile"
+                className="navlink"
+                style={{ textDecoration: "none" }}
+              >
+                {name}
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/"
+                className="navlink"
+                onClick={() => logout()}
+                style={{ textDecoration: "none" }}
+              >
+                <i className="fas fa-sign-out-alt"></i> Logout
+              </Link>
+            </li>
+          </Fragment>
         )}
       </ul>
     </nav>
@@ -76,6 +87,7 @@ const Navbar = ({ isAuthenticated, isAdmin, logout }) => {
 Navbar.propTypes = {
   isAuthenticated: PropTypes.bool,
   isAdmin: PropTypes.bool,
+  name: PropTypes.string,
   logout: PropTypes.func.isRequired,
 };
 
@@ -86,6 +98,7 @@ const mapStateToProps = (state) => {
     return {
       isAuthenticated: state.auth.isAuthenticated,
       isAdmin: state.auth.user.admin,
+      name: state.auth.user.name,
     };
   } else {
     return {

@@ -4,6 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import Alert from "./Alert";
 import Login from "./Login";
 import Register from "./Register";
+import Profile from "./Profile";
 import Post from "./Post";
 import PostOpen from "./PostOpen";
 import NewPost from "./NewPost";
@@ -18,6 +19,7 @@ const Routes = () => {
       <Switch>
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/profile" component={Profile} />
         <Route exact path="/post" component={Post} />
         <Route exact path="/post/:id" component={PostOpen} />
         <Route exact path="/new-post" component={NewPost} />
