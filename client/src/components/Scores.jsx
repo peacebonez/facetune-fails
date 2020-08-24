@@ -35,10 +35,11 @@ const Scores = ({ auth, post, postId, addScore }) => {
               addScore(postId, e.target.value);
             }}
           />
-          <span className="rd-selected"></span>
-          <label className="form-check-label score-label" htmlFor="score1">
-            1
-          </label>
+          <span className="rd-selected">
+            <label className="form-check-label score-label" htmlFor="score1">
+              1
+            </label>
+          </span>
         </div>
         <div className="form-check form-check-inline">
           <input

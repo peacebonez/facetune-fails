@@ -31,6 +31,7 @@ const Profile = ({ isAuthenticated, editUser }) => {
     }
 
     editUser({ name, password, newPassword, newPassword2 });
+    setFormInfo({ name: "", password: "", newPassword: "", newPassword2: "" });
   };
 
   const { name, password, newPassword, newPassword2 } = formInfo;
