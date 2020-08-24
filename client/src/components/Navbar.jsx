@@ -11,11 +11,9 @@ const Navbar = ({ isAuthenticated, isAdmin, name, logout }) => {
   console.log("dropdown:", dropdown);
   useEffect(() => {
     window.addEventListener("resize", () => {
-      console.log(window.innerWidth);
       setIsMobile(window.innerWidth < 877);
-      console.log("isMobile:", isMobile);
     });
-  }, [window.innerWidth, isMobile]);
+  }, [isMobile]);
   return (
     <nav className="navbar navbar-expand-xl">
       <Link to="/" style={{ textDecoration: "none" }}>
@@ -184,8 +182,6 @@ Navbar.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  // console.log("STATE:", state);
-  // console.log("USER:", state.auth.user);
   if (state.auth.user) {
     return {
       isAuthenticated: state.auth.isAuthenticated,

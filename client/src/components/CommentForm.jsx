@@ -38,16 +38,15 @@ const CommentForm = ({ post, user, isAuthenticated, addComment }) => {
             action={`/posts/comment/${post._id}`}
             onSubmit={(e) => submitComment(e)}
           >
-            <div className="form-group">
+            <div className="form-group user-text">
               <textarea
-                // rows="2"
                 className="form-control comment-area"
                 placeholder="Add a comment.."
                 name="comment"
                 value={text}
                 onChange={(e) => handleCommentChange(e)}
               ></textarea>
-              <div className="post-btn-container">
+              <div className="post-btn-container" id="comment-btn">
                 <input
                   type="submit"
                   value="Post"

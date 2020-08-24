@@ -197,7 +197,7 @@ const CommentItem = ({
               value={subText}
               onChange={(e) => handleCommentChange(e)}
             ></textarea>
-            <div className="post-btn-container">
+            <div className="post-btn-container" id="reply-btn">
               <input
                 type="submit"
                 value="Post"

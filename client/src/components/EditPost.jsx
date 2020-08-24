@@ -78,7 +78,7 @@ const EditPost = ({ post, isAdmin, updatePost, getOnePost }) => {
             onChange={(e) => formChange(e)}
           ></input>
         </div>
-        <div className="form-group">
+        <div className="form-group user-text">
           <textarea
             rows="10"
             className="form-control"

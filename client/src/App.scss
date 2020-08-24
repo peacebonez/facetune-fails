@@ -118,7 +118,7 @@ textarea {
   align-items: center;
   width: 8vw;
   height: 90%;
-  margin-top: 3px;
+  margin: 3px 6px 0 0;
   cursor: pointer;
 }
 .dropbar {
@@ -137,14 +137,8 @@ textarea {
   position: relative;
   top: 42px;
   width: 25%;
-  height: 100px;
-  display: flex;
-  flex-direction: column;
-  align-self: flex-end;
-  justify-content: flex-start;
   opacity: 0;
   transition: all 0.4s;
-  // border: $border-light;
 }
 
 .dropdown-shown {
@@ -153,6 +147,7 @@ textarea {
 }
 
 .dropdown-container li {
+  background: #fff;
   width: 100%;
   display: block;
   border: $border-light;
@@ -173,12 +168,12 @@ textarea {
 }
 
 .bar-1-open {
-  transform: translate(0px, 14px) rotate(45deg);
+  transform: translate(0px, 300%) rotate(45deg);
   transition: all 0.4s;
   background: $pink-light;
 }
 .bar-3-open {
-  transform: translate(0px, -10px) rotate(-45deg);
+  transform: translate(0px, -250%) rotate(-45deg);
   transition: all 0.4s;
   background: $pink-light;
 }
@@ -226,13 +221,11 @@ textarea {
 }
 
 .post-container {
-  width: 50%;
+  width: 70%;
   display: flex;
   justify-content: center;
   flex-direction: column;
   padding-bottom: 15vh;
-  // align-items: center;
-  // background: pink;
 }
 
 .large {
@@ -280,6 +273,7 @@ textarea {
 }
 
 .post-header-open {
+  font-size: 24px;
   margin-bottom: 3vh;
   font-family: $header-font;
 }
@@ -296,7 +290,7 @@ textarea {
 }
 
 .post-img {
-  width: 75%;
+  width: 50%;
 }
 
 .post-img-open {
@@ -310,6 +304,7 @@ textarea {
 }
 
 .score-container {
+  text-align: center;
   text-decoration: none;
   margin: 12vh 0 15vh 0;
   padding: 5vh 0 10vh 0;
@@ -393,22 +388,8 @@ textarea {
   justify-self: flex-end;
 }
 
-.post-btn-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: -6.5vh;
-  z-index: 1;
-}
-
 .new-edit-btn {
   transform: translateY(-10px);
-}
-
-.post-btn {
-  @include basic-btn();
-  width: 5%;
-  padding: 0;
-  transform: translateY(50%);
 }
 
 .btn-edit-delete {
@@ -440,6 +421,24 @@ textarea {
   font-size: 14px;
 }
 
+.user-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-btn-container {
+  display: flex;
+  justify-content: flex-end;
+  transform: translateY(-240%);
+  z-index: 1;
+}
+
+.post-btn {
+  @include basic-btn();
+  width: 5%;
+  padding: 0;
+}
+
 .comment-text {
   color: #555;
   font-family: Georgia, serif;
@@ -463,6 +462,12 @@ textarea {
   color: $pink-light;
 }
 
+.fa-times {
+  &:hover {
+    color: $pink-light;
+  }
+}
+
 .delete-btn {
   @include basic-btn();
 }
@@ -482,6 +487,13 @@ textarea {
 
 .show-hide-btn {
   @include basic-btn();
+}
+
+#comment-btn {
+  transform: translate(0%, -150%);
+}
+#reply-btn {
+  transform: translate(0%, -150%);
 }
 
 //FOOTER
@@ -521,8 +533,9 @@ footer p {
   border: solid 1px $danger;
 }
 
-//MEDIA QUERIES
+//***************MEDIA QUERIES******************
 
+//iPhone 10
 @media (min-device-height: 667px) and (min-device-width: 375px) and (-webkit-min-device-pixel-ratio: 3) {
   .navbar h1 {
     margin: 1vh 1vh 1vh -1vh;
@@ -534,6 +547,7 @@ footer p {
     font-size: 4vw;
   }
   .post-container {
+    margin-top: 4vh;
     width: 100%;
     margin-left: 1vw;
   }
@@ -558,7 +572,13 @@ footer p {
 
   .post-btn {
     width: 20%;
-    transform: translate(20px, 16px);
+  }
+
+  #comment-btn {
+    transform: translate(0%, -220%);
+  }
+  #reply-btn {
+    transform: translate(0%, -220%);
   }
 
   .post-text {
@@ -580,6 +600,217 @@ footer p {
 
   .score-label {
     font-size: 5vw;
+  }
+
+  .dropdown {
+    margin-right: 5vw;
+    width: 12vw;
+    // background: red;
+    height: 60%;
+  }
+
+  .dropdown-container {
+    top: 68px;
+  }
+}
+
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
+  .container {
+    padding: 0;
+  }
+  #facetune-title {
+    font-size: 5vw;
+    margin-right: 1vw;
+  }
+  #fails-title {
+    font-size: 5vw;
+  }
+  .post-container {
+    width: 100%;
+  }
+
+  .post-header {
+    font-size: 6vw;
+  }
+
+  .post-details {
+    font-size: 4vw;
+  }
+
+  .post-img {
+    width: 80%;
+  }
+  .post-btn {
+    width: 15vw;
+  }
+
+  .score-container {
+    text-align: center;
+    margin-right: 5vw;
+  }
+
+  .rd-selected {
+    padding: 5vw;
+  }
+
+  .score-btn {
+    margin: 3vw;
+  }
+
+  .score-label {
+    font-size: 5vw;
+  }
+  #comment-btn {
+    transform: translate(0%, -150%);
+  }
+  #reply-btn {
+    transform: translate(0%, -150%);
+  }
+}
+
+/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+
+/* Portrait and Landscape */
+@media only screen and (min-device-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) {
+  .container {
+    padding: 0;
+  }
+  #facetune-title {
+    font-size: 5vw;
+    margin-right: 1vw;
+  }
+  #fails-title {
+    font-size: 5vw;
+  }
+  #comment-btn {
+    transform: translate(3%, -150%);
+  }
+  #reply-btn {
+    transform: translate(3%, -150%);
+  }
+}
+
+//iPhone 5
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 40/71) {
+  .container {
+    padding: 0;
+  }
+  #facetune-title {
+    font-size: 5vw;
+    margin-right: 1vw;
+  }
+  #fails-title {
+    font-size: 5vw;
+  }
+
+  .post-container {
+    width: 100%;
+  }
+
+  .post-header {
+    font-size: 6vw;
+  }
+
+  .post-details {
+    font-size: 4vw;
+  }
+
+  .post-img {
+    width: 100%;
+  }
+
+  .form-btn {
+    width: 35vw;
+  }
+
+  .score-container {
+    text-align: center;
+    width: 100%;
+  }
+
+  .rd-selected {
+    padding: 5vw;
+  }
+
+  .score-btn {
+    margin: 3vw;
+  }
+
+  .score-label {
+    font-size: 5vw;
+  }
+
+  .reply-area {
+    width: 100%;
+  }
+
+  .post-btn-container {
+    display: flex;
+    justify-content: flex-end;
+    transform: translateY(-200%);
+    z-index: 1;
+  }
+  .post-btn {
+    width: 20vw;
+  }
+
+  #comment-btn {
+    transform: translate(5%, -150%);
+  }
+  #reply-btn {
+    transform: translate(5%, -150%);
+  }
+}
+
+/* ----------- Galaxy S4, S5 and Note 3 ----------- */
+
+/* Portrait and Landscape */
+@media screen and (device-width: 360px) and (device-height: 640px) and (-webkit-device-pixel-ratio: 3) {
+  .container {
+    padding: 0;
+  }
+  #facetune-title {
+    font-size: 5vw;
+    margin-right: 1vw;
+  }
+  #fails-title {
+    font-size: 5vw;
+  }
+  .post-header {
+    font-size: 4vw;
+  }
+  .post-details {
+    font-size: 4vw;
+  }
+
+  .post-img {
+    width: 100%;
+  }
+  .score-container {
+    text-align: center;
+    width: 100%;
+  }
+
+  .rd-selected {
+    padding: 5vw;
+  }
+
+  .score-btn {
+    margin: 3vw;
+  }
+
+  .score-label {
+    font-size: 5vw;
+  }
+  .bar-1-open {
+    transform: translate(0px, 350%) rotate(45deg);
+  }
+  .bar-3-open {
+    transform: translate(0px, -250%) rotate(-45deg);
   }
 }
 
