@@ -18,6 +18,7 @@ import {
 } from "./types";
 
 import { setAlert } from "./alert-action";
+import { set } from "mongoose";
 
 //Axios receives the information sent from the backend and we can send that to the front end
 
@@ -174,7 +175,7 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
     await axios.delete(`/posts/comment/${postId}/${commentId}`);
 
     dispatch({ type: DELETE_COMMENT, payload: commentId });
-    alert("Comment deleted!");
+    // dispatch(setAlert("Comment deleted", "danger"));
   } catch (err) {
     dispatch({
       type: POST_ERROR,

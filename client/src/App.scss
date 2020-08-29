@@ -77,6 +77,7 @@ textarea {
 #facetune-title {
   font-family: "Norican", cursive;
   color: $pink-light;
+  margin-right: 0.5vw;
 }
 #fails-title {
   font-family: "Permanent Marker", cursive;
@@ -323,7 +324,6 @@ textarea {
 }
 
 .score-btn {
-  // border: 0;
   width: 2vw;
   height: 5vh;
 
@@ -345,7 +345,6 @@ textarea {
 }
 
 .rd-selected {
-  // display: none;
   cursor: pointer;
   position: absolute;
   display: flex;
@@ -523,6 +522,7 @@ footer p {
 .alert {
   width: 100%;
   border-radius: 20px;
+  position: fixed;
 }
 
 .alert-danger {
@@ -669,6 +669,13 @@ footer p {
   #reply-btn {
     transform: translate(0%, -150%);
   }
+
+  .bar-1-open {
+    transform: translate(0px, 350%) rotate(45deg);
+  }
+  .bar-3-open {
+    transform: translate(0px, -250%) rotate(-45deg);
+  }
 }
 
 /* ----------- iPhone 6+, 7+ and 8+ ----------- */
@@ -690,6 +697,13 @@ footer p {
   }
   #reply-btn {
     transform: translate(3%, -150%);
+  }
+
+  .bar-1-open {
+    transform: translate(0px, 380%) rotate(45deg);
+  }
+  .bar-3-open {
+    transform: translate(0px, -250%) rotate(-45deg);
   }
 }
 
@@ -764,6 +778,13 @@ footer p {
   #reply-btn {
     transform: translate(5%, -150%);
   }
+
+  .bar-1-open {
+    transform: translate(0px, 320%) rotate(45deg);
+  }
+  .bar-3-open {
+    transform: translate(0px, -250%) rotate(-45deg);
+  }
 }
 
 /* ----------- Galaxy S4, S5 and Note 3 ----------- */
@@ -811,6 +832,34 @@ footer p {
   }
   .bar-3-open {
     transform: translate(0px, -250%) rotate(-45deg);
+  }
+}
+
+// @media screen and (min-device-width: 751px) {
+//   .bar-1-open {
+//     transform: translate(0px, 350%) rotate(45deg);
+//   }
+//   .bar-3-open {
+//     transform: translate(0px, -250%) rotate(-45deg);
+//   }
+// }
+
+//IPAD
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+  .post-img {
+    width: 100%;
+  }
+
+  .post-header {
+    font-size: 4vw;
+  }
+  .post-details {
+    font-size: 2vw;
+  }
+
+  .post-text {
+    font-size: 2vw;
   }
 }
 

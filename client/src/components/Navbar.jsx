@@ -8,7 +8,7 @@ import Dropdown from "./Dropdown";
 const Navbar = ({ isAuthenticated, isAdmin, name, logout }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 867);
   const [dropdown, setDropdown] = useState(false);
-  console.log("dropdown:", dropdown);
+
   useEffect(() => {
     window.addEventListener("resize", () => {
       setIsMobile(window.innerWidth < 877);
