@@ -18,7 +18,6 @@ import {
 } from "./types";
 
 import { setAlert } from "./alert-action";
-import { set } from "mongoose";
 
 //Axios receives the information sent from the backend and we can send that to the front end
 
