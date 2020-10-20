@@ -30,7 +30,7 @@ connectDB();
 
 // view engine setup
 
-app.use(logger("dev"));
+app.use("dev");
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

@@ -41,6 +41,7 @@ export const getPosts = () => async (dispatch) => {
     });
   }
 };
+
 export const getMorePosts = (pageNum) => async (dispatch) => {
   try {
     const res = await axios.get(`/posts/page-${pageNum}`);
