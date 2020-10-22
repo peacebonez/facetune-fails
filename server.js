@@ -35,10 +35,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //for development
-app.use(express.static(path.join(__dirname, "client", "public")));
+// app.use(express.static(path.join(__dirname, "client", "public")));
 
 //for production
-// app.use(express.static(path.join(__dirname, "client", "build")));
+app.use(express.static(path.join(__dirname, "client", "build"))); 
 
 //Define routes
 app.use("/", require("./routes/index"));
