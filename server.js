@@ -58,8 +58,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-console.log("process.env.NODE_ENV:", process.env.NODE_ENV)
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
