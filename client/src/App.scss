@@ -195,7 +195,8 @@ textarea {
 }
 
 .form-check {
-  margin: 1.5vw;
+  // margin: 1.5vw;
+  padding: 1.5vw;
   position: relative;
   transform: translateX(50%);
 }
@@ -251,8 +252,9 @@ textarea {
 
 .post-body-open {
   // background: pink;
-  width: 75%;
+  width: 100%;
   margin-bottom: 20vh;
+  padding: 3vw;
 }
 
 .new-post {
@@ -312,7 +314,6 @@ textarea {
 }
 
 .score-container {
-  text-align: center;
   text-decoration: none;
   margin: 12vh 0 15vh 0;
   padding: 5vh 0 10vh 0;
@@ -616,7 +617,7 @@ footer {
   .dropdown {
     margin-right: 5vw;
     width: 12vw;
-    // background: red;
+
     height: 60%;
   }
 

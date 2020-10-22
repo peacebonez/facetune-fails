@@ -23,6 +23,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
     <section style={{ display: "flex", justifyContent: "center" }}>
       <div className="score-container">
         <h3 className="post-header-open">Cringe Score: {post.averageScore}</h3>
+        <div>
         <div className="form-check form-check-inline">
           <input
             className="form-check-input score-btn"
@@ -197,6 +198,7 @@ const Scores = ({ auth, post, postId, addScore }) => {
           >
             10
           </label>
+        </div>
         </div>
       </div>
     </section>
