@@ -14,7 +14,7 @@ import NotFound from "./NotFound";
 
 const Routes = () => {
   return (
-    <section className="container">
+    <>
       <Alert />
       <Switch>
         <Route exact path="/register" component={Register} />
@@ -27,7 +27,7 @@ const Routes = () => {
         <Route exact path="/top-posts" component={TopPosts} />
         <Route component={NotFound} />
       </Switch>
-    </section>
+    </>
   );
 };
 

@@ -67,11 +67,48 @@ textarea {
   border: $border-light;
   width: 100vw;
   margin-bottom: 5vh;
-}
+  padding: 1.5vw;
+  background-color: #333;
 
-.navbar h1 {
-  font-size: $large;
-  color: $lite;
+  h1 {
+    font-size: 3vw;
+    color: $lite;
+  }
+
+  div {
+    position: absolute;
+    right: 0;
+  }
+
+  a {
+    color: $lite;
+    &:hover {
+      color: $pink-light;
+    }
+  }
+
+  ul {
+    position: absolute;
+    right: 0;
+    text-decoration: none;
+  }
+
+  li {
+    display: inline;
+    text-align: right;
+    text-decoration: none;
+  }
+
+  .dropdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 8vw;
+    height: 90%;
+    margin: 3px 6px 0 0;
+    cursor: pointer;
+  }
 }
 
 #facetune-title {
@@ -84,44 +121,10 @@ textarea {
   color: $pink-dark;
 }
 
-.navbar div {
-  position: absolute;
-  right: 0;
-}
-
 .navlink {
   margin: 2vw;
 }
 
-.navbar a {
-  color: $lite;
-  &:hover {
-    color: #000;
-  }
-}
-
-.navbar ul {
-  position: absolute;
-  right: 0;
-  text-decoration: none;
-}
-
-.navbar li {
-  display: inline;
-  text-align: right;
-  text-decoration: none;
-}
-
-.dropdown {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 8vw;
-  height: 90%;
-  margin: 3px 6px 0 0;
-  cursor: pointer;
-}
 .dropbar {
   z-index: 1;
   display: block;
@@ -140,23 +143,23 @@ textarea {
   width: 25%;
   opacity: 0;
   transition: all 0.4s;
+
+  li {
+    background: #fff;
+    width: 100%;
+    display: block;
+    border: $border-light;
+    margin: 2px 0;
+    padding: 1vw;
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 }
 
 .dropdown-shown {
   opacity: 1;
   transition: all 0.4s;
-}
-
-.dropdown-container li {
-  background: #fff;
-  width: 100%;
-  display: block;
-  border: $border-light;
-  margin: 2px 0;
-  padding: 1vw;
-  &:hover {
-    transform: scale(1.1);
-  }
 }
 
 .dropdown-container li:first-child {
@@ -222,7 +225,7 @@ textarea {
 }
 
 .post-container {
-  width: 70%;
+  width: 50%;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -237,6 +240,13 @@ textarea {
   margin: 5vh 0;
   display: flex;
   flex-direction: column;
+  a {
+    text-decoration: none;
+  }
+
+  h2 {
+    margin-top: 1.5vh;
+  }
 }
 
 .post-body-open {
@@ -262,14 +272,12 @@ textarea {
 }
 
 .post-header {
-  font-size: 1.5vw;
-  color: #000;
-  font-family: $header-font;
-
+  color: $lite;
+  cursor: pointer;
+  text-emphasis: none;
+  text-decoration: none;
   &:hover {
-    color: $lite;
-    text-decoration: underline;
-    cursor: pointer;
+    color: #000;
   }
 }
 
@@ -280,7 +288,6 @@ textarea {
 }
 
 .post-details {
-  font-size: 1vw;
   color: $lite;
 }
 
@@ -291,11 +298,11 @@ textarea {
 }
 
 .post-img {
-  width: 50%;
+  width: 100%;
 }
 
 .post-img-open {
-  width: 50%;
+  width: 75%;
 }
 
 .post-text {
@@ -409,11 +416,11 @@ textarea {
   display: flex;
   justify-content: space-between;
   color: #000;
-}
 
-.comment-header p {
-  font-family: $header-font;
-  margin: 0 1vw 0 0;
+  p {
+    font-family: $header-font;
+    margin: 0 1vw 0 0;
+  }
 }
 
 .date {
@@ -506,14 +513,14 @@ footer {
   align-items: center;
   border: $border-light;
   background: #fff;
-}
 
-footer p {
-  margin: $mg-sm;
-  color: $lite;
-  &:hover {
-    color: #000;
-    cursor: pointer;
+  p {
+    margin: $mg-sm;
+    color: $lite;
+    &:hover {
+      color: #000;
+      cursor: pointer;
+    }
   }
 }
 
@@ -547,9 +554,14 @@ footer p {
     font-size: 4vw;
   }
   .post-container {
-    margin-top: 4vh;
-    width: 100%;
-    margin-left: 1vw;
+    // margin-top: 4vh;
+    // width: 100%;
+    // margin-left: 1vw;
+    margin: 3vh 1vw;
+  }
+
+  .post {
+    padding: 3vw;
   }
 
   .post-body-open {
@@ -564,7 +576,6 @@ footer p {
   }
 
   .post-img {
-    // width: 90%;
     width: auto;
     max-height: 300px;
     height: auto;
@@ -630,6 +641,10 @@ footer p {
   }
   .post-container {
     width: 100%;
+  }
+
+  .post {
+    padding: 5vw;
   }
 
   .post-header {
@@ -725,6 +740,10 @@ footer p {
     width: 100%;
   }
 
+  .post {
+    padding: 6vw;
+  }
+
   .post-header {
     font-size: 6vw;
   }
@@ -801,6 +820,14 @@ footer p {
   #fails-title {
     font-size: 5vw;
   }
+  .post-container {
+    width: 100%;
+  }
+
+  .post {
+    padding: 5vw;
+  }
+
   .post-header {
     font-size: 4vw;
   }

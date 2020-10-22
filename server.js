@@ -2,7 +2,6 @@ var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
-var logger = require("morgan");
 const config = require("config");
 
 const mongoose = require("mongoose");
@@ -30,12 +29,16 @@ connectDB();
 
 // view engine setup
 
-app.use("dev");
+// app.use("dev");
 app.use(express.json({ extended: false }));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, "client", "public")));
-app.use(express.static(path.join(__dirname, "client", "build")));
+
+//for development
+app.use(express.static(path.join(__dirname, "client", "public")));
+
+//for production
+// app.use(express.static(path.join(__dirname, "client", "build")));
 
 //Define routes
 app.use("/", require("./routes/index"));
@@ -54,6 +57,8 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
   });
 }
+
+console.log("process.env.NODE_ENV:", process.env.NODE_ENV)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

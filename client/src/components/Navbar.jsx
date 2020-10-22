@@ -52,7 +52,7 @@ const Navbar = ({ isAuthenticated, isAdmin, name, logout }) => {
                   className="navlink"
                   style={{ textDecoration: "none" }}
                 >
-                  Top Posts
+                  Top Posts 
                 </Link>
               </li>
               {!isAuthenticated ? (
@@ -63,7 +63,7 @@ const Navbar = ({ isAuthenticated, isAdmin, name, logout }) => {
                       className="navlink"
                       style={{ textDecoration: "none" }}
                     >
-                      Login
+                      Login 
                     </Link>
                   </li>
                   <li>
@@ -121,7 +121,7 @@ const Navbar = ({ isAuthenticated, isAdmin, name, logout }) => {
               className="navlink"
               style={{ textDecoration: "none" }}
             >
-              Top Posts
+              Top Posts 
             </Link>
           </li>
           {!isAuthenticated ? (
@@ -132,7 +132,7 @@ const Navbar = ({ isAuthenticated, isAdmin, name, logout }) => {
                   className="navlink"
                   style={{ textDecoration: "none" }}
                 >
-                  Login
+                  Login 
                 </Link>
               </li>
               <li>
@@ -194,8 +194,5 @@ const mapStateToProps = (state) => {
     };
   }
 };
-// const mapStateToProps = (state) => ({
-//   isAuthenticated: state.auth.isAuthenticated,
-// });
 
 export default connect(mapStateToProps, { logout })(Navbar);
